@@ -1,5 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader } from '@shared/ui/card';
-import { Button } from '@shared/ui/button';
+import { Card, CardContent, CardFooter } from '@shared/ui/card';
 import { PartyPopper, Sparkles } from 'lucide-react';
 
 import { PageContainer } from '../components/page-container';

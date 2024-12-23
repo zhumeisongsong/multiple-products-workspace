@@ -8,7 +8,7 @@ export const PageContainer: React.FC<Props> = ({ children }) => {
   return (
     <div className="h-screen">
       <Navigation />
-      <main className="max-w-screen-lg mx-auto px-4">{children}</main>
+      <main className="max-w-screen-md mx-auto px-4">{children}</main>
     </div>
   );
 };
