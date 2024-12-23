@@ -15,9 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@shared/open-ai-adapter": [
+        "libs/shared/interface-adapters/open-ai-adapter/src/index.ts"
+      ],
       "@shared/ui/*": ["libs/shared/ui/src/ui/*"],
       "@shared/ui/styles/*": ["libs/shared/ui/src/styles/*"],
-      "@shared/ui/theme-provider": ["libs/shared/ui/src/theme-provider/index.tsx"],
+      "@shared/ui/theme-provider": [
+        "libs/shared/ui/src/theme-provider/index.tsx"
+      ],
       "@tasks/application": ["libs/modules/tasks/application/src/index.ts"],
       "@tasks/domain": ["libs/modules/tasks/domain/src/index.ts"],
       "@tasks/interface-adapters": [
