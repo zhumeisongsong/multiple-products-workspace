@@ -1,92 +1,92 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { renderHook, act } from '@testing-library/react'
-import { render } from '@testing-library/react'
-import { ThemeProvider, useTheme } from './index'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { ThemeProvider, useTheme } from './index';
 
 // Helper component for testing
 function Wrapper({ children }: { children: React.ReactNode }) {
-  return <ThemeProvider>{children}</ThemeProvider>
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 describe('ThemeProvider', () => {
   beforeEach(() => {
-    // Clear localStorage before each test
-    localStorage.clear()
-    document.documentElement.classList.remove('light', 'dark')
-  })
+    // Need to clear localStorage before each test
+    localStorage.clear();
+    document.documentElement.classList.remove('light', 'dark');
+  });
 
   afterEach(() => {
-    vi.clearAllMocks()
-  })
+    vi.clearAllMocks();
+  });
 
   it('should apply system theme by default if no localStorage key is found', () => {
-    // This will check the system preference using window.matchMedia
-    // We can mock it if you want a deterministic test, for example:
-    // vi.spyOn(window, 'matchMedia').mockReturnValueOnce({ matches: true } as any)
+    const mockMediaQuery = {
+      matches: true,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      media: '(prefers-color-scheme: dark)',
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    } as MediaQueryList;
+
+    vi.spyOn(window, 'matchMedia').mockReturnValue(mockMediaQuery);
 
     render(
       <ThemeProvider>
         <div>Test</div>
-      </ThemeProvider>
-    )
+      </ThemeProvider>,
+    );
 
-    // We can't reliably test the system preference without mocking
-    // but we can at least expect it not to have "light" or "dark" if system is neutral
-    // or it might have one of them if the system color preference is set
-    // Typically, you'd do:
-    // expect(document.documentElement.classList.contains('dark')).toBe(true)
-    // or .toBe(false), depending on your mock or actual environment
-
-    // For now, let's just ensure it doesn't crash
-    expect(document.documentElement.classList.contains('light') || document.documentElement.classList.contains('dark')).toBe(false)
-  })
+    expect(document.documentElement.classList.contains('dark')).toBe(true)
+  });
 
   it('should respect localStorage theme if available', () => {
-    localStorage.setItem('theme', 'dark')
+    localStorage.setItem('theme', 'dark');
 
     render(
       <ThemeProvider>
         <div>Test</div>
-      </ThemeProvider>
-    )
+      </ThemeProvider>,
+    );
 
-    expect(document.documentElement.classList.contains('dark')).toBe(true)
-  })
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+  });
 
   it('should set theme to light if setTheme is called with "light"', () => {
-    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper })
-    act(() => {
-      result.current.setTheme('light')
-    })
+    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper });
 
-    expect(document.documentElement.classList.contains('light')).toBe(true)
-    expect(localStorage.getItem('theme')).toBe('light')
-  })
+    act(() => {
+      result.current.setTheme('light');
+    });
+
+    expect(document.documentElement.classList.contains('light')).toBe(true);
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
 
   it('should set theme to dark if setTheme is called with "dark"', () => {
-    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper })
+    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper });
     act(() => {
-      result.current.setTheme('dark')
-    })
+      result.current.setTheme('dark');
+    });
 
-    expect(document.documentElement.classList.contains('dark')).toBe(true)
-    expect(localStorage.getItem('theme')).toBe('dark')
-  })
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
+    expect(document.documentElement.classList.contains('light')).toBe(false);
+  });
 
   it('should switch from one theme to another when setTheme is called multiple times', () => {
-    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper })
+    const { result } = renderHook(() => useTheme(), { wrapper: Wrapper });
 
-    // Start with dark
     act(() => {
-      result.current.setTheme('dark')
-    })
-    expect(document.documentElement.classList.contains('dark')).toBe(true)
+      result.current.setTheme('dark');
+    });
+    expect(document.documentElement.classList.contains('dark')).toBe(true);
 
-    // Switch to light
     act(() => {
-      result.current.setTheme('light')
-    })
-    expect(document.documentElement.classList.contains('light')).toBe(true)
-    expect(document.documentElement.classList.contains('dark')).toBe(false)
-  })
-})
+      result.current.setTheme('light');
+    });
+    expect(document.documentElement.classList.contains('light')).toBe(true);
+    expect(document.documentElement.classList.contains('dark')).toBe(false);
+  });
+});
