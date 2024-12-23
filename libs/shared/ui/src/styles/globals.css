@@ -79,7 +79,7 @@
   }
 
   a:hover {
-    color: theme('colors.link.hover');
+    @apply text-link-hover;
   }
 
 }
