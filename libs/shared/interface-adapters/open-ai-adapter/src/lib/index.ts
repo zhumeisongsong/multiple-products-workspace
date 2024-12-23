@@ -1,15 +1,15 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { generateText } from 'ai';
 
 export class OpenAIAdapter {
   async generateTasks(prompt: string): Promise<string[]> {
-    const result = streamText({
+    const result = await generateText({
       model: openai('gpt-4o'),
       messages: [{ role: 'user', content: prompt }],
     });
 
     let fullResponse = '';
-    for await (const delta of result.textStream) {
+    for await (const delta of result.text) {
       fullResponse += delta;
     }
 
