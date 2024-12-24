@@ -24,6 +24,9 @@
       "@tasks/interface-adapters": [
         "libs/modules/tasks/interface-adapters/src/index.ts"
       ],
+      "@user-tasks/application": [
+        "libs/modules/user-tasks/application/src/index.ts"
+      ],
       "@user-tasks/domain": ["libs/modules/user-tasks/domain/src/index.ts"],
       "@users/application": ["libs/modules/users/application/src/index.ts"],
       "@users/domain": ["libs/modules/users/domain/src/index.ts"],
