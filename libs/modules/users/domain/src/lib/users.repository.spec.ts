@@ -3,9 +3,19 @@ import { UserEntity } from './user.entity';
 
 describe('Users Repository', () => {
   it('should create a UserEntity correctly', () => {
-    const user: UserEntity = { id: '1', name: 'John Doe' };
+    const user: UserEntity = {
+      id: '1',
+      email: 'test@example.com',
+      firstName: 'John',
+      lastName: 'Doe',
+    };
 
-    expect(user).toEqual({ id: '1', name: 'John Doe' });
+    expect(user).toEqual({
+      id: '1',
+      email: 'test@example.com',
+      firstName: 'John',
+      lastName: 'Doe',
+    });
   });
 
   it('should return null for a non-existing user', async () => {
@@ -15,11 +25,17 @@ describe('Users Repository', () => {
   });
 
   it('should create a UserEntity with valid properties', () => {
-    const user: UserEntity = { id: '2', name: 'Jane Doe' };
+    const user: UserEntity = {
+      id: '2',
+      email: 'test@example.com',
+      firstName: 'Jane',
+      lastName: 'Doe',
+    };
 
     expect(user.id).toBeDefined();
-    expect(user.name).toBeDefined();
-    expect(user).toEqual({ id: '2', name: 'Jane Doe' });
+    expect(user.email).toBeDefined();
+    expect(user.firstName).toBeDefined();
+    expect(user.lastName).toBeDefined();
   });
 });
 
