@@ -1,8 +1,9 @@
 {
-  "name": "@tasks/domain",
+  "name": "@user-tasks/domain",
   "version": "0.0.1",
   "dependencies": {
-    "@users/domain": "workspace:*"
+    "@users/domain": "workspace:*",
+    "@tasks/domain": "workspace:*"
   },
   "main": "./index.js",
   "module": "./index.mjs",
