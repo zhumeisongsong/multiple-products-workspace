@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from '@shared/ui/button';
+import { Button, ButtonProps } from '@shared/ui';
 import { Loader2 } from 'lucide-react';
 
 type Props = ButtonProps & { icon: React.ReactNode };

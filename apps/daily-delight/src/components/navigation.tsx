@@ -1,4 +1,4 @@
-import { ThemeModeToggle } from '@shared/ui/theme-mode-toggle';
+import { ThemeModeToggle } from '@shared/ui';
 import { Sprout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
