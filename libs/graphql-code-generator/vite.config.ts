@@ -5,7 +5,7 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 export default defineConfig({
   root: __dirname,
   cacheDir:
-    '../../../node_modules/.vite/libs/graphql-code-generator',
+    '../../node_modules/.vite/libs/graphql-code-generator',
   plugins: [nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
   // Uncomment this if you are using workers.
   // worker: {
@@ -14,7 +14,7 @@ export default defineConfig({
   // Configuration for building your library.
   // See: https://vitejs.dev/guide/build.html#library-mode
   build: {
-    outDir: '../../../../dist/libs/graphql-code-generator',
+    outDir: '../../dist/libs/graphql-code-generator',
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: {
@@ -33,17 +33,5 @@ export default defineConfig({
       // External packages that should not be bundled into your library.
       external: [],
     },
-  },
-  test: {
-    watch: false,
-    globals: true,
-    environment: 'node',
-    include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    reporters: ['default'],
-    coverage: {
-      reportsDirectory:
-        '../../../../coverage/libs/graphql-code-generator',
-      provider: 'v8',
-    },
-  },
+  }
 });
