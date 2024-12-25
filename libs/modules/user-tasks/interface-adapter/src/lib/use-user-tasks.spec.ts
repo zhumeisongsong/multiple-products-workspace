@@ -1,6 +1,4 @@
-import { TaskEntity } from '@tasks/domain';
-import { UserEntity } from '@users/domain';
-import { UserTaskEntity, UserTaskStatusEnum } from '@user-tasks/domain';
+import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { describe, it, expect, vi } from 'vitest';
 
 import { useUserTasks } from './use-user-tasks';
@@ -24,13 +22,13 @@ describe('useUserTasks', () => {
   });
 
   it('should return the current state and actions', () => {
-    const mockTasks: UserTaskEntity[] = [
+    const mockTasks: UserTask[] = [
       {
         id: '1',
         userId: '1',
-        user: { id: '1', email: 'user@example.com' } as UserEntity,
+        user: { id: '1', email: 'user@example.com' },
         taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] } as TaskEntity,
+        task: { id: '1', name: 'Task 1', categories: ['test'] },
         status: UserTaskStatusEnum.TODO,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -38,9 +36,9 @@ describe('useUserTasks', () => {
       {
         id: '2',
         userId: '2',
-        user: { id: '2', email: 'user2@example.com' } as UserEntity,
+        user: { id: '2', email: 'user2@example.com' },
         taskId: '2',
-        task: { id: '2', name: 'Task 2' } as TaskEntity,
+        task: { id: '2', name: 'Task 2', categories: ['test'] },
         status: UserTaskStatusEnum.TODO,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -66,6 +64,9 @@ describe('useUserTasks', () => {
     );
     expect(result.selectUserTask).toBe(userTaskActions.selectUserTask);
     expect(result.setIsLoading).toBe(userTaskActions.setIsLoading);
+    expect(result.setIsLoadingFinished).toBe(
+      userTaskActions.setIsLoadingFinished,
+    );
   });
 
   it('should update state when actions are called', () => {
@@ -74,14 +75,15 @@ describe('useUserTasks', () => {
       setHistoryUserTasks,
       selectUserTask,
       setIsLoading,
+      setIsLoadingFinished,
     } = useUserTasks();
-    const mockTasks: UserTaskEntity[] = [
+    const mockTasks: UserTask[] = [
       {
         id: '1',
         userId: '1',
-        user: { id: '1', email: 'user@example.com' } as UserEntity,
+        user: { id: '1', email: 'user@example.com' },
         taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] } as TaskEntity,
+        task: { id: '1', name: 'Task 1', categories: ['test'] },
         status: UserTaskStatusEnum.TODO,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -97,7 +99,10 @@ describe('useUserTasks', () => {
     selectUserTask('1');
     expect(userTasksState.selectedUserTaskId).toBe('1');
 
-    setIsLoading(true);
+    setIsLoading();
     expect(userTasksState.isLoading).toBe(true);
+
+    setIsLoadingFinished();
+    expect(userTasksState.isLoading).toBe(false);
   });
 });

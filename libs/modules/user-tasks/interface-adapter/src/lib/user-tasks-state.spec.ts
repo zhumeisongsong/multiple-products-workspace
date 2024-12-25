@@ -1,6 +1,6 @@
-import { TaskEntity } from '@tasks/domain';
-import { UserEntity } from '@users/domain';
-import { UserTaskEntity, UserTaskStatusEnum } from '@user-tasks/domain';
+import { Task } from '@tasks/domain';
+import { User } from '@users/domain';
+import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { describe, it, expect, vi } from 'vitest';
 import { userTasksState, userTaskActions } from './user-tasks-state';
 
@@ -14,13 +14,13 @@ describe('userTasksState', () => {
   });
 
   describe('userTaskActions', () => {
-    const mockTasks: UserTaskEntity[] = [
+    const mockTasks: UserTask[] = [
       {
         id: '1',
         userId: '1',
-        user: { id: '1', email: 'user@example.com' } as UserEntity,
+        user: { id: '1', email: 'user@example.com' },
         taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] } as TaskEntity,
+        task: { id: '1', name: 'Task 1', categories: ['test'] },
         status: UserTaskStatusEnum.TODO,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -43,8 +43,13 @@ describe('userTasksState', () => {
     });
 
     it('should set loading state', () => {
-      userTaskActions.setIsLoading(true);
+      userTaskActions.setIsLoading();
       expect(userTasksState.isLoading).toBe(true);
+    });
+
+    it('should set loading finished state', () => {
+      userTaskActions.setIsLoadingFinished();
+      expect(userTasksState.isLoading).toBe(false);
     });
   });
 });
