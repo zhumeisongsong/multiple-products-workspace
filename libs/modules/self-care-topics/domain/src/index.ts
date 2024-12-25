@@ -1,1 +1,1 @@
-export * from './lib/self-care-topics-domain';
+export * from './lib/self-care-topic.entity';
