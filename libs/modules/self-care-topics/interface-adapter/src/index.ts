@@ -1,1 +1,1 @@
-export * from './lib/self-care-topics-interface-adapter';
+export * from './lib/use-self-care-topics';

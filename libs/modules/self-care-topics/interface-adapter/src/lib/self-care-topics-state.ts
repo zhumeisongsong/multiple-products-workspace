@@ -15,4 +15,12 @@ export const selfCareTopicsActions = {
   setSelfCareTopics: (selfCareTopics: SelfCareTopic[]) => {
     selfCareTopicsState.selfCareTopics = selfCareTopics;
   },
+
+  setIsLoading: () => {
+    selfCareTopicsState.isLoading = true;
+  },
+
+  setIsLoadingFinished: () => {
+    selfCareTopicsState.isLoading = false;
+  },
 };
