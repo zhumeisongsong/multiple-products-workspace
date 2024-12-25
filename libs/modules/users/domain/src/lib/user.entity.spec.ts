@@ -1,8 +1,8 @@
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 
-describe('UserEntity', () => {
-  it('should create a UserEntity with the given id and name', () => {
-    const user: UserEntity = {
+describe('User', () => {
+  it('should create a User with the given id and name', () => {
+    const user: User = {
       id: '1',
       email: 'test@example.com',
     };

@@ -1,14 +1,15 @@
+import { SelfCareTopic } from '@self-care-topics/domain';
 import { describe, it, expect } from 'vitest';
-import { UserPreferences } from './user-preferences';
-import { SelfCareTopicEntity } from '@self-care-topics/domain';
+
+import { UserPreferences } from './user-preferences.entity';
 
 describe('UserPreferences', () => {
   let userPreferences: UserPreferences;
-  const mockTopic: SelfCareTopicEntity = {
+  const mockTopic: SelfCareTopic = {
     id: '1',
     name: 'Meditation'
   };
-  const mockTopic2: SelfCareTopicEntity = {
+  const mockTopic2: SelfCareTopic = {
     id: '2', 
     name: 'Exercise'
   };

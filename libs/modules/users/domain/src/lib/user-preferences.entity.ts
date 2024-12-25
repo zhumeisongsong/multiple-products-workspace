@@ -1,23 +1,23 @@
-import { SelfCareTopicEntity } from '@self-care-topics/domain';
+import { SelfCareTopic } from '@self-care-topics/domain';
 
 export class UserPreferences {
-  private selfCareTopics: SelfCareTopicEntity[];
+  private selfCareTopics: SelfCareTopic[];
 
-  constructor(selfCareTopics: SelfCareTopicEntity[]) {
+  constructor(selfCareTopics: SelfCareTopic[]) {
     this.selfCareTopics = selfCareTopics;
   }
 
-  getSelfCareTopics(): SelfCareTopicEntity[] {
+  getSelfCareTopics(): SelfCareTopic[] {
     return this.selfCareTopics;
   }
 
-  addSelfCareTopic(selfCareTopic: SelfCareTopicEntity) {
+  addSelfCareTopic(selfCareTopic: SelfCareTopic) {
     if (!this.selfCareTopics.includes(selfCareTopic)) {
       this.selfCareTopics.push(selfCareTopic);
     }
   }
 
-  removeSelfCareTopic(selfCareTopic: SelfCareTopicEntity) {
+  removeSelfCareTopic(selfCareTopic: SelfCareTopic) {
     this.selfCareTopics = this.selfCareTopics.filter(
       (topic) => topic.id !== selfCareTopic.id,
     );
