@@ -1,4 +1,4 @@
-export * from './alert';
+  export * from './alert';
 export * from './aspect-ratio';
 export * from './avatar';
 export * from './badge';
@@ -9,9 +9,11 @@ export * from './dialog';
 export * from './drawer';
 export * from './input';
 export * from './progress';
-export * from './scroll-area'
+export * from './scroll-area';
 export * from './separator';
 export * from './sheet';
 export * from './skeleton';
 export * from './theme-mode-toggle';
+export * from './toggle-group';
+export * from './toggle';
 export * from './tooltip';
