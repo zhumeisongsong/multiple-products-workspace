@@ -10,7 +10,7 @@ export const SelfCareTopicsToggleGroup: FC<Props> = ({ topics }) => {
   return (
     <ToggleGroup type="single">
       {topics.map((topic) => (
-        <ToggleGroupItem value={topic.id}>{topic.name}</ToggleGroupItem>
+        <ToggleGroupItem key={topic.id} value={topic.id}>{topic.name}</ToggleGroupItem>
       ))}
     </ToggleGroup>
   );
