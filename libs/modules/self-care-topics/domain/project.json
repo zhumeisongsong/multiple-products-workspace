@@ -1,0 +1,9 @@
+{
+  "name": "self-care-topics-domain",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/modules/self-care-topics/domain/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project self-care-topics-domain --web",
+  "targets": {}
+}
