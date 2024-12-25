@@ -1,4 +1,4 @@
-import { TaskEntity } from '@tasks/domain';
+import { Task } from '@tasks/domain';
 import { User } from '@users/domain';
 import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { describe, it, expect, vi } from 'vitest';
@@ -18,9 +18,9 @@ describe('userTasksState', () => {
       {
         id: '1',
         userId: '1',
-        user: { id: '1', email: 'user@example.com' } as User,
+        user: { id: '1', email: 'user@example.com' },
         taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] } as TaskEntity,
+        task: { id: '1', name: 'Task 1', categories: ['test'] },
         status: UserTaskStatusEnum.TODO,
         createdAt: new Date(),
         updatedAt: new Date(),

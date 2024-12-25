@@ -1,8 +1,8 @@
-import { TaskEntity } from './task.entity';
+import { Task } from './task.entity';
 
-describe('TaskEntity', () => {
+describe('Task', () => {
   it('should create a task entity with required fields', () => {
-    const task: TaskEntity = {
+    const task: Task = {
       id: '123',
       name: 'Test Task',
       categories: []
@@ -14,7 +14,7 @@ describe('TaskEntity', () => {
   });
 
   it('should create a task entity with optional fields', () => {
-    const task: TaskEntity = {
+    const task: Task = {
       id: '123',
       name: 'Test Task', 
       description: 'Test Description',
