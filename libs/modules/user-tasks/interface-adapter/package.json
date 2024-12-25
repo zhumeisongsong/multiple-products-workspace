@@ -1,0 +1,12 @@
+{
+  "name": "@user-tasks/interface-adapter",
+  "version": "0.0.1",
+  "dependencies": {
+    "@user-tasks/domain": "workspace:*",
+    "valtio": "^2.1.2"
+  },
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "typings": "./index.d.ts",
+  "private": true
+}
