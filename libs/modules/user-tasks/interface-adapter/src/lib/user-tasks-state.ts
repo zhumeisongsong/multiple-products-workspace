@@ -1,8 +1,9 @@
-import { UserTaskEntity } from '@user-tasks/domain';
+import { UserTask } from '@user-tasks/domain';
 import { proxy } from 'valtio';
+
 export type UserTasksState = {
-  currentMonthUserTasks: UserTaskEntity[];
-  historyUserTasks: UserTaskEntity[];
+  currentMonthUserTasks: UserTask[];
+  historyUserTasks: UserTask[];
   selectedUserTaskId: string | null;
   isLoading: boolean;
 };
@@ -15,16 +16,19 @@ export const userTasksState = proxy<UserTasksState>({
 });
 
 export const userTaskActions = {
-  setCurrentMonthUserTasks: (userTasks: UserTaskEntity[]) => {
+  setCurrentMonthUserTasks: (userTasks: UserTask[]) => {
     userTasksState.currentMonthUserTasks = userTasks;
   },
-  setHistoryUserTasks: (userTasks: UserTaskEntity[]) => {
+  setHistoryUserTasks: (userTasks: UserTask[]) => {
     userTasksState.historyUserTasks = userTasks;
   },
   selectUserTask: (userTaskId: string) => {
     userTasksState.selectedUserTaskId = userTaskId;
   },
-  setIsLoading: (isLoading: boolean) => {
-    userTasksState.isLoading = isLoading;
+  setIsLoading: () => {
+    userTasksState.isLoading = true;
+  },
+  setIsLoadingFinished: () => {
+    userTasksState.isLoading = false;
   },
 };

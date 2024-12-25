@@ -1,12 +1,12 @@
 import { TaskEntity } from '@tasks/domain';
-import { UserEntity } from '@users/domain';
+import { User } from '@users/domain';
 
 import { UserTaskStatusEnum } from './user-task-status.enum';
 
-export interface UserTaskEntity {
+export interface UserTask {
   id: string;
   userId: string;
-  user: UserEntity;
+  user: User;
   taskId: string;
   task: TaskEntity;
   status: UserTaskStatusEnum;

@@ -1,9 +1,9 @@
-import { UserTaskEntity } from './user-task.entity';
+import { UserTask } from './user-task.entity';
 import { UserTaskStatusEnum } from './user-task-status.enum';
 
-describe('UserTaskEntity', () => {
+describe('UserTask', () => {
   it('should create a valid user task entity', () => {
-    const userTask: UserTaskEntity = {
+    const userTask: UserTask = {
       id: '123',
       userId: 'user-123',
       user: {
