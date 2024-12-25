@@ -1,7 +1,9 @@
 {
-  "name": "@tasks/interface-adapters",
+  "name": "@user-tasks/application",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@user-tasks/domain": "workspace:*"
+  },
   "main": "./index.js",
   "module": "./index.mjs",
   "typings": "./index.d.ts",
