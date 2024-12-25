@@ -6,9 +6,13 @@ import { describe, it, expect, vi } from 'vitest';
 import { useUserTasks } from './use-user-tasks';
 import { userTasksState, userTaskActions } from './user-tasks-state';
 
-vi.mock('valtio', () => ({
-  useSnapshot: vi.fn((state) => state),
-}));
+vi.mock('valtio', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('valtio')>();
+  return {
+    ...actual,
+    useSnapshot: vi.fn((state) => state),
+  };
+});
 
 describe('useUserTasks', () => {
   beforeEach(() => {
