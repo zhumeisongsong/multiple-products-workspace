@@ -8,7 +8,6 @@
 
 [Click here to finish setting up your workspace!](https://cloud.nx.app/connect/JBJ2LUYyM7)
 
-
 ## Run tasks
 
 To run the dev server for your app, use:
@@ -28,7 +27,7 @@ To see all available targets to run for a project, run:
 ```sh
 npx nx show project quiz-game
 ```
-        
+
 These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
 
 [More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
@@ -55,7 +54,6 @@ You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx 
 
 [Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-
 [Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
 ## Install Nx Console
@@ -72,6 +70,15 @@ TS_NODE_PROJECT=tsconfig.base.json pnpm dlx shadcn@latest add xxx
 
 Thanks https://pustelto.com/blog/adding-shadcnui-to-nx-monorepo/
 
+## Workspace Structure
+
+| Layer                 | Description                                                                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| domain                | Defines core business logic and entities. Provides business rule validation and strategies.                                                          |
+| application           | Calls Service and Repository interfaces to orchestrate business logic.<br/> Dependency injection of concrete Service and Repository implementations. |
+| interface-adapter     | Acts as a bridge between application logic and user interface.<br/> Provides state management.<br/> Should not implement core business logic.        |
+| shared/infrastructure | Interacts with backend and third-party APIs.<br/> Abstracts external API logic.<br/> Implements Repository and other external dependency interfaces. |
+
 ## Useful links
 
 Learn more:
@@ -81,11 +88,10 @@ Learn more:
 - [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
 And join the Nx community:
+
 - [Discord](https://go.nx.dev/community)
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
 
 https://nx.dev/blog/versioning-and-releasing-packages-in-a-monorepo#installing-the-javascripttypescript-versioning-package
