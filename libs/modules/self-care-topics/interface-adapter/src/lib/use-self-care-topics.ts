@@ -1,10 +1,10 @@
 import { useSnapshot } from 'valtio';
 
-import { selfCareTopicsState, selfCareTopicsActions } from './self-care-topics-state';
+import { selfCareTopicsStates, selfCareTopicsActions } from './self-care-topics-states';
 
 // hooks
 export function useSelfCareTopics() {
-  const snapshot = useSnapshot(selfCareTopicsState);
+  const snapshot = useSnapshot(selfCareTopicsStates);
 
   return {
     selfCareTopics: snapshot.selfCareTopics,

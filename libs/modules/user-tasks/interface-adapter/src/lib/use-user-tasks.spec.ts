@@ -2,7 +2,7 @@ import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { describe, it, expect, vi } from 'vitest';
 
 import { useUserTasks } from './use-user-tasks';
-import { userTasksState, userTaskActions } from './user-tasks-state';
+import { userTasksStates, userTaskActions } from './user-tasks-states';
 
 vi.mock('valtio', async (importOriginal) => {
   const actual = await importOriginal<typeof import('valtio')>();
@@ -15,10 +15,10 @@ vi.mock('valtio', async (importOriginal) => {
 describe('useUserTasks', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    userTasksState.currentMonthUserTasks = [];
-    userTasksState.historyUserTasks = [];
-    userTasksState.selectedUserTaskId = null;
-    userTasksState.isLoading = false;
+    userTasksStates.currentMonthUserTasks = [];
+    userTasksStates.historyUserTasks = [];
+    userTasksStates.selectedUserTaskId = null;
+    userTasksStates.isLoading = false;
   });
 
   it('should return the current state and actions', () => {
@@ -45,10 +45,10 @@ describe('useUserTasks', () => {
       },
     ];
 
-    userTasksState.currentMonthUserTasks = mockTasks;
-    userTasksState.historyUserTasks = mockTasks;
-    userTasksState.selectedUserTaskId = '1';
-    userTasksState.isLoading = true;
+    userTasksStates.currentMonthUserTasks = mockTasks;
+    userTasksStates.historyUserTasks = mockTasks;
+    userTasksStates.selectedUserTaskId = '1';
+    userTasksStates.isLoading = true;
 
     const result = useUserTasks();
 
@@ -91,18 +91,18 @@ describe('useUserTasks', () => {
     ];
 
     setCurrentMonthUserTasks(mockTasks);
-    expect(userTasksState.currentMonthUserTasks).toEqual(mockTasks);
+    expect(userTasksStates.currentMonthUserTasks).toEqual(mockTasks);
 
     setHistoryUserTasks(mockTasks);
-    expect(userTasksState.historyUserTasks).toEqual(mockTasks);
+    expect(userTasksStates.historyUserTasks).toEqual(mockTasks);
 
     selectUserTask('1');
-    expect(userTasksState.selectedUserTaskId).toBe('1');
+    expect(userTasksStates.selectedUserTaskId).toBe('1');
 
     setIsLoading();
-    expect(userTasksState.isLoading).toBe(true);
+    expect(userTasksStates.isLoading).toBe(true);
 
     setIsLoadingFinished();
-    expect(userTasksState.isLoading).toBe(false);
+    expect(userTasksStates.isLoading).toBe(false);
   });
 });

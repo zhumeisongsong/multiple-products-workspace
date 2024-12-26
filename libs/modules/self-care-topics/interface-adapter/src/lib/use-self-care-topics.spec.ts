@@ -1,15 +1,18 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
-import { selfCareTopicsState, selfCareTopicsActions } from './self-care-topics-state';
+import {
+  selfCareTopicsStates,
+  selfCareTopicsActions,
+} from './self-care-topics-states';
 
 describe('useSelfCareTopics', () => {
   beforeEach(() => {
-    selfCareTopicsState.selfCareTopics = [];
-    selfCareTopicsState.isLoading = false;
+    selfCareTopicsStates.selfCareTopics = [];
+    selfCareTopicsStates.isLoading = false;
   });
 
   it('should have initial state', () => {
-    expect(selfCareTopicsState.selfCareTopics).toEqual([]);
-    expect(selfCareTopicsState.isLoading).toBe(false);
+    expect(selfCareTopicsStates.selfCareTopics).toEqual([]);
+    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 
   it('should update state when actions are called', () => {
@@ -20,17 +23,17 @@ describe('useSelfCareTopics', () => {
       },
       {
         id: '2',
-        name: 'Topic 2', 
-      }
+        name: 'Topic 2',
+      },
     ];
 
     selfCareTopicsActions.setSelfCareTopics(mockTopics);
-    expect(selfCareTopicsState.selfCareTopics).toEqual(mockTopics);
+    expect(selfCareTopicsStates.selfCareTopics).toEqual(mockTopics);
 
     selfCareTopicsActions.setIsLoading();
-    expect(selfCareTopicsState.isLoading).toBe(true);
+    expect(selfCareTopicsStates.isLoading).toBe(true);
 
     selfCareTopicsActions.setIsLoadingFinished();
-    expect(selfCareTopicsState.isLoading).toBe(false);
+    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 });

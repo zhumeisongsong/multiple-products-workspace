@@ -1,10 +1,10 @@
 import { useSnapshot } from 'valtio';
 
-import { userTasksState, userTaskActions } from './user-tasks-state';
+import { userTasksStates, userTaskActions } from './user-tasks-states';
 
 // hooks
 export function useUserTasks() {
-  const snapshot = useSnapshot(userTasksState);
+  const snapshot = useSnapshot(userTasksStates);
 
   return {
     currentMonthUserTasks: snapshot.currentMonthUserTasks,

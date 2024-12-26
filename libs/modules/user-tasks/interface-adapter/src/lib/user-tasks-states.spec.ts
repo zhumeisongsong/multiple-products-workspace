@@ -1,16 +1,14 @@
-import { Task } from '@tasks/domain';
-import { User } from '@users/domain';
 import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { describe, it, expect, vi } from 'vitest';
-import { userTasksState, userTaskActions } from './user-tasks-state';
+import { userTasksStates, userTaskActions } from './user-tasks-states';
 
-describe('userTasksState', () => {
+describe('userTasksStates', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    userTasksState.currentMonthUserTasks = [];
-    userTasksState.historyUserTasks = [];
-    userTasksState.selectedUserTaskId = null;
-    userTasksState.isLoading = false;
+    userTasksStates.currentMonthUserTasks = [];
+    userTasksStates.historyUserTasks = [];
+    userTasksStates.selectedUserTaskId = null;
+    userTasksStates.isLoading = false;
   });
 
   describe('userTaskActions', () => {
@@ -29,27 +27,27 @@ describe('userTasksState', () => {
 
     it('should set current month user tasks', () => {
       userTaskActions.setCurrentMonthUserTasks(mockTasks);
-      expect(userTasksState.currentMonthUserTasks).toEqual(mockTasks);
+      expect(userTasksStates.currentMonthUserTasks).toEqual(mockTasks);
     });
 
     it('should set history user tasks', () => {
       userTaskActions.setHistoryUserTasks(mockTasks);
-      expect(userTasksState.historyUserTasks).toEqual(mockTasks);
+      expect(userTasksStates.historyUserTasks).toEqual(mockTasks);
     });
 
     it('should set selected user task id', () => {
       userTaskActions.selectUserTask('1');
-      expect(userTasksState.selectedUserTaskId).toBe('1');
+      expect(userTasksStates.selectedUserTaskId).toBe('1');
     });
 
     it('should set loading state', () => {
       userTaskActions.setIsLoading();
-      expect(userTasksState.isLoading).toBe(true);
+      expect(userTasksStates.isLoading).toBe(true);
     });
 
     it('should set loading finished state', () => {
       userTaskActions.setIsLoadingFinished();
-      expect(userTasksState.isLoading).toBe(false);
+      expect(userTasksStates.isLoading).toBe(false);
     });
   });
 });
