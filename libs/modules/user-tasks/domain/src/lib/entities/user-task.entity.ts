@@ -1,7 +1,7 @@
 import { Task } from '@tasks/domain';
 import { User } from '@users/domain';
 
-import { UserTaskStatusEnum } from './user-task-status.enum';
+import { UserTaskStatusEnum } from '../value-objects/user-task-status.enum';
 
 export interface UserTask {
   id: string;

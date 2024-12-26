@@ -24,8 +24,8 @@
       "@self-care-topics/interface-adapter": [
         "libs/modules/self-care-topics/interface-adapter/src/index.ts"
       ],
-      "@shared/open-ai-adapter": [
-        "libs/shared/interface-adapters/open-ai-adapter/src/index.ts"
+      "@shared/infrastructure-open-ai": [
+        "libs/shared/infrastructure/open-ai/src/index.ts"
       ],
       "@shared/ui": ["libs/shared/ui/src/index.ts"],
       "@tasks/domain": ["libs/modules/tasks/domain/src/index.ts"],

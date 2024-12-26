@@ -24,9 +24,9 @@ describe('UserTasksService', () => {
     });
   });
 
-  describe('createUserTasks', () => {
+  describe('generateUserTasks', () => {
     it('should return success', async () => {
-      const result = await service.createUserTasks(['category1', 'category2'], 5);
+      const result = await service.generateUserTasks('test prompt');
       expect(result).toBe('success');
     });
   });

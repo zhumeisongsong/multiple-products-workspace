@@ -1,5 +1,5 @@
 {
-  "name": "@shared/open-ai-adapter",
+  "name": "@shared/infrastructure-open-ai",
   "version": "0.0.1",
   "dependencies": {
     "@ai-sdk/openai": "^1.0.11",

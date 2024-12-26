@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
-import { OpenAIAdapter } from './index';
 import { CoreTool, generateText, GenerateTextResult } from 'ai';
-import { openai } from '@ai-sdk/openai';
+
+import { OpenAIAdapter } from './open-ai-adapter';
 
 vi.mock('ai', () => ({
   generateText: vi.fn(),

@@ -1,9 +1,0 @@
-{
-  "name": "shared-open-ai-adapter",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/shared/interface-adapters/open-ai-adapter/src",
-  "projectType": "library",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project shared-open-ai-adapter --web",
-  "targets": {}
-}
