@@ -3,26 +3,26 @@ import { proxy } from 'valtio';
 
 import { selfCareTopics } from './self-care-topics-data';
 
-export type SelfCareTopicsState = {
+export type SelfCareTopicsStates = {
   selfCareTopics: SelfCareTopic[];
   isLoading: boolean;
 };
 
-export const selfCareTopicsState = proxy<SelfCareTopicsState>({
+export const selfCareTopicsStates = proxy<SelfCareTopicsStates>({
   selfCareTopics: selfCareTopics,
   isLoading: false,
 });
 
 export const selfCareTopicsActions = {
   setSelfCareTopics: (selfCareTopics: SelfCareTopic[]) => {
-    selfCareTopicsState.selfCareTopics = selfCareTopics;
+    selfCareTopicsStates.selfCareTopics = selfCareTopics;
   },
 
   setIsLoading: () => {
-    selfCareTopicsState.isLoading = true;
+    selfCareTopicsStates.isLoading = true;
   },
 
   setIsLoadingFinished: () => {
-    selfCareTopicsState.isLoading = false;
+    selfCareTopicsStates.isLoading = false;
   },
 };

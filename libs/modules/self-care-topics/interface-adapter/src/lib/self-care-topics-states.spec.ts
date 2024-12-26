@@ -2,7 +2,7 @@ import { SelfCareTopic } from '@self-care-topics/domain';
 import { describe, it, expect, vi } from 'vitest';
 
 import { useSelfCareTopics } from './use-self-care-topics';
-import { selfCareTopicsState, selfCareTopicsActions } from './self-care-topics-state';
+import { selfCareTopicsStates, selfCareTopicsActions } from './self-care-topics-states';
 
 vi.mock('valtio', async (importOriginal) => {
   const actual = await importOriginal<typeof import('valtio')>();
@@ -15,8 +15,8 @@ vi.mock('valtio', async (importOriginal) => {
 describe('useSelfCareTopics', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    selfCareTopicsState.selfCareTopics = [];
-    selfCareTopicsState.isLoading = false;
+    selfCareTopicsStates.selfCareTopics = [];
+    selfCareTopicsStates.isLoading = false;
   });
 
   it('should return the current state and actions', () => {
@@ -31,8 +31,8 @@ describe('useSelfCareTopics', () => {
       },
     ];
 
-    selfCareTopicsState.selfCareTopics = mockTopics;
-    selfCareTopicsState.isLoading = true;
+    selfCareTopicsStates.selfCareTopics = mockTopics;
+    selfCareTopicsStates.isLoading = true;
 
     const result = useSelfCareTopics();
 
@@ -49,17 +49,16 @@ describe('useSelfCareTopics', () => {
       {
         id: '1',
         name: 'Topic 1',
-        description: 'Description 1',
       },
     ];
 
     setSelfCareTopics(mockTopics);
-    expect(selfCareTopicsState.selfCareTopics).toEqual(mockTopics);
+    expect(selfCareTopicsStates.selfCareTopics).toEqual(mockTopics);
 
     setIsLoading();
-    expect(selfCareTopicsState.isLoading).toBe(true);
+    expect(selfCareTopicsStates.isLoading).toBe(true);
 
     setIsLoadingFinished();
-    expect(selfCareTopicsState.isLoading).toBe(false);
+    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 });
