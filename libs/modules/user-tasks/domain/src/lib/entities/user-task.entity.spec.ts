@@ -1,5 +1,5 @@
 import { UserTask } from './user-task.entity';
-import { UserTaskStatusEnum } from './user-task-status.enum';
+import { UserTaskStatusEnum } from '../value-objects/user-task-status.enum';
 
 describe('UserTask', () => {
   it('should create a valid user task entity', () => {
