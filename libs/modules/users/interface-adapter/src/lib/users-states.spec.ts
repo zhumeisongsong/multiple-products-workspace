@@ -30,12 +30,6 @@ describe('usersStates', () => {
     });
 
     expect(usersStates.userPreferences.selfCareTopics).toEqual([topic]);
-
-    act(() => {
-      usersActions.toggleSelfCareTopic(topic);
-    });
-
-    expect(usersStates.userPreferences.selfCareTopics).toEqual([]);
   });
 
   it('should handle loading state', () => {

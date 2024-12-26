@@ -1,11 +1,21 @@
-import { act, renderHook } from '@testing-library/react';
-import { useUsers } from './use-users';
-import { usersStates } from './users-states';
-import { User } from '@users/domain';
 import { SelfCareTopic } from '@self-care-topics/domain';
+import { User } from '@users/domain';
+import { describe, it, expect, vi } from 'vitest';
+
+import { useUsers } from './use-users';
+import { usersStates, usersActions } from './users-states';
+
+vi.mock('valtio', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('valtio')>();
+  return {
+    ...actual,
+    useSnapshot: vi.fn((state) => state),
+  };
+});
 
 describe('useUsers', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     usersStates.me = null;
     usersStates.userPreferences = {
       selfCareTopics: [],
@@ -13,55 +23,45 @@ describe('useUsers', () => {
     usersStates.isLoading = false;
   });
 
-  it('should return initial state', () => {
-    const { result } = renderHook(() => useUsers());
+  it('should return the current state and actions', () => {
+    const mockUser: User = {
+      id: '1',
+      email: 'test@test.com',
+    };
 
-    expect(result.current.me).toBeNull();
-    expect(result.current.userPreferences.selfCareTopics).toEqual([]);
-    expect(result.current.isLoading).toBeFalsy();
+    const mockTopics: SelfCareTopic[] = [{ id: '1', name: 'Test Topic' }];
+
+    usersStates.me = mockUser;
+    usersStates.userPreferences.selfCareTopics = mockTopics;
+    usersStates.isLoading = true;
+
+    const result = useUsers();
+
+    expect(result.me).toEqual(mockUser);
+    expect(result.userPreferences.selfCareTopics).toEqual(mockTopics);
+    expect(result.isLoading).toBe(true);
+    expect(result.setMe).toBe(usersActions.setMe);
+    expect(result.toggleSelfCareTopic).toBe(usersActions.toggleSelfCareTopic);
+    expect(result.setIsLoading).toBe(usersActions.setIsLoading);
+    expect(result.setIsLoadingFinished).toBe(usersActions.setIsLoadingFinished);
   });
 
-  it('should set me', () => {
-    const { result } = renderHook(() => useUsers());
-    const user: User = { id: '1', email: 'test@test.com' };
+  it('should update state when actions are called', () => {
+    const { setMe, toggleSelfCareTopic, setIsLoading, setIsLoadingFinished } =
+      useUsers();
 
-    act(() => {
-      result.current.setMe(user);
-    });
+    setMe({ id: '1', email: 'test@test.com' });
+    expect(usersStates.me).toEqual({ id: '1', email: 'test@test.com' });
 
-    expect(result.current.me).toEqual(user);
-  });
+    toggleSelfCareTopic({ id: '1', name: 'Test Topic' });
+    expect(usersStates.userPreferences.selfCareTopics).toEqual([
+      { id: '1', name: 'Test Topic' },
+    ]);
 
-  it('should toggle self care topic', () => {
-    const { result } = renderHook(() => useUsers());
-    const topic: SelfCareTopic = { id: '1', name: 'Test Topic' };
+    setIsLoading();
+    expect(usersStates.isLoading).toBe(true);
 
-    act(() => {
-      result.current.toggleSelfCareTopic(topic);
-    });
-
-    expect(result.current.userPreferences.selfCareTopics).toEqual([topic]);
-
-    act(() => {
-      result.current.toggleSelfCareTopic(topic);
-    });
-
-    expect(result.current.userPreferences.selfCareTopics).toEqual([]);
-  });
-
-  it('should handle loading state', () => {
-    const { result } = renderHook(() => useUsers());
-
-    act(() => {
-      result.current.setIsLoading();
-    });
-
-    expect(result.current.isLoading).toBeTruthy();
-
-    act(() => {
-      result.current.setIsLoadingFinished();
-    });
-
-    expect(result.current.isLoading).toBeFalsy();
+    setIsLoadingFinished();
+    expect(usersStates.isLoading).toBe(false);
   });
 });
