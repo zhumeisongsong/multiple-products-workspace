@@ -38,6 +38,9 @@
       ],
       "@users/application": ["libs/modules/users/application/src/index.ts"],
       "@users/domain": ["libs/modules/users/domain/src/index.ts"],
+      "@users/interface-adapter": [
+        "libs/modules/users/interface-adapter/src/index.ts"
+      ],
       "graphql-code-generator": ["libs/graphql-code-generator/src/index.ts"]
     }
   },
