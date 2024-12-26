@@ -9,7 +9,7 @@ export class UserTasksService {
     return [];
   }
 
-  async createUserTasks(userPreferCategories: string[], count: number) {
+  async generateUserTasks(prompt: string) {
     // link to repository
     return 'success';
   }
