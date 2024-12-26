@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@self-care-topics/domain": "workspace:*",
-    "valtio": "~2.1.2"
+    "valtio": "^2.1.2"
   },
   "main": "./index.js",
   "module": "./index.mjs",

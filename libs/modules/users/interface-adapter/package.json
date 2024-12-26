@@ -1,7 +1,11 @@
 {
   "name": "@users/interface-adapter",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "valtio": "^2.1.2",
+    "@users/domain": "workspace:*",
+    "@self-care-topics/domain": "workspace:*"
+  },
   "main": "./index.js",
   "module": "./index.mjs",
   "typings": "./index.d.ts",
