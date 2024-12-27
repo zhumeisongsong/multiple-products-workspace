@@ -12,16 +12,16 @@ export class UsersService {
   }
 
   async getUserSelfCareTopics(): Promise<SelfCareTopic[]> {
-    return this.usersRepository.getUserSelfCareTopics();
+    return await this.usersRepository.getUserSelfCareTopics();
   }
 
   async toggleUserSelfCareTopic(topic: SelfCareTopic) {
     const topics = await this.usersRepository.getUserSelfCareTopics();
 
     if (topics.some((item) => item.id === topic.id)) {
-      this.usersRepository.deleteUserSelfCareTopic(topic);
+      await this.usersRepository.deleteUserSelfCareTopic(topic);
     } else {
-      this.usersRepository.addUserSelfCareTopic(topic);
+      await this.usersRepository.addUserSelfCareTopic(topic);
     }
 
     return 'success';
