@@ -1,13 +1,29 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
+import {
+  LocalStorageRepository,
+  IUsersRepository,
+} from '@shared/infrastructure-storage';
 
 export class UsersService {
-  async getUserSelfCareCategories(): Promise<SelfCareTopic[]> {
-    // repository call to get user self care categories
-    return [];
+  private usersRepository: IUsersRepository;
+
+  constructor() {
+    this.usersRepository = new IUsersRepository(new LocalStorageRepository());
   }
 
-  async toggleUserSelfCareTopic(topicId: string) {
-    // repository call to toggle user self care topic
+  async getUserSelfCareTopics(): Promise<SelfCareTopic[]> {
+    return this.usersRepository.getUserSelfCareTopics();
+  }
+
+  async toggleUserSelfCareTopic(topic: SelfCareTopic) {
+    const topics = await this.usersRepository.getUserSelfCareTopics();
+
+    if (topics.some((item) => item.id === topic.id)) {
+      this.usersRepository.deleteUserSelfCareTopic(topic);
+    } else {
+      this.usersRepository.addUserSelfCareTopic(topic);
+    }
+
     return 'success';
   }
 }
