@@ -43,12 +43,14 @@ describe('usersStates', () => {
     expect(usersStates.userPreferences.selfCareTopics).toEqual([topic]);
   });
 
-  it('should toggle self care topic', () => {
+  it('should toggle self care topic and verify persistence', async () => {
     const topic: SelfCareTopic = { id: '1', name: 'Test Topic' };
 
     act(() => {
       usersActions.toggleSelfCareTopic(topic);
     });
+
+    expect(usersStates.userPreferences.selfCareTopics).toEqual([]);
   });
 
   it('should handle loading state', () => {
