@@ -18,27 +18,8 @@ export class UsersRepositoryImpl implements UsersRepository {
     return Promise.resolve(userSelfCareTopics || []);
   }
 
-  addUserSelfCareTopic(topic: SelfCareTopic): Promise<void> {
-    const userSelfCareTopics =
-      this.localStorageRepository.get(USER_SELF_CARE_TOPICS_KEY) || [];
-
-    userSelfCareTopics.push(topic);
-    this.localStorageRepository.set(
-      USER_SELF_CARE_TOPICS_KEY,
-      userSelfCareTopics,
-    );
-
-    return Promise.resolve();
-  }
-
-  deleteUserSelfCareTopic(topic: SelfCareTopic): Promise<void> {
-    const userSelfCareTopics =
-      this.localStorageRepository.get(USER_SELF_CARE_TOPICS_KEY) || [];
-
-    this.localStorageRepository.set(
-      USER_SELF_CARE_TOPICS_KEY,
-      userSelfCareTopics.filter((item: SelfCareTopic) => item.id !== topic.id),
-    );
+  setUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
+    this.localStorageRepository.set(USER_SELF_CARE_TOPICS_KEY, topics);
 
     return Promise.resolve();
   }
