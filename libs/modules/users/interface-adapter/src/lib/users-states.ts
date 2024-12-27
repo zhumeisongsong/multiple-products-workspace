@@ -29,7 +29,7 @@ export const usersActions = {
       await getUserSelfCareTopicsUseCase();
   },
   toggleSelfCareTopic: async (selfCareTopic: SelfCareTopic) => {
-    if (usersStates.userPreferences.selfCareTopics.includes(selfCareTopic)) {
+    if (usersStates.userPreferences.selfCareTopics.some((topic) => topic.id === selfCareTopic.id)) {
       usersStates.userPreferences.selfCareTopics =
         usersStates.userPreferences.selfCareTopics.filter(
           (topic) => topic.id !== selfCareTopic.id,

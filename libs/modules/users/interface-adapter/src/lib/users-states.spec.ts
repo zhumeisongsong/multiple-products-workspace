@@ -4,6 +4,17 @@ import { User } from '@users/domain';
 import { SelfCareTopic } from '@self-care-topics/domain';
 
 describe('usersStates', () => {
+  beforeAll(() => {
+    global.localStorage = {
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
+      length: 0,
+      key: vi.fn(),
+    };
+  });
+
   beforeEach(() => {
     usersStates.me = null;
     usersStates.userPreferences = {
@@ -30,6 +41,14 @@ describe('usersStates', () => {
     });
 
     expect(usersStates.userPreferences.selfCareTopics).toEqual([topic]);
+  });
+
+  it('should toggle self care topic', () => {
+    const topic: SelfCareTopic = { id: '1', name: 'Test Topic' };
+
+    act(() => {
+      usersActions.toggleSelfCareTopic(topic);
+    });
   });
 
   it('should handle loading state', () => {
