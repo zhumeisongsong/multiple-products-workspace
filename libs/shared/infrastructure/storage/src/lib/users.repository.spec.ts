@@ -1,9 +1,9 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
-import { IUsersRepository } from './users.repository';
+import { UsersRepositoryImpl } from './users.repository';
 import { LocalStorageRepository } from './local-storage.repository';
 
 describe('IUsersRepository', () => {
-  let usersRepository: IUsersRepository;
+  let usersRepository: UsersRepositoryImpl;
   let localStorageRepository: LocalStorageRepository;
 
   beforeAll(() => {
@@ -19,7 +19,7 @@ describe('IUsersRepository', () => {
 
   beforeEach(() => {
     localStorageRepository = new LocalStorageRepository();
-    usersRepository = new IUsersRepository(localStorageRepository);
+    usersRepository = new UsersRepositoryImpl(localStorageRepository);
   });
 
   afterEach(() => {
