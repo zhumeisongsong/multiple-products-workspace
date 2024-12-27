@@ -14,13 +14,13 @@ export class IUsersRepository implements UsersRepository {
     const userSelfCareTopics = this.localStorageRepository.get(
       USER_SELF_CARE_TOPICS_KEY,
     );
-    return Promise.resolve(userSelfCareTopics);
+
+    return Promise.resolve(userSelfCareTopics || []);
   }
 
   addUserSelfCareTopic(topic: SelfCareTopic): Promise<void> {
-    const userSelfCareTopics = this.localStorageRepository.get(
-      USER_SELF_CARE_TOPICS_KEY,
-    );
+    const userSelfCareTopics =
+      this.localStorageRepository.get(USER_SELF_CARE_TOPICS_KEY) || [];
 
     userSelfCareTopics.push(topic);
     this.localStorageRepository.set(
@@ -32,16 +32,12 @@ export class IUsersRepository implements UsersRepository {
   }
 
   deleteUserSelfCareTopic(topic: SelfCareTopic): Promise<void> {
-    const userSelfCareTopics = this.localStorageRepository.get(
-      USER_SELF_CARE_TOPICS_KEY,
-    );
+    const userSelfCareTopics =
+      this.localStorageRepository.get(USER_SELF_CARE_TOPICS_KEY) || [];
 
-    const updatedUserSelfCareTopics = userSelfCareTopics.filter(
-      (item: SelfCareTopic) => item.id !== topic.id,
-    );
     this.localStorageRepository.set(
       USER_SELF_CARE_TOPICS_KEY,
-      updatedUserSelfCareTopics,
+      userSelfCareTopics.filter((item: SelfCareTopic) => item.id !== topic.id),
     );
 
     return Promise.resolve();
