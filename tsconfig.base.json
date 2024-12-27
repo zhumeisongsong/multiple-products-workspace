@@ -27,6 +27,9 @@
       "@shared/infrastructure-open-ai": [
         "libs/shared/infrastructure/open-ai/src/index.ts"
       ],
+      "@shared/infrastructure-storage": [
+        "libs/shared/infrastructure/storage/src/index.ts"
+      ],
       "@shared/ui": ["libs/shared/ui/src/index.ts"],
       "@tasks/domain": ["libs/modules/tasks/domain/src/index.ts"],
       "@user-tasks/application": [
