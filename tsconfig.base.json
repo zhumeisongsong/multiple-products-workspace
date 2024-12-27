@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@self-care-topics/application": [
-        "libs/modules/self-care-topics/application/src/index.ts"
-      ],
       "@self-care-topics/domain": [
         "libs/modules/self-care-topics/domain/src/index.ts"
       ],

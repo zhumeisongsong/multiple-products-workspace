@@ -2,9 +2,10 @@
   "name": "@users/interface-adapter",
   "version": "0.0.1",
   "dependencies": {
-    "valtio": "^2.1.2",
+    "@users/application": "workspace:*",
     "@users/domain": "workspace:*",
-    "@self-care-topics/domain": "workspace:*"
+    "@self-care-topics/domain": "workspace:*",
+    "valtio": "^2.1.2"
   },
   "main": "./index.js",
   "module": "./index.mjs",

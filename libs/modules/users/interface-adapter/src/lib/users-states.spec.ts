@@ -4,6 +4,17 @@ import { User } from '@users/domain';
 import { SelfCareTopic } from '@self-care-topics/domain';
 
 describe('usersStates', () => {
+  beforeAll(() => {
+    global.localStorage = {
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
+      length: 0,
+      key: vi.fn(),
+    };
+  });
+
   beforeEach(() => {
     usersStates.me = null;
     usersStates.userPreferences = {
@@ -21,8 +32,7 @@ describe('usersStates', () => {
 
     expect(usersStates.me).toEqual(user);
   });
-
-  it('should toggle self care topic', () => {
+  it('should toggle self care topic and verify persistence', async () => {
     const topic: SelfCareTopic = { id: '1', name: 'Test Topic' };
 
     act(() => {
@@ -30,6 +40,12 @@ describe('usersStates', () => {
     });
 
     expect(usersStates.userPreferences.selfCareTopics).toEqual([topic]);
+
+    act(() => {
+      usersActions.toggleSelfCareTopic(topic);
+    });
+
+    expect(usersStates.userPreferences.selfCareTopics).toEqual([]);
   });
 
   it('should handle loading state', () => {

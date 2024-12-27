@@ -14,6 +14,17 @@ vi.mock('valtio', async (importOriginal) => {
 });
 
 describe('useUsers', () => {
+  beforeAll(() => {
+    global.localStorage = {
+      getItem: vi.fn(),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+      clear: vi.fn(),
+      length: 0,
+      key: vi.fn(),
+    };
+  });
+
   beforeEach(() => {
     vi.clearAllMocks();
     usersStates.me = null;
