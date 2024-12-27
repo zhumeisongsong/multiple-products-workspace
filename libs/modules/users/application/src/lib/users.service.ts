@@ -1,14 +1,14 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
 import {
   LocalStorageRepository,
-  IUsersRepository,
+  UsersRepositoryImpl,
 } from '@shared/infrastructure-storage';
 
 export class UsersService {
-  private usersRepository: IUsersRepository;
+  private usersRepository: UsersRepositoryImpl;
 
   constructor() {
-    this.usersRepository = new IUsersRepository(new LocalStorageRepository());
+    this.usersRepository = new UsersRepositoryImpl(new LocalStorageRepository());
   }
 
   async getUserSelfCareTopics(): Promise<SelfCareTopic[]> {

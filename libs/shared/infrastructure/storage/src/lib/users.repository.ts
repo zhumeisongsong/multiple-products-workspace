@@ -5,7 +5,7 @@ import { LocalStorageRepository } from './local-storage.repository';
 
 const USER_SELF_CARE_TOPICS_KEY = 'user-self-care-topics';
 
-export class IUsersRepository implements UsersRepository {
+export class UsersRepositoryImpl implements UsersRepository {
   constructor(
     private readonly localStorageRepository: LocalStorageRepository,
   ) {}
