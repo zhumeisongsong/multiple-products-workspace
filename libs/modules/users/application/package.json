@@ -2,7 +2,8 @@
   "name": "@users/application",
   "version": "0.0.1",
   "dependencies": {
-    "@self-care-topics/domain": "workspace:*"
+    "@self-care-topics/domain": "workspace:*",
+    "@shared/infrastructure-storage": "workspace:*"
   },
   "main": "./index.js",
   "module": "./index.mjs",
