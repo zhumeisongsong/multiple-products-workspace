@@ -24,10 +24,15 @@ export const SelfCareTopicsToggleGroup: FC<Props> = ({
   };
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div
+      className="flex flex-wrap gap-2"
+      role="group"
+      aria-label="Self-care topics"
+    >
       {allTopics.map((topic) => (
         <Button
           key={topic.id}
+          aria-pressed={userTopics.some((t) => t.id === topic.id)}
           variant={
             userTopics.some((t) => t.id === topic.id) ? 'default' : 'outline'
           }
