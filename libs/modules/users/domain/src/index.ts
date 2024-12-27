@@ -1,2 +1,4 @@
-export * from './lib/user.entity';
-export * from './lib/user-preferences.entity';
+export * from './lib/repositories/users.repository';
+
+export * from './lib/entities/user.entity';
+export * from './lib/entities/user-preferences.entity';
