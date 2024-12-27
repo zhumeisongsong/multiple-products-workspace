@@ -1,7 +1,9 @@
 {
   "name": "@users/application",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@self-care-topics/domain": "workspace:*"
+  },
   "main": "./index.js",
   "module": "./index.mjs",
   "typings": "./index.d.ts",
