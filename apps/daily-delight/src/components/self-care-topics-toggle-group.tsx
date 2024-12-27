@@ -19,6 +19,10 @@ export const SelfCareTopicsToggleGroup: FC<Props> = ({
     initialUserSelfCareTopics();
   }, []);
 
+  const handleToggleSelfCareTopic = async (topic: SelfCareTopic) => {
+    await toggleSelfCareTopic(topic);
+  };
+
   return (
     <div className="flex flex-wrap gap-2">
       {allTopics.map((topic) => (
@@ -28,7 +32,7 @@ export const SelfCareTopicsToggleGroup: FC<Props> = ({
             userTopics.some((t) => t.id === topic.id) ? 'default' : 'outline'
           }
           onClick={() => {
-            toggleSelfCareTopic(topic);
+            handleToggleSelfCareTopic(topic);
           }}
         >
           {topic.name}
