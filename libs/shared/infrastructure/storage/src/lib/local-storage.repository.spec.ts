@@ -21,27 +21,28 @@ describe('LocalStorageRepository', () => {
     vi.clearAllMocks();
   });
 
-  it('should save value to localStorage', () => {
+  it('should set value to localStorage', () => {
     const key = 'test-key';
     const value = { data: 'test-value' };
 
-    repository.save(key, value);
+    repository.set(key, value);
 
     expect(localStorage.setItem).toHaveBeenCalledWith(
       key,
-      JSON.stringify(value)
+      JSON.stringify(value),
     );
   });
 
   it('should get value from localStorage', () => {
     const key = 'test-key';
-    const value = 'test-value';
-    (localStorage.getItem as Mock).mockReturnValue(value);
+    const value = { data: 'test-value' };
+    const stringifiedValue = JSON.stringify(value);
+
+    vi.spyOn(localStorage, 'getItem').mockReturnValue(stringifiedValue);
 
     const result = repository.get(key);
 
-    expect(localStorage.getItem).toHaveBeenCalledWith(key);
-    expect(result).toBe(value);
+    expect(result).toEqual(value);
   });
 
   it('should remove value from localStorage', () => {

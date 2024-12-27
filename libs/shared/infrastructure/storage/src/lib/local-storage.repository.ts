@@ -1,10 +1,12 @@
 export class LocalStorageRepository {
-  save(key: string, value: unknown) {
+  set(key: string, value: unknown) {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
   get(key: string) {
-    return localStorage.getItem(key);
+    const value = localStorage.getItem(key);
+
+    return value ? JSON.parse(value) : null;
   }
 
   remove(key: string) {

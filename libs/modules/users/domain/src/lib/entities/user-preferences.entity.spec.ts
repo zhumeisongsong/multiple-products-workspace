@@ -1,4 +1,4 @@
-import { UserPreferences } from './user-preferences.entity';
+import { UserPreferences } from '../user-preferences.entity';
 
 describe('UserPreferences', () => {
   it('should create a UserPreferences with the given id and name', () => {
