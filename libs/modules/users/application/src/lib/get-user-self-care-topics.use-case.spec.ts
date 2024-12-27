@@ -2,8 +2,7 @@ import { getUserSelfCareTopicsUseCase } from './get-user-self-care-topics.use-ca
 
 describe('getUserSelfCareTopicsUseCase', () => {
   it('should return an array of self care topics', async () => {
-    const userId = '123';
-    const result = await getUserSelfCareTopicsUseCase(userId);
+    const result = await getUserSelfCareTopicsUseCase();
     expect(Array.isArray(result)).toBeTruthy();
   });
 });
