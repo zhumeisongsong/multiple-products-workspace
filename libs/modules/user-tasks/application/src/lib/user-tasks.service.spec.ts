@@ -19,6 +19,14 @@ describe('UserTasksService', () => {
     });
   });
 
+  describe('generateUserTasksOfCurrentMonth', () => {
+    it('should generate user tasks for the current month', async () => {
+      const result = await service.generateUserTasksOfCurrentMonth();
+
+      expect(result).toBeUndefined();
+    });
+  });
+
   describe('updateUserTaskStatus', () => {
     it('should update task status', async () => {
       const taskId = '123';

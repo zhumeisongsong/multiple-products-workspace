@@ -1,3 +1,4 @@
+import { AIService } from '@ai/application';
 import {
   LocalStorageRepository,
   UserTasksRepositoryImpl,
@@ -12,11 +13,14 @@ import {
 export class UserTasksService {
   private userTasksRepository: UserTasksRepository;
   private usersService: UsersService;
+  private aIService: AIService;
+
   constructor() {
     this.userTasksRepository = new UserTasksRepositoryImpl(
       new LocalStorageRepository(),
     );
     this.usersService = new UsersService();
+    this.aIService = new AIService();
   }
 
   async getUserTasks(filter?: {
@@ -26,17 +30,23 @@ export class UserTasksService {
     return await this.userTasksRepository.getUserTasks(filter);
   }
 
-  // async generateUserTasksOfCurrentMonth() {
-  //   const currentMonth = new Date().getMonth();
-  //   const currentYear = new Date().getFullYear();
+  async generateUserTasksOfCurrentMonth() {
+    // get the number of remaining days in the current month
+    const tasksCount =
+      new Date(
+        new Date().getFullYear(),
+        new Date().getMonth() + 1,
+        0,
+      ).getDate() - new Date().getDate();
+    const userSelfCareTopics = await this.usersService.getUserSelfCareTopics();
 
-  //   const startDate = new Date();
-  //   const endDate = new Date(currentYear, currentMonth + 1, 0);
+    const userTasks = await this.aIService.generateUserTasks(
+      userSelfCareTopics,
+      tasksCount,
+    );
 
-  //   const userSelfCareTopics = await this.usersService.getUserSelfCareTopics();
-
-  //   // call to openai
-  // }
+    return await this.userTasksRepository.createUserTasks(userTasks);
+  }
 
   async updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
     return await this.userTasksRepository.updateUserTaskStatus(
