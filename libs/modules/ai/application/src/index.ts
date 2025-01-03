@@ -1,1 +1,1 @@
-export * from './lib/ai-application';
+export * from './lib/ai.service';
