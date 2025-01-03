@@ -1,7 +1,8 @@
+import { AIAdapter } from '@ai/domain';
 import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
 
-export class OpenAIAdapter {
+export class OpenAIAdapter implements AIAdapter {
   async generateTasks(prompt: string): Promise<string[]> {
     const result = await generateText({
       model: openai('gpt-4o'),

@@ -1,51 +1,26 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { AIAdapter } from './ai.adapter';
-import { SelfCareTopic } from '@self-care-topics/domain';
-import { UserTask } from '@user-tasks/domain';
 
 describe('AIAdapter', () => {
-  it('should have generateTasks method defined', () => {
-    class TestAIAdapter implements AIAdapter {
-      async generateTasks(
-        userSelfCareTopics: SelfCareTopic[],
-        count: number,
-      ): Promise<UserTask[]> {
-        return [];
-      }
-    }
+  it('should define the interface', () => {
+    // Create a mock implementation
+    const mockAdapter: AIAdapter = {
+      generateTasks: vi.fn(),
+    };
 
-    const adapter = new TestAIAdapter();
-    expect(adapter.generateTasks).toBeDefined();
+    expect(mockAdapter.generateTasks).toBeDefined();
   });
 
-  it('should accept self care topics and count as parameters', async () => {
-    class TestAIAdapter implements AIAdapter {
-      async generateTasks(
-        userSelfCareTopics: SelfCareTopic[],
-        count: number,
-      ): Promise<UserTask[]> {
-        expect(Array.isArray(userSelfCareTopics)).toBe(true);
-        expect(typeof count).toBe('number');
-        return [];
-      }
-    }
+  it('should return string array from generateTasks', async () => {
+    // Create a mock implementation
+    const mockAdapter: AIAdapter = {
+      generateTasks: vi.fn().mockResolvedValue(['Task 1', 'Task 2']),
+    };
 
-    const adapter = new TestAIAdapter();
-    await adapter.generateTasks([], 5);
-  });
-
-  it('should return an array of UserTask objects', async () => {
-    class TestAIAdapter implements AIAdapter {
-      async generateTasks(
-        userSelfCareTopics: SelfCareTopic[],
-        count: number,
-      ): Promise<UserTask[]> {
-        return [];
-      }
-    }
-
-    const adapter = new TestAIAdapter();
-    const result = await adapter.generateTasks([], 1);
+    const result = await mockAdapter.generateTasks('test prompt');
+    
     expect(Array.isArray(result)).toBe(true);
+    expect(result.every((item) => typeof item === 'string')).toBe(true);
+    expect(mockAdapter.generateTasks).toHaveBeenCalledWith('test prompt');
   });
 });
