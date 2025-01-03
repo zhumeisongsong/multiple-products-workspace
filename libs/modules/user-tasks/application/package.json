@@ -2,6 +2,8 @@
   "name": "@user-tasks/application",
   "version": "0.0.1",
   "dependencies": {
+    "@shared/infrastructure-storage": "workspace:*",
+    "@users/application": "workspace:*",
     "@user-tasks/domain": "workspace:*"
   },
   "main": "./index.js",
