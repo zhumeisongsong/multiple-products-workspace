@@ -1,21 +1,47 @@
-import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
+import {
+  LocalStorageRepository,
+  UserTasksRepositoryImpl,
+} from '@shared/infrastructure-storage';
+import { UsersService } from '@users/application';
+import {
+  UserTask,
+  UserTasksRepository,
+  UserTaskStatusEnum,
+} from '@user-tasks/domain';
 
 export class UserTasksService {
-  async getUserTasksByUserId(
-    userId: string,
-    filter?: { startedAt: Date; endedAt: Date },
-  ): Promise<UserTask[]> {
-    // link to repository
-    return [];
+  private userTasksRepository: UserTasksRepository;
+  private usersService: UsersService;
+  constructor() {
+    this.userTasksRepository = new UserTasksRepositoryImpl(
+      new LocalStorageRepository(),
+    );
+    this.usersService = new UsersService();
   }
 
-  async generateUserTasks(prompt: string) {
-    // link to repository
-    return 'success';
+  async getUserTasks(filter?: {
+    startedAt: Date;
+    endedAt: Date;
+  }): Promise<UserTask[]> {
+    return await this.userTasksRepository.getUserTasks(filter);
   }
 
-  updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
-    // link to repository
-    return 'success';
+  // async generateUserTasksOfCurrentMonth() {
+  //   const currentMonth = new Date().getMonth();
+  //   const currentYear = new Date().getFullYear();
+
+  //   const startDate = new Date();
+  //   const endDate = new Date(currentYear, currentMonth + 1, 0);
+
+  //   const userSelfCareTopics = await this.usersService.getUserSelfCareTopics();
+
+  //   // call to openai
+  // }
+
+  async updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
+    return await this.userTasksRepository.updateUserTaskStatus(
+      userTaskId,
+      status,
+    );
   }
 }
