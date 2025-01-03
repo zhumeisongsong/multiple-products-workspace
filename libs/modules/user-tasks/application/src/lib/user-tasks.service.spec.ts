@@ -1,6 +1,5 @@
-import { UserTaskStatusEnum } from '@user-tasks/domain';
-
 import { UserTasksService } from './user-tasks.service';
+import { UserTaskStatusEnum } from '@user-tasks/domain';
 
 describe('UserTasksService', () => {
   let service: UserTasksService;
@@ -9,35 +8,25 @@ describe('UserTasksService', () => {
     service = new UserTasksService();
   });
 
-  describe('getUserTasksByUserId', () => {
-    it('should return empty array', async () => {
-      const result = await service.getUserTasksByUserId('test-user-id');
-      expect(result).toEqual([]);
-    });
+  describe('getUserTasks', () => {
+    it('should return user tasks for given date range', async () => {
+      const startedAt = new Date('2025-01-04');
+      const endedAt = new Date('2025-01-31');
 
-    it('should return empty array with date filter', async () => {
-      const result = await service.getUserTasksByUserId('test-user-id', {
-        startedAt: new Date(),
-        endedAt: new Date(),
-      });
-      expect(result).toEqual([]);
-    });
-  });
+      const tasks = await service.getUserTasks({ startedAt, endedAt });
 
-  describe('generateUserTasks', () => {
-    it('should return success', async () => {
-      const result = await service.generateUserTasks('test prompt');
-      expect(result).toBe('success');
+      expect(Array.isArray(tasks)).toBeTruthy();
     });
   });
 
   describe('updateUserTaskStatus', () => {
-    it('should return success', () => {
-      const result = service.updateUserTaskStatus(
-        'test-task-id',
-        UserTaskStatusEnum.COMPLETED
-      );
-      expect(result).toBe('success');
+    it('should update task status', async () => {
+      const taskId = '123';
+      const status = UserTaskStatusEnum.COMPLETED;
+
+      const result = await service.updateUserTaskStatus(taskId, status);
+
+      expect(result).toBeUndefined();
     });
   });
 });
