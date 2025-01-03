@@ -17,7 +17,7 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
     startedAt: Date;
     endedAt: Date;
   }): Promise<UserTask[]> {
-    const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY);
+    const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
 
     if (!filter) {
       return Promise.resolve(allUserTasks);
@@ -25,8 +25,8 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
 
     const filteredUserTasks = allUserTasks.filter(
       (userTask: UserTask) =>
-        userTask.createdAt >= filter.startedAt &&
-        userTask.createdAt <= filter.endedAt,
+        new Date(userTask.createdAt) >= filter.startedAt &&
+        new Date(userTask.createdAt) <= filter.endedAt,
     );
 
     return Promise.resolve(filteredUserTasks);
@@ -42,7 +42,7 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
     userTaskId: string,
     status: UserTaskStatusEnum,
   ): Promise<void> {
-    const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY);
+    const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
 
     const updatedUserTasks = allUserTasks.map((userTask: UserTask) => {
       if (userTask.id === userTaskId) {
