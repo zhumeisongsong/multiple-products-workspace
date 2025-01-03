@@ -1,1 +1,1 @@
-export * from './lib/ai-domain';
+export * from './lib/ai.adapter';
