@@ -1,36 +1,49 @@
-import { UserTask } from './user-task.entity';
+import { createUserTask } from './user-task.entity';
 import { UserTaskStatusEnum } from '../value-objects/user-task-status.enum';
 
 describe('UserTask', () => {
-  it('should create a valid user task entity', () => {
-    const userTask: UserTask = {
-      id: '123',
-      userId: 'user-123',
-      user: {
-        id: 'user-123',
-        email: 'test@example.com',
-        firstName: 'John',
-        lastName: 'Doe',
-      },
-      taskId: 'task-123',
-      task: {
-        id: 'task-123',
+  describe('createUserTask', () => {
+    it('should create a user task with the given properties', () => {
+      const now = new Date();
+      const userTask = createUserTask({
         name: 'Test Task',
         description: 'Test Description',
-        categories: [],
-      },
-      status: UserTaskStatusEnum.TODO,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+        categories: ['test'],
+        createdAt: now,
+        userId: 'test-user-id',
+      });
 
-    expect(userTask.id).toBeDefined();
-    expect(userTask.userId).toBeDefined();
-    expect(userTask.user).toBeDefined();
-    expect(userTask.taskId).toBeDefined();
-    expect(userTask.task).toBeDefined();
-    expect(userTask.status).toBe(UserTaskStatusEnum.TODO);
-    expect(userTask.createdAt).toBeInstanceOf(Date);
-    expect(userTask.updatedAt).toBeInstanceOf(Date);
+      expect(userTask).toEqual({
+        id: expect.any(String),
+        name: 'Test Task',
+        description: 'Test Description',
+        categories: ['test'],
+        status: UserTaskStatusEnum.TODO,
+        createdAt: now,
+        updatedAt: now,
+        userId: 'test-user-id',
+      });
+    });
+
+    it('should create a user task without optional description', () => {
+      const now = new Date();
+      const userTask = createUserTask({
+        name: 'Test Task',
+        categories: ['test'],
+        createdAt: now,
+        userId: 'test-user-id',
+      });
+
+      expect(userTask).toEqual({
+        id: expect.any(String),
+        name: 'Test Task',
+        description: undefined,
+        categories: ['test'],
+        status: UserTaskStatusEnum.TODO,
+        createdAt: now,
+        updatedAt: now,
+        userId: 'test-user-id',
+      });
+    });
   });
 });
