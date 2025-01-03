@@ -6,8 +6,8 @@ export interface UserTask {
   name: string;
   categories: string[];
   status: UserTaskStatusEnum;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt?: string;
   userId: string;
   description?: string;
   user?: User;
@@ -26,8 +26,7 @@ export const createUserTask = (userTask: {
     description: userTask.description,
     categories: userTask.categories,
     status: UserTaskStatusEnum.TODO,
-    createdAt: userTask.createdAt,
-    updatedAt: userTask.createdAt,
+    createdAt: userTask.createdAt+ '',
     userId: userTask.userId,
   };
 };

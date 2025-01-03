@@ -19,8 +19,7 @@ describe('UserTask', () => {
         description: 'Test Description',
         categories: ['test'],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now,
-        updatedAt: now,
+        createdAt: now + '',
         userId: 'test-user-id',
       });
     });
@@ -40,8 +39,7 @@ describe('UserTask', () => {
         description: undefined,
         categories: ['test'],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now,
-        updatedAt: now,
+        createdAt: now + '',
         userId: 'test-user-id',
       });
     });
