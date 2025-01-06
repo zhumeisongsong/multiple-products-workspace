@@ -8,8 +8,6 @@ export function useUsers() {
 
   return {
     me: snapshot.me,
-    userPreferences: snapshot.userPreferences,
-    isLoading: snapshot.isLoading,
     ...usersActions,
   };
 }

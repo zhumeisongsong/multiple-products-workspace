@@ -1,25 +1,39 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
-import { UsersRepository } from '@users/domain';
+import { User, UsersRepository } from '@users/domain';
 
 import { LocalStorageRepository } from './local-storage.repository';
 
-const USER_SELF_CARE_TOPICS_KEY = 'user-self-care-topics';
+const USER_KEY = 'user';
 
 export class UsersRepositoryImpl implements UsersRepository {
   constructor(
     private readonly localStorageRepository: LocalStorageRepository,
-  ) {}
+  ) { }
 
-  getUserSelfCareTopics(): Promise<SelfCareTopic[]> {
-    const userSelfCareTopics = this.localStorageRepository.get(
-      USER_SELF_CARE_TOPICS_KEY,
-    );
+  findUserById(id: string): Promise<User | null> {
+    const user = this.localStorageRepository.get(USER_KEY);
 
-    return Promise.resolve(userSelfCareTopics || []);
+    return Promise.resolve(user);
   }
 
-  setUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
-    this.localStorageRepository.set(USER_SELF_CARE_TOPICS_KEY, topics);
+  createUser(): Promise<void> {
+    const uuid = crypto.randomUUID();
+    const user: User = {
+      id: uuid,
+      preferences: {
+        selfCareTopics: [],
+      },
+    };
+    this.localStorageRepository.set(USER_KEY, user);
+
+    return Promise.resolve();
+  }
+
+  updateUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
+    const user = this.localStorageRepository.get(USER_KEY);
+
+    user.preferences.selfCareTopics = topics;
+    this.localStorageRepository.set(USER_KEY, user);
 
     return Promise.resolve();
   }

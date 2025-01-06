@@ -1,62 +1,82 @@
+import { describe, expect, it, vi } from 'vitest';
 import { SelfCareTopic } from '@self-care-topics/domain';
+import { User } from '@users/domain';
+
 import { UsersRepositoryImpl } from './users.repository';
 import { LocalStorageRepository } from './local-storage.repository';
 
-describe('IUsersRepository', () => {
-  let usersRepository: UsersRepositoryImpl;
-  let localStorageRepository: LocalStorageRepository;
+describe('UsersRepository', () => {
+  const mockLocalStorageRepository = {
+    get: vi.fn(),
+    set: vi.fn(),
+  } as unknown as LocalStorageRepository;
 
-  beforeAll(() => {
-    global.localStorage = {
-      getItem: vi.fn(),
-      setItem: vi.fn(),
-      removeItem: vi.fn(),
-      clear: vi.fn(),
-      length: 0,
-      key: vi.fn(),
-    };
-  });
+  const usersRepository = new UsersRepositoryImpl(mockLocalStorageRepository);
 
   beforeEach(() => {
-    localStorageRepository = new LocalStorageRepository();
-    usersRepository = new UsersRepositoryImpl(localStorageRepository);
+    vi.clearAllMocks();
   });
 
-  afterEach(() => {
-    localStorage.clear();
-  });
+  describe('findUserById', () => {
+    it('should return user from local storage', async () => {
+      const mockUser: User = {
+        id: '123',
+        preferences: {
+          selfCareTopics: [],
+        },
+      };
+      vi.mocked(mockLocalStorageRepository.get).mockImplementation(() => mockUser);
 
-  describe('getUserSelfCareTopics', () => {
-    it('should return empty array when no topics exist', async () => {
-      const topics = await usersRepository.getUserSelfCareTopics();
-      expect(topics).toEqual([]);
+      const result = await usersRepository.findUserById('123');
+
+      expect(result).toEqual(mockUser);
+      expect(mockLocalStorageRepository.get).toHaveBeenCalledWith('user');
     });
+  });
 
-    it('should return stored topics', async () => {
-      const mockTopics: SelfCareTopic[] = [
+  describe('createUser', () => {
+    it('should create and store new user', async () => {
+      const mockUuid = '12345678-1234-1234-1234-123456789012';
+      const cryptoSpy = vi.spyOn(crypto, 'randomUUID');
+      vi.mocked(cryptoSpy).mockImplementation(() => mockUuid);
+
+      await usersRepository.createUser();
+
+      expect(mockLocalStorageRepository.set).toHaveBeenCalledWith('user', {
+        id: mockUuid,
+        preferences: {
+          selfCareTopics: [],
+        },
+      });
+    });
+  });
+
+  describe('updateUserSelfCareTopics', () => {
+    it('should update user self care topics', async () => {
+      const mockUser: User = {
+        id: '123',
+        preferences: {
+          selfCareTopics: [],
+        },
+      };
+      vi.mocked(mockLocalStorageRepository.get).mockImplementation(() => mockUser);
+
+      const topics: SelfCareTopic[] = [
         { id: '1', name: 'Exercise' },
         { id: '2', name: 'Meditation' },
       ];
 
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(mockTopics),
-      );
+      await usersRepository.updateUserSelfCareTopics(topics);
 
-      localStorageRepository.set('user-self-care-topics', mockTopics);
+      const expectedUser = {
+        ...mockUser,
+        preferences: {
+          selfCareTopics: topics,
+        },
+      };
 
-      const topics = await usersRepository.getUserSelfCareTopics();
-      expect(topics).toEqual(mockTopics);
-    });
-  });
-
-  describe('setUserSelfCareTopics', () => {
-    it('should set the user self care topics', async () => {
-      const topics: SelfCareTopic[] = [{ id: '1', name: 'Exercise' }];
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(topics),
-      );
-      await usersRepository.setUserSelfCareTopics(topics);
-      expect(localStorage.setItem).toHaveBeenCalledWith('user-self-care-topics', JSON.stringify(topics));
+      expect(mockLocalStorageRepository.set).toHaveBeenCalledWith('user', expectedUser);
     });
   });
 });
+
