@@ -10,7 +10,7 @@ export class UsersRepositoryImpl implements UsersRepository {
     private readonly localStorageRepository: LocalStorageRepository,
   ) { }
 
-  findUserById(id: string): Promise<User> {
+  findUserById(id: string): Promise<User | null> {
     const user = this.localStorageRepository.get(USER_KEY);
 
     return Promise.resolve(user);
