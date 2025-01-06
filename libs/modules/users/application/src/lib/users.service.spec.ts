@@ -4,24 +4,24 @@ import { SelfCareTopic } from '@self-care-topics/domain';
 
 describe('UsersService', () => {
   const mockUsersRepository = {
-    getUserSelfCareTopics: vi.fn(),
-    setUserSelfCareTopics: vi.fn()
+    findUserById: vi.fn(),
+    updateUserSelfCareTopics: vi.fn(),
+    createUser: vi.fn(),
   };
 
   const usersService = new UsersService(mockUsersRepository);
 
-  describe('getUserSelfCareTopics', () => {
-    it('should return self care topics from repository', async () => {
-      const expectedTopics: SelfCareTopic[] = [
-        { id: '1', name: 'Topic 1' },
-        { id: '2', name: 'Topic 2' }
-      ];
-      mockUsersRepository.getUserSelfCareTopics.mockResolvedValue(expectedTopics);
+  describe('findUserById', () => {
+    it('should find a user by id', async () => {
+      const user = await usersService.findUserById();
+      expect(user).toBeDefined();
+    });
+  });
 
-      const result = await usersService.getUserSelfCareTopics();
-
-      expect(result).toEqual(expectedTopics);
-      expect(mockUsersRepository.getUserSelfCareTopics).toHaveBeenCalledTimes(1);
+  describe('createUser', () => {
+    it('should create a user', async () => {
+      await usersService.createUser();
+      expect(mockUsersRepository.createUser).toHaveBeenCalled();
     });
   });
 
