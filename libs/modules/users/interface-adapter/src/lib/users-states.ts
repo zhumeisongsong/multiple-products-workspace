@@ -2,7 +2,7 @@ import { SelfCareTopic } from '@self-care-topics/domain';
 import {
   getUserSelfCareTopicsUseCase,
   saveUserSelfCareTopicsUseCase,
-  getUsersService,
+  UsersServiceFactory,
 } from '@users/application';
 import { User, UserPreferences } from '@users/domain';
 import { proxy } from 'valtio';
@@ -27,7 +27,7 @@ export const usersActions = {
   },
   initialUserSelfCareTopics: async () => {
     usersStates.userPreferences.selfCareTopics =
-      await getUserSelfCareTopicsUseCase(getUsersService());
+      await getUserSelfCareTopicsUseCase(UsersServiceFactory.getInstance());
   },
   toggleSelfCareTopic: async (selfCareTopic: SelfCareTopic) => {
     if (
@@ -45,7 +45,7 @@ export const usersActions = {
 
     await saveUserSelfCareTopicsUseCase(
       usersStates.userPreferences.selfCareTopics,
-      getUsersService(),
+      UsersServiceFactory.getInstance(),
     );
   },
   setIsLoading: () => {
