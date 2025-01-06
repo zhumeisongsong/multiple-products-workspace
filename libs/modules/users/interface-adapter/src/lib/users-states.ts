@@ -1,7 +1,7 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
 import {
   getUserByIdUseCase,
-  saveUserSelfCareTopicsUseCase,
+  updateUserSelfCareTopicsUseCase,
   UsersServiceFactory,
 } from '@users/application';
 import { User } from '@users/domain';
@@ -40,7 +40,7 @@ export const usersActions = {
       usersStates.me.preferences.selfCareTopics.push(selfCareTopic);
     }
 
-    await saveUserSelfCareTopicsUseCase(
+    await updateUserSelfCareTopicsUseCase(
       usersStates.me.preferences.selfCareTopics,
       UsersServiceFactory.getInstance(),
     );

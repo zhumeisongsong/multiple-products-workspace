@@ -47,14 +47,14 @@ describe('UsersService', () => {
     });
   });
 
-  describe('saveUserSelfCareTopics', () => {
+  describe('updateUserSelfCareTopics', () => {
     it('should call repository updateUserSelfCareTopics with correct topics', async () => {
       const mockTopics: SelfCareTopic[] = [
         { id: 'topic1' } as SelfCareTopic,
         { id: 'topic2' } as SelfCareTopic,
       ];
 
-      await service.saveUserSelfCareTopics(mockTopics);
+      await service.updateUserSelfCareTopics(mockTopics);
 
       expect(mockRepository.updateUserSelfCareTopics).toHaveBeenCalledWith(mockTopics);
     });
