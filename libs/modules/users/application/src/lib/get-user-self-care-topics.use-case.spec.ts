@@ -1,27 +1,24 @@
-import { SelfCareTopic } from '@self-care-topics/domain';
+import { describe, it, expect, vi } from 'vitest';
 import { getUserSelfCareTopicsUseCase } from './get-user-self-care-topics.use-case';
+import { SelfCareTopic } from '@self-care-topics/domain';
 import { UsersService } from './users.service';
 
-vi.mock('./users.service');
-
 describe('getUserSelfCareTopicsUseCase', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
+  const mockUsersService = {
+    getUserSelfCareTopics: vi.fn()
+  } as unknown as UsersService;
 
-  it('should return self care topics from service', async () => {
-    const mockTopics: SelfCareTopic[] = [
-      { id: '1', name: 'Exercise' },
-      { id: '2', name: 'Meditation' }
+  it('should return self care topics from users service', async () => {
+    const expectedTopics: SelfCareTopic[] = [
+      { id: '1', name: 'Topic 1' },
+      { id: '2', name: 'Topic 2' }
     ];
+    const getUserSelfCareTopicsSpy = vi.fn().mockResolvedValue(expectedTopics);
+    mockUsersService.getUserSelfCareTopics = getUserSelfCareTopicsSpy;
 
-    const getUserSelfCareTopicsSpy = vi
-      .spyOn(UsersService.prototype, 'getUserSelfCareTopics')
-      .mockResolvedValue(mockTopics);
+    const result = await getUserSelfCareTopicsUseCase(mockUsersService);
 
-    const result = await getUserSelfCareTopicsUseCase();
-
-    expect(getUserSelfCareTopicsSpy).toHaveBeenCalled();
-    expect(result).toEqual(mockTopics);
+    expect(result).toEqual(expectedTopics);
+    expect(mockUsersService.getUserSelfCareTopics).toHaveBeenCalledTimes(1);
   });
 });
