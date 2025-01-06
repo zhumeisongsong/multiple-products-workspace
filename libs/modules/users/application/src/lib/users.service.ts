@@ -4,8 +4,8 @@ import { User, UsersRepository } from '@users/domain';
 export class UsersService {
   constructor(private readonly usersRepository: UsersRepository) {}
 
-  async findUserById(): Promise<User> {
-    return await this.usersRepository.findUserById('');
+  async findUserById(id: string): Promise<User | null> {
+    return await this.usersRepository.findUserById(id);
   }
 
   async createUser(): Promise<void> {

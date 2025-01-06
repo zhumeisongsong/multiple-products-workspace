@@ -13,7 +13,7 @@ describe('UsersService', () => {
 
   describe('findUserById', () => {
     it('should find a user by id', async () => {
-      const user = await usersService.findUserById();
+      const user = await usersService.findUserById('');
       expect(user).toBeDefined();
     });
   });
