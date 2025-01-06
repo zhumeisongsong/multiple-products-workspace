@@ -12,3 +12,19 @@ export class UsersService {
     return await this.usersRepository.setUserSelfCareTopics(topics);
   }
 }
+
+let instance: UsersService | null = null;
+
+export const initializeUsersService = (repository: UsersRepository) => {
+  if (!instance) {
+    instance = new UsersService(repository);
+  }
+  return instance;
+};
+
+export const getUsersService = () => {
+  if (!instance) {
+    throw new Error('UsersService must be initialized before use');
+  }
+  return instance;
+};
