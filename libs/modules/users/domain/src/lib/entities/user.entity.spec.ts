@@ -4,10 +4,12 @@ describe('User', () => {
   it('should create a User with the given id and name', () => {
     const user: User = {
       id: '1',
-      email: 'test@example.com',
+      userPreferences: {
+        selfCareTopics: [],
+      },
     };
 
     expect(user.id).toBe('1');
-    expect(user.email).toBe('test@example.com');
+    expect(user.userPreferences.selfCareTopics).toEqual([]);
   });
 });
