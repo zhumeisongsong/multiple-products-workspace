@@ -5,7 +5,6 @@ import { UsersService } from './users.service';
 export const saveUserSelfCareTopicsUseCase = async (
   topics: SelfCareTopic[],
   usersService: UsersService,
-) => {
-  const result = await usersService.saveUserSelfCareTopics(topics);
-  return result;
+): Promise<void> => {
+  return await usersService.saveUserSelfCareTopics(topics);
 };

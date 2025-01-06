@@ -1,3 +1,5 @@
-export const getAllUsersUseCase = async () => {
+import { User } from '@users/domain';
+
+export const getAllUsersUseCase = async (): Promise<User[]> => {
   return [];
-}
+};

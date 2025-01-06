@@ -1,42 +1,63 @@
-import { describe, it, expect, vi } from 'vitest';
-import { UsersService } from './users.service';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { SelfCareTopic } from '@self-care-topics/domain';
+import { User, UsersRepository } from '@users/domain';
+import { UsersService } from './users.service';
 
 describe('UsersService', () => {
-  const mockUsersRepository = {
-    findUserById: vi.fn(),
-    updateUserSelfCareTopics: vi.fn(),
-    createUser: vi.fn(),
-  };
+  let service: UsersService;
+  let mockRepository: UsersRepository;
 
-  const usersService = new UsersService(mockUsersRepository);
+  beforeEach(() => {
+    mockRepository = {
+      findUserById: vi.fn(),
+      createUser: vi.fn(),
+      updateUserSelfCareTopics: vi.fn(),
+    } as UsersRepository;
+
+    service = new UsersService(mockRepository);
+  });
 
   describe('findUserById', () => {
-    it('should find a user by id', async () => {
-      const user = await usersService.findUserById('');
-      expect(user).toBeDefined();
+    it('should call repository findUserById with correct id', async () => {
+      const userId = 'test-id';
+      const mockUser: User = { id: userId } as User;
+      vi.mocked(mockRepository.findUserById).mockResolvedValue(mockUser);
+
+      const result = await service.findUserById(userId);
+
+      expect(mockRepository.findUserById).toHaveBeenCalledWith(userId);
+      expect(result).toBe(mockUser);
+    });
+
+    it('should return null when user not found', async () => {
+      const userId = 'non-existent-id';
+      vi.mocked(mockRepository.findUserById).mockResolvedValue(null);
+
+      const result = await service.findUserById(userId);
+
+      expect(result).toBeNull();
     });
   });
 
   describe('createUser', () => {
-    it('should create a user', async () => {
-      await usersService.createUser();
-      expect(mockUsersRepository.createUser).toHaveBeenCalled();
+    it('should call repository createUser', async () => {
+      await service.createUser();
+
+      expect(mockRepository.createUser).toHaveBeenCalled();
     });
   });
 
   describe('saveUserSelfCareTopics', () => {
-    it('should save self care topics to repository', async () => {
-      const topics: SelfCareTopic[] = [
-        { id: '1', name: 'Topic 1' },
-        { id: '2', name: 'Topic 2' }
+    it('should call repository updateUserSelfCareTopics with correct topics', async () => {
+      const mockTopics: SelfCareTopic[] = [
+        { id: 'topic1' } as SelfCareTopic,
+        { id: 'topic2' } as SelfCareTopic,
       ];
-      mockUsersRepository.setUserSelfCareTopics.mockResolvedValue(undefined);
 
-      await usersService.saveUserSelfCareTopics(topics);
+      await service.saveUserSelfCareTopics(mockTopics);
 
-      expect(mockUsersRepository.setUserSelfCareTopics).toHaveBeenCalledWith(topics);
-      expect(mockUsersRepository.setUserSelfCareTopics).toHaveBeenCalledTimes(1);
+      expect(mockRepository.updateUserSelfCareTopics).toHaveBeenCalledWith(mockTopics);
     });
   });
 });
+
