@@ -8,9 +8,7 @@ export class UsersService {
     return await this.usersRepository.getUserSelfCareTopics();
   }
 
-  async saveUserSelfCareTopics(topics: SelfCareTopic[]) {
-    await this.usersRepository.setUserSelfCareTopics(topics);
-
-    return 'success';
+  async saveUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
+    return await this.usersRepository.setUserSelfCareTopics(topics);
   }
 }
