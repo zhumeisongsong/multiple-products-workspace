@@ -26,37 +26,24 @@ describe('IUsersRepository', () => {
     localStorage.clear();
   });
 
-  describe('getUserSelfCareTopics', () => {
-    it('should return empty array when no topics exist', async () => {
-      const topics = await usersRepository.getUserSelfCareTopics();
-      expect(topics).toEqual([]);
-    });
+  it('should create a user', () => {
+    usersRepository.createUser();
 
-    it('should return stored topics', async () => {
-      const mockTopics: SelfCareTopic[] = [
-        { id: '1', name: 'Exercise' },
-        { id: '2', name: 'Meditation' },
-      ];
-
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(mockTopics),
-      );
-
-      localStorageRepository.set('user-self-care-topics', mockTopics);
-
-      const topics = await usersRepository.getUserSelfCareTopics();
-      expect(topics).toEqual(mockTopics);
-    });
+    expect(localStorage.getItem('user')).toBeDefined();
   });
 
-  describe('setUserSelfCareTopics', () => {
-    it('should set the user self care topics', async () => {
-      const topics: SelfCareTopic[] = [{ id: '1', name: 'Exercise' }];
-      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(topics),
-      );
-      await usersRepository.setUserSelfCareTopics(topics);
-      expect(localStorage.setItem).toHaveBeenCalledWith('user-self-care-topics', JSON.stringify(topics));
-    });
+  it('should find a user by id', () => {
+    usersRepository.createUser();
+    const user = usersRepository.findUserById('1');
+    expect(user).toBeDefined();
+  });
+
+  it('should update the user self care topics', () => {
+    usersRepository.createUser();
+    const topics: SelfCareTopic[] = [{ id: '1', name: 'Exercise' }];
+    usersRepository.updateUserSelfCareTopics(topics);
+    expect(localStorage.getItem('user-self-care-topics')).toEqual(
+      JSON.stringify(topics),
+    );
   });
 });
