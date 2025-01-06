@@ -5,6 +5,7 @@ import { usersStates, usersActions } from './users-states';
 
 vi.mock('valtio', () => ({
   useSnapshot: vi.fn((state) => state),
+  proxy: vi.fn((obj) => obj),
 }));
 
 describe('useUsers', () => {
