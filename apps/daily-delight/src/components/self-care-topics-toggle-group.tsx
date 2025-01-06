@@ -1,24 +1,18 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
 import { Button } from '@shared/ui';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 interface Props {
   allTopics: SelfCareTopic[];
   userTopics: SelfCareTopic[];
-  initialUserSelfCareTopics: () => Promise<void>;
   toggleSelfCareTopic: (selfCareTopic: SelfCareTopic) => Promise<void>;
 }
 
 export const SelfCareTopicsToggleGroup: FC<Props> = ({
   allTopics,
   userTopics,
-  initialUserSelfCareTopics,
   toggleSelfCareTopic,
 }) => {
-  useEffect(() => {
-    initialUserSelfCareTopics();
-  }, []);
-
   const handleToggleSelfCareTopic = async (topic: SelfCareTopic) => {
     await toggleSelfCareTopic(topic);
   };

@@ -10,18 +10,18 @@ import { useUsers } from '@users/interface-adapter';
 
 export const TaskPage: React.FC = () => {
   const { selfCareTopics } = useSelfCareTopics();
-  const { userPreferences, initialUserSelfCareTopics, toggleSelfCareTopic } =
-    useUsers();
-  // const { currentMonthUserTasks } = useUserTasks();
+  const { me, toggleSelfCareTopic } = useUsers();
 
   return (
     <PageContainer>
-      <SelfCareTopicsToggleGroup
-        allTopics={[...selfCareTopics]}
-        userTopics={[...userPreferences.selfCareTopics]}
-        initialUserSelfCareTopics={initialUserSelfCareTopics}
-        toggleSelfCareTopic={toggleSelfCareTopic}
-      />
+      {me?.preferences.selfCareTopics && (
+        <SelfCareTopicsToggleGroup
+          allTopics={[...selfCareTopics]}
+          userTopics={[...me.preferences.selfCareTopics]}
+          toggleSelfCareTopic={toggleSelfCareTopic}
+        />
+      )}
+
       {/* <Card>
         <CardContent className="h-64">
           <div className="flex items-center h-full">
