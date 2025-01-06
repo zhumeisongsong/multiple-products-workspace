@@ -1,0 +1,13 @@
+{
+  "name": "@shared/infrastructure-di",
+  "version": "0.0.1",
+  "dependencies": {
+    "@shared/infrastructure-storage": "workspace:*",
+    "@user-tasks/domain": "workspace:*",
+    "@users/domain": "workspace:*"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
+  "private": true
+}
