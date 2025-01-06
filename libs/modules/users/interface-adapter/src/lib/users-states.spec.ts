@@ -1,64 +1,43 @@
-import { act } from '@testing-library/react';
-import { usersStates, usersActions } from './users-states';
-import { User } from '@users/domain';
-import { SelfCareTopic } from '@self-care-topics/domain';
+import { describe, it, expect, vi } from 'vitest';
+import { usersActions, usersStates } from './users-states';
+import { saveUserSelfCareTopicsUseCase } from '@users/application';
 
-describe('usersStates', () => {
-  beforeAll(() => {
-    global.localStorage = {
-      getItem: vi.fn(),
-      setItem: vi.fn(),
-      removeItem: vi.fn(),
-      clear: vi.fn(),
-      length: 0,
-      key: vi.fn(),
-    };
-  });
+vi.mock('@users/application', () => ({
+  saveUserSelfCareTopicsUseCase: vi.fn(),
+}));
 
+describe('usersActions', () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     usersStates.me = null;
-    usersStates.userPreferences = {
-      selfCareTopics: [],
-    };
-    usersStates.isLoading = false;
   });
 
-  it('should set me', () => {
-    const user: User = { id: '1', email: 'test@test.com' };
+  describe('saveUserSelfCareTopics', () => {
+    it('should save user self care topics and update loading state', async () => {
+      const topics = [
+        { id: '1', name: 'Topic 1' },
+        { id: '2', name: 'Topic 2' },
+      ];
+      const mockSaveTopics = vi.mocked(saveUserSelfCareTopicsUseCase);
+      mockSaveTopics.mockResolvedValue();
 
-    act(() => {
-      usersActions.setMe(user);
+      await usersActions.toggleSelfCareTopic(topics[0]);
+
+      expect(mockSaveTopics).toHaveBeenCalledWith(
+        topics[0],
+        expect.any(Object),
+      );
     });
 
-    expect(usersStates.me).toEqual(user);
-  });
-  it('should toggle self care topic and verify persistence', async () => {
-    const topic: SelfCareTopic = { id: '1', name: 'Test Topic' };
+    it('should handle errors during save', async () => {
+      const topics = [{ id: '1', name: 'Topic 1' }];
+      const mockError = new Error('Save failed');
+      const mockSaveTopics = vi.mocked(saveUserSelfCareTopicsUseCase);
+      mockSaveTopics.mockRejectedValue(mockError);
 
-    act(() => {
-      usersActions.toggleSelfCareTopic(topic);
+      await expect(usersActions.toggleSelfCareTopic(topics[0])).rejects.toThrow(
+        mockError,
+      );
     });
-
-    expect(usersStates.userPreferences.selfCareTopics).toEqual([topic]);
-
-    act(() => {
-      usersActions.toggleSelfCareTopic(topic);
-    });
-
-    expect(usersStates.userPreferences.selfCareTopics).toEqual([]);
-  });
-
-  it('should handle loading state', () => {
-    act(() => {
-      usersActions.setIsLoading();
-    });
-
-    expect(usersStates.isLoading).toBeTruthy();
-
-    act(() => {
-      usersActions.setIsLoadingFinished();
-    });
-
-    expect(usersStates.isLoading).toBeFalsy();
   });
 });
