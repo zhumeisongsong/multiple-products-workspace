@@ -1,23 +1,14 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
-import {
-  LocalStorageRepository,
-  UsersRepositoryImpl,
-} from '@shared/infrastructure-storage';
+import { UsersRepository } from '@users/domain';
 
 export class UsersService {
-  private usersRepository: UsersRepositoryImpl;
-
-  constructor() {
-    this.usersRepository = new UsersRepositoryImpl(
-      new LocalStorageRepository(),
-    );
-  }
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async getUserSelfCareTopics(): Promise<SelfCareTopic[]> {
     return await this.usersRepository.getUserSelfCareTopics();
   }
 
-  async setUserSelfCareTopics(topics: SelfCareTopic[]) {
+  async saveUserSelfCareTopics(topics: SelfCareTopic[]) {
     await this.usersRepository.setUserSelfCareTopics(topics);
 
     return 'success';
