@@ -1,1 +1,2 @@
-export * from './lib/open-ai-adapter';
+export * from './lib/open-ai-client';
+

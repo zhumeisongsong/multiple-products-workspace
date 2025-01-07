@@ -1,8 +1,9 @@
 import { openai } from '@ai-sdk/openai';
+import { AIClient } from '@ai/application';
 import { generateText } from 'ai';
 
-export class OpenAIAdapter {
-  async generateTasks(prompt: string): Promise<string[]> {
+export class OpenAIClient implements AIClient {
+  async generateTasks(prompt: string): Promise<string> {
     const result = await generateText({
       model: openai('gpt-4o'),
       messages: [{ role: 'user', content: prompt }],
@@ -13,9 +14,6 @@ export class OpenAIAdapter {
       fullResponse += delta;
     }
 
-    return fullResponse
-      .split('\n')
-      .map((line) => line.trim())
-      .filter((line) => line.length > 0);
+    return fullResponse;
   }
 }
