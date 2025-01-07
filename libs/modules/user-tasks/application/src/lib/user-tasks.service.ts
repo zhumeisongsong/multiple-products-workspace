@@ -1,11 +1,16 @@
+import { SelfCareTopic } from '@self-care-topics/domain';
 import {
   UserTask,
   UserTasksRepository,
   UserTaskStatusEnum,
 } from '@user-tasks/domain';
+import { AIService } from '@ai/application';
 
 export class UserTasksService {
-  constructor(private readonly userTasksRepository: UserTasksRepository) {}
+  constructor(
+    private readonly userTasksRepository: UserTasksRepository,
+    private readonly aiService: AIService,
+  ) {}
 
   async findManyUserTasks(
     userId: string,
@@ -29,18 +34,37 @@ export class UserTasksService {
     });
   }
 
-  async createManyUserTasks(userTasks: UserTask[]) {
-    return await this.userTasksRepository.createUserTasks(userTasks);
+  async createManyUserTasksBasedOnUserSelfCareTopics(
+    userSelfCareTopics: SelfCareTopic[],
+  ): Promise<void> {
+    // task count is  the number of days from today to the end of the month
+    const today = new Date();
+    const lastDayOfMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 1,
+      0,
+    );
+    const taskCount = lastDayOfMonth.getDate() - today.getDate() + 1;
+
+    const result = await this.aiService.generateUserTasks(
+      userSelfCareTopics,
+      taskCount,
+    );
+
+    console.log(result);
+
+    // format the result to the user task format
+
+    return this.userTasksRepository.createUserTasks([]);
   }
 
-  async updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
+  async updateUserTaskStatus(
+    userTaskId: string,
+    status: UserTaskStatusEnum,
+  ): Promise<void> {
     return await this.userTasksRepository.updateUserTaskStatus(
       userTaskId,
       status,
     );
-  }
-
-  async generateManyUserTasks(userTasks: UserTask[]) {
-    // call ai service
   }
 }
