@@ -1,6 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { UserTasksService } from './user-tasks.service';
-import { UserTask, UserTaskStatusEnum, UserTasksRepository } from '@user-tasks/domain';
+import {
+  UserTask,
+  UserTaskStatusEnum,
+  UserTasksRepository,
+} from '@user-tasks/domain';
 
 describe('UserTasksService', () => {
   let userTasksService: UserTasksService;
@@ -19,25 +23,31 @@ describe('UserTasksService', () => {
     it('should call repository with date range when provided', async () => {
       const dateRange = {
         startedAt: new Date('2024-01-01'),
-        endedAt: new Date('2024-01-31')
+        endedAt: new Date('2024-01-31'),
       };
 
-      await userTasksService.findManyUserTasks({ dateRange });
+      await userTasksService.findManyUserTasks('userId', { dateRange });
 
-      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith({
-        dateRange: {
-          startedAt: dateRange.startedAt.toISOString(),
-          endedAt: dateRange.endedAt.toISOString()
-        }
-      });
+      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith(
+        'userId',
+        {
+          dateRange: {
+            startedAt: dateRange.startedAt.toISOString(),
+            endedAt: dateRange.endedAt.toISOString(),
+          },
+        },
+      );
     });
 
     it('should call repository without date range when not provided', async () => {
-      await userTasksService.findManyUserTasks();
+      await userTasksService.findManyUserTasks('userId');
 
-      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith({
-        dateRange: undefined
-      });
+      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith(
+        'userId',
+        {
+          dateRange: undefined,
+        },
+      );
     });
   });
 
@@ -51,13 +61,15 @@ describe('UserTasksService', () => {
           categories: [],
           status: UserTaskStatusEnum.TODO,
           createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        }
+          updatedAt: new Date().toISOString(),
+        },
       ];
 
       await userTasksService.createManyUserTasks(userTasks);
 
-      expect(mockUserTasksRepository.createUserTasks).toHaveBeenCalledWith(userTasks);
+      expect(mockUserTasksRepository.createUserTasks).toHaveBeenCalledWith(
+        userTasks,
+      );
     });
   });
 
@@ -68,7 +80,10 @@ describe('UserTasksService', () => {
 
       await userTasksService.updateUserTaskStatus(taskId, status);
 
-      expect(mockUserTasksRepository.updateUserTaskStatus).toHaveBeenCalledWith(taskId, status);
+      expect(mockUserTasksRepository.updateUserTaskStatus).toHaveBeenCalledWith(
+        taskId,
+        status,
+      );
     });
   });
 });

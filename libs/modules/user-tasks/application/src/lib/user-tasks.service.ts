@@ -5,25 +5,26 @@ import {
 } from '@user-tasks/domain';
 
 export class UserTasksService {
-  constructor(
-    private readonly userTasksRepository: UserTasksRepository,
-  ) { }
+  constructor(private readonly userTasksRepository: UserTasksRepository) {}
 
-  async findManyUserTasks(filter?: {
-    dateRange: {
-      startedAt: Date;
-      endedAt: Date;
-    };
-  }): Promise<UserTask[]> {
+  async findManyUserTasks(
+    userId: string,
+    filter?: {
+      dateRange: {
+        startedAt: Date;
+        endedAt: Date;
+      };
+    },
+  ): Promise<UserTask[]> {
     const dateRange =
       filter?.dateRange?.startedAt && filter?.dateRange?.endedAt
         ? {
-          startedAt: filter.dateRange.startedAt.toISOString(),
-          endedAt: filter.dateRange.endedAt.toISOString(),
-        }
+            startedAt: filter.dateRange.startedAt.toISOString(),
+            endedAt: filter.dateRange.endedAt.toISOString(),
+          }
         : undefined;
 
-    return await this.userTasksRepository.findManyUserTasks({
+    return await this.userTasksRepository.findManyUserTasks(userId, {
       dateRange: dateRange,
     });
   }
