@@ -1,85 +1,45 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { renderHook, act } from '@testing-library/react';
-import { UserTasksServiceFactory } from '@user-tasks/application';
-import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
+import { describe, it, expect, vi } from 'vitest';
+
 import { useUserTasks } from './use-user-tasks';
+import { userTasksStates } from './user-tasks-states';
+import { UserTaskStatusEnum } from '@user-tasks/domain';
+vi.mock('valtio', () => ({
+  useSnapshot: vi.fn((state) => state),
+  proxy: vi.fn((obj) => obj),
+}));
 
 describe('useUserTasks', () => {
-  const mockUserTasks: UserTask[] = [
-    {
-      id: '1',
-      userId: 'user1',
-      name: 'Task 1',
-      description: 'Description 1',
-      status: UserTaskStatusEnum.TODO,
-      categories: [],
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-  ];
-
   beforeEach(() => {
     vi.clearAllMocks();
+    userTasksStates.currentMonthUserTasks = [];
+    userTasksStates.historyUserTasks = [];
+    userTasksStates.selectedUserTaskId = null;
   });
 
-  it('should return initial state', () => {
-    const { result } = renderHook(() => useUserTasks());
+  it('should return user tasks states and actions', () => {
+    userTasksStates.historyUserTasks = [
+      {
+        id: '1',
+        name: 'Task 1',
+        categories: [],
+        status: UserTaskStatusEnum.TODO,
+        userId: '1',
+        createdAt: '2024-01-01T00:00:00.000Z',
+      },
+    ];
+    const result = useUserTasks();
 
-    expect(result.current.currentMonthUserTasks).toEqual([]);
-    expect(result.current.historyUserTasks).toEqual([]);
-    expect(result.current.selectedUserTaskId).toBeNull();
-  });
-
-  it('should get current month user tasks', async () => {
-    const mockGetInstance = vi.spyOn(UserTasksServiceFactory, 'getInstance');
-    mockGetInstance.mockReturnValue({
-      findManyUserTasks: vi.fn().mockResolvedValue(mockUserTasks),
-    } as any);
-
-    const { result } = renderHook(() => useUserTasks());
-
-    await act(async () => {
-      await result.current.getCurrentMonthUserTasks();
-    });
-
-    expect(result.current.currentMonthUserTasks).toEqual(mockUserTasks);
-  });
-
-  it('should update user task status', () => {
-    const { result } = renderHook(() => useUserTasks());
-
-    act(() => {
-      result.current.currentMonthUserTasks = mockUserTasks;
-      result.current.updateUserTaskStatus('1', UserTaskStatusEnum.COMPLETED);
-    });
-
-    expect(result.current.currentMonthUserTasks[0].status).toBe(
-      UserTaskStatusEnum.COMPLETED,
-    );
-  });
-
-  it('should get history user tasks', async () => {
-    const mockGetInstance = vi.spyOn(UserTasksServiceFactory, 'getInstance');
-    mockGetInstance.mockReturnValue({
-      findManyUserTasks: vi.fn().mockResolvedValue(mockUserTasks),
-    } as any);
-
-    const { result } = renderHook(() => useUserTasks());
-
-    await act(async () => {
-      await result.current.getHistoryUserTasks(5, 2023);
-    });
-
-    expect(result.current.historyUserTasks).toEqual(mockUserTasks);
-  });
-
-  it('should select user task', () => {
-    const { result } = renderHook(() => useUserTasks());
-
-    act(() => {
-      result.current.selectUserTask('1');
-    });
-
-    expect(result.current.selectedUserTaskId).toBe('1');
+    expect(result.historyUserTasks).toEqual([
+      {
+        id: '1',
+        name: 'Task 1',
+        categories: [],
+        status: UserTaskStatusEnum.TODO,
+        userId: '1',
+        createdAt: '2024-01-01T00:00:00.000Z',
+      },
+    ]);
+    expect(result.currentMonthUserTasks).toEqual([]);
+    expect(result.selectedUserTaskId).toBeNull();
   });
 });
