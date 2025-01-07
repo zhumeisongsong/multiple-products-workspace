@@ -1,34 +1,54 @@
-import { UserTask } from '@user-tasks/domain';
+import {
+  getMonthlyUserTasksUseCase,
+  UserTasksServiceFactory,
+} from '@user-tasks/application';
+import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
 import { proxy } from 'valtio';
 
 export type UserTasksStates = {
   currentMonthUserTasks: UserTask[];
   historyUserTasks: UserTask[];
   selectedUserTaskId: string | null;
-  isLoading: boolean;
 };
 
 export const userTasksStates = proxy<UserTasksStates>({
   currentMonthUserTasks: [],
   historyUserTasks: [],
   selectedUserTaskId: null,
-  isLoading: false,
 });
 
 export const userTaskActions = {
-  setCurrentMonthUserTasks: (userTasks: UserTask[]) => {
+  getCurrentMonthUserTasks: async () => {
+    const month = new Date().getMonth();
+    const year = new Date().getFullYear();
+    const userTasks = await getMonthlyUserTasksUseCase(
+      '', // TODO: get user id from access token
+      month,
+      year,
+      UserTasksServiceFactory.getInstance(),
+    );
     userTasksStates.currentMonthUserTasks = userTasks;
   },
-  setHistoryUserTasks: (userTasks: UserTask[]) => {
+  updateUserTaskStatus: (userTaskId: string, status: UserTaskStatusEnum) => {
+    userTasksStates.currentMonthUserTasks =
+      userTasksStates.currentMonthUserTasks.map((userTask) =>
+        userTask.id === userTaskId ? { ...userTask, status } : userTask,
+      );
+  },
+  getHistoryUserTasks: async (month: number, year: number) => {
+    const userTasks = await getMonthlyUserTasksUseCase(
+      '', // TODO: get user id from access token
+      month,
+      year,
+      UserTasksServiceFactory.getInstance(),
+    );
+
     userTasksStates.historyUserTasks = userTasks;
   },
   selectUserTask: (userTaskId: string) => {
     userTasksStates.selectedUserTaskId = userTaskId;
   },
-  setIsLoading: () => {
-    userTasksStates.isLoading = true;
-  },
-  setIsLoadingFinished: () => {
-    userTasksStates.isLoading = false;
+  unselectUserTask: () => {
+    userTasksStates.selectedUserTaskId = null;
   },
 };
