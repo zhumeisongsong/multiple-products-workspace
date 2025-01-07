@@ -1,5 +1,6 @@
 import {
   getMonthlyUserTasksUseCase,
+  updateUserTaskStatusUseCase,
   UserTasksServiceFactory,
 } from '@user-tasks/application';
 import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
@@ -29,11 +30,17 @@ export const userTaskActions = {
     );
     userTasksStates.currentMonthUserTasks = userTasks;
   },
-  updateUserTaskStatus: (userTaskId: string, status: UserTaskStatusEnum) => {
+  updateUserTaskStatus: async (userTaskId: string, status: UserTaskStatusEnum) => {
     userTasksStates.currentMonthUserTasks =
       userTasksStates.currentMonthUserTasks.map((userTask) =>
         userTask.id === userTaskId ? { ...userTask, status } : userTask,
       );
+
+    await updateUserTaskStatusUseCase(
+      userTaskId,
+      status,
+      UserTasksServiceFactory.getInstance(),
+    );
   },
   getHistoryUserTasks: async (month: number, year: number) => {
     const userTasks = await getMonthlyUserTasksUseCase(
