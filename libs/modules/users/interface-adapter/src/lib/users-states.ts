@@ -16,7 +16,7 @@ export const usersStates = proxy<UsersStates>({
 });
 
 export const usersActions = {
-  setUser: async () => {
+  getMe: async () => {
     usersStates.me = await getUserByIdUseCase(
       '',
       UsersServiceFactory.getInstance(),

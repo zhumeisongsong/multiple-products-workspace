@@ -11,6 +11,7 @@ import { useUsers } from '@users/interface-adapter';
 export const TaskPage: React.FC = () => {
   const { selfCareTopics } = useSelfCareTopics();
   const { me, toggleSelfCareTopic } = useUsers();
+  const {  } = useUserTasks();
 
   return (
     <PageContainer>
