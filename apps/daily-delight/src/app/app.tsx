@@ -8,13 +8,13 @@ import { AboutPage } from '../pages/about-page';
 import { useEffect } from 'react';
 
 export const App: React.FC = () => {
-  const { me, setUser } = useUsers();
+  const { me, getMe } = useUsers();
 
   useEffect(() => {
     if (!me) {
-      setUser();
+      getMe();
     }
-  }, [me, setUser]);
+  }, [me, getMe]);
 
   console.log(me);
 
