@@ -13,27 +13,36 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
     private readonly localStorageRepository: LocalStorageRepository,
   ) {}
 
-  getUserTasks(filter?: {
-    startedAt: Date;
-    endedAt: Date;
+  findManyUserTasks(filter?: {
+    dateRange?: {
+      startedAt: string;
+      endedAt: string;
+    };
   }): Promise<UserTask[]> {
     const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
 
-    if (!filter) {
-      return Promise.resolve(allUserTasks);
+    if (filter?.dateRange?.startedAt && filter?.dateRange?.endedAt) {
+      const startDate = new Date(filter.dateRange.startedAt);
+      const endDate = new Date(filter.dateRange.endedAt);
+
+      const filteredUserTasks = allUserTasks.filter(
+        (userTask: UserTask) =>
+          new Date(userTask.createdAt) >= startDate &&
+          new Date(userTask.createdAt) <= endDate,
+      );
+
+      return Promise.resolve(filteredUserTasks);
     }
 
-    const filteredUserTasks = allUserTasks.filter(
-      (userTask: UserTask) =>
-        new Date(userTask.createdAt) >= filter.startedAt &&
-        new Date(userTask.createdAt) <= filter.endedAt,
-    );
-
-    return Promise.resolve(filteredUserTasks);
+    return Promise.resolve(allUserTasks);
   }
 
   createUserTasks(userTasks: UserTask[]): Promise<void> {
-    this.localStorageRepository.set(USER_TASKS_KEY, userTasks);
+    const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
+    this.localStorageRepository.set(USER_TASKS_KEY, [
+      ...allUserTasks,
+      ...userTasks,
+    ]);
 
     return Promise.resolve();
   }

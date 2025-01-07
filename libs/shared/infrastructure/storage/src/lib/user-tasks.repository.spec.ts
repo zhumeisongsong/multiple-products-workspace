@@ -28,7 +28,7 @@ describe('UserTasksRepository', () => {
 
   describe('getUserTasks', () => {
     it('should return empty array when no tasks exist', async () => {
-      const tasks = await userTasksRepository.getUserTasks();
+      const tasks = await userTasksRepository.findManyUserTasks();
       expect(tasks).toEqual([]);
     });
 
@@ -59,7 +59,7 @@ describe('UserTasksRepository', () => {
       );
       localStorageRepository.set('user-tasks', mockTasks);
 
-      const tasks = await userTasksRepository.getUserTasks();
+      const tasks = await userTasksRepository.findManyUserTasks();
       expect(tasks).toEqual(mockTasks);
     });
 
@@ -67,7 +67,7 @@ describe('UserTasksRepository', () => {
       const mockTasks: UserTask[] = [
         {
           id: '1',
-          name: 'Task 1', 
+          name: 'Task 1',
           status: UserTaskStatusEnum.TODO,
           createdAt: '2025-01-03T05:53:51.462Z',
           categories: [],
@@ -77,7 +77,7 @@ describe('UserTasksRepository', () => {
         {
           id: '2',
           name: 'Task 2',
-          status: UserTaskStatusEnum.IN_PROGRESS, 
+          status: UserTaskStatusEnum.IN_PROGRESS,
           createdAt: '2025-01-04T05:53:51.462Z',
           categories: [],
           updatedAt: '2025-01-04T05:53:51.462Z',
@@ -87,24 +87,26 @@ describe('UserTasksRepository', () => {
           id: '3',
           name: 'Task 3',
           status: UserTaskStatusEnum.TODO,
-          createdAt: '2025-01-05T05:53:51.462Z', 
+          createdAt: '2025-01-05T05:53:51.462Z',
           categories: [],
           updatedAt: '2025-01-05T05:53:51.462Z',
           userId: '1',
-        }
+        },
       ];
 
       vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
-        JSON.stringify(mockTasks)
+        JSON.stringify(mockTasks),
       );
       localStorageRepository.set('user-tasks', mockTasks);
 
       const filter = {
-        startedAt: new Date('2025-01-03T00:00:00.000Z'),
-        endedAt: new Date('2025-01-04T23:59:59.999Z')
+        dateRange: {
+          startedAt: '2025-01-03T00:00:00.000Z',
+          endedAt: '2025-01-04T23:59:59.999Z',
+        },
       };
 
-      const tasks = await userTasksRepository.getUserTasks(filter);
+      const tasks = await userTasksRepository.findManyUserTasks(filter);
       expect(tasks).toEqual([mockTasks[0], mockTasks[1]]);
     });
   });
@@ -128,6 +130,9 @@ describe('UserTasksRepository', () => {
 
       await userTasksRepository.createUserTasks(mockTasks);
 
+      vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
+        JSON.stringify(mockTasks),
+      );
       const storedTasks = localStorageRepository.get('user-tasks');
       expect(storedTasks).toEqual(mockTasks);
     });
