@@ -26,7 +26,7 @@ describe('UserTasksRepository', () => {
     localStorage.clear();
   });
 
-  describe('getUserTasks', () => {
+  describe('findManyUserTasks', () => {
     it('should return empty array when no tasks exist', async () => {
       const tasks = await userTasksRepository.findManyUserTasks('');
       expect(tasks).toEqual([]);
