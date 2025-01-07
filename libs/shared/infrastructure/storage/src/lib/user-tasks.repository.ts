@@ -13,12 +13,15 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
     private readonly localStorageRepository: LocalStorageRepository,
   ) {}
 
-  findManyUserTasks(filter?: {
-    dateRange?: {
-      startedAt: string;
-      endedAt: string;
-    };
-  }): Promise<UserTask[]> {
+  findManyUserTasks(
+    userId: string,
+    filter?: {
+      dateRange?: {
+        startedAt: string;
+        endedAt: string;
+      };
+    },
+  ): Promise<UserTask[]> {
     const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
 
     if (filter?.dateRange?.startedAt && filter?.dateRange?.endedAt) {

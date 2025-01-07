@@ -28,7 +28,7 @@ describe('UserTasksRepository', () => {
 
   describe('getUserTasks', () => {
     it('should return empty array when no tasks exist', async () => {
-      const tasks = await userTasksRepository.findManyUserTasks();
+      const tasks = await userTasksRepository.findManyUserTasks('');
       expect(tasks).toEqual([]);
     });
 
@@ -59,7 +59,7 @@ describe('UserTasksRepository', () => {
       );
       localStorageRepository.set('user-tasks', mockTasks);
 
-      const tasks = await userTasksRepository.findManyUserTasks();
+      const tasks = await userTasksRepository.findManyUserTasks('');
       expect(tasks).toEqual(mockTasks);
     });
 
@@ -106,7 +106,7 @@ describe('UserTasksRepository', () => {
         },
       };
 
-      const tasks = await userTasksRepository.findManyUserTasks(filter);
+      const tasks = await userTasksRepository.findManyUserTasks('', filter);
       expect(tasks).toEqual([mockTasks[0], mockTasks[1]]);
     });
   });
