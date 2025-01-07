@@ -6,12 +6,19 @@ import { useUserTasks } from '@user-tasks/interface-adapter';
 import { PageContainer } from '../components/page-container';
 import { SelfCareTopicsToggleGroup } from '../components/self-care-topics-toggle-group';
 import { useUsers } from '@users/interface-adapter';
+import { useEffect } from 'react';
 // import { LoadingButton } from '../components/loading-button';
 
 export const TaskPage: React.FC = () => {
   const { selfCareTopics } = useSelfCareTopics();
   const { me, toggleSelfCareTopic } = useUsers();
-  const {  } = useUserTasks();
+  const { currentMonthUserTasks, getCurrentMonthUserTasks } = useUserTasks();
+
+  useEffect(() => {
+    if (currentMonthUserTasks.length === 0) {
+      getCurrentMonthUserTasks();
+    }
+  }, [currentMonthUserTasks]);
 
   return (
     <PageContainer>
