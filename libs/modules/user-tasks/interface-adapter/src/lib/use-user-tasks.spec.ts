@@ -1,108 +1,85 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+import { UserTasksServiceFactory } from '@user-tasks/application';
 import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
-import { describe, it, expect, vi } from 'vitest';
-
 import { useUserTasks } from './use-user-tasks';
-import { userTasksStates, userTaskActions } from './user-tasks-states';
-
-vi.mock('valtio', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('valtio')>();
-  return {
-    ...actual,
-    useSnapshot: vi.fn((state) => state),
-  };
-});
 
 describe('useUserTasks', () => {
+  const mockUserTasks: UserTask[] = [
+    {
+      id: '1',
+      userId: 'user1',
+      name: 'Task 1',
+      description: 'Description 1',
+      status: UserTaskStatusEnum.TODO,
+      categories: [],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+
   beforeEach(() => {
     vi.clearAllMocks();
-    userTasksStates.currentMonthUserTasks = [];
-    userTasksStates.historyUserTasks = [];
-    userTasksStates.selectedUserTaskId = null;
-    userTasksStates.isLoading = false;
   });
 
-  it('should return the current state and actions', () => {
-    const mockTasks: UserTask[] = [
-      {
-        id: '1',
-        userId: '1',
-        user: { id: '1', email: 'user@example.com' },
-        taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] },
-        status: UserTaskStatusEnum.TODO,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        id: '2',
-        userId: '2',
-        user: { id: '2', email: 'user2@example.com' },
-        taskId: '2',
-        task: { id: '2', name: 'Task 2', categories: ['test'] },
-        status: UserTaskStatusEnum.TODO,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+  it('should return initial state', () => {
+    const { result } = renderHook(() => useUserTasks());
 
-    userTasksStates.currentMonthUserTasks = mockTasks;
-    userTasksStates.historyUserTasks = mockTasks;
-    userTasksStates.selectedUserTaskId = '1';
-    userTasksStates.isLoading = true;
+    expect(result.current.currentMonthUserTasks).toEqual([]);
+    expect(result.current.historyUserTasks).toEqual([]);
+    expect(result.current.selectedUserTaskId).toBeNull();
+  });
 
-    const result = useUserTasks();
+  it('should get current month user tasks', async () => {
+    const mockGetInstance = vi.spyOn(UserTasksServiceFactory, 'getInstance');
+    mockGetInstance.mockReturnValue({
+      findManyUserTasks: vi.fn().mockResolvedValue(mockUserTasks),
+    } as any);
 
-    expect(result.currentMonthUserTasks).toEqual(mockTasks);
-    expect(result.historyUserTasks).toEqual(mockTasks);
-    expect(result.selectedUserTaskId).toBe('1');
-    expect(result.isLoading).toBe(true);
-    expect(result.setCurrentMonthUserTasks).toBe(
-      userTaskActions.setCurrentMonthUserTasks,
-    );
-    expect(result.setHistoryUserTasks).toBe(
-      userTaskActions.setHistoryUserTasks,
-    );
-    expect(result.selectUserTask).toBe(userTaskActions.selectUserTask);
-    expect(result.setIsLoading).toBe(userTaskActions.setIsLoading);
-    expect(result.setIsLoadingFinished).toBe(
-      userTaskActions.setIsLoadingFinished,
+    const { result } = renderHook(() => useUserTasks());
+
+    await act(async () => {
+      await result.current.getCurrentMonthUserTasks();
+    });
+
+    expect(result.current.currentMonthUserTasks).toEqual(mockUserTasks);
+  });
+
+  it('should update user task status', () => {
+    const { result } = renderHook(() => useUserTasks());
+
+    act(() => {
+      result.current.currentMonthUserTasks = mockUserTasks;
+      result.current.updateUserTaskStatus('1', UserTaskStatusEnum.COMPLETED);
+    });
+
+    expect(result.current.currentMonthUserTasks[0].status).toBe(
+      UserTaskStatusEnum.COMPLETED,
     );
   });
 
-  it('should update state when actions are called', () => {
-    const {
-      setCurrentMonthUserTasks,
-      setHistoryUserTasks,
-      selectUserTask,
-      setIsLoading,
-      setIsLoadingFinished,
-    } = useUserTasks();
-    const mockTasks: UserTask[] = [
-      {
-        id: '1',
-        userId: '1',
-        user: { id: '1', email: 'user@example.com' },
-        taskId: '1',
-        task: { id: '1', name: 'Task 1', categories: ['test'] },
-        status: UserTaskStatusEnum.TODO,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ];
+  it('should get history user tasks', async () => {
+    const mockGetInstance = vi.spyOn(UserTasksServiceFactory, 'getInstance');
+    mockGetInstance.mockReturnValue({
+      findManyUserTasks: vi.fn().mockResolvedValue(mockUserTasks),
+    } as any);
 
-    setCurrentMonthUserTasks(mockTasks);
-    expect(userTasksStates.currentMonthUserTasks).toEqual(mockTasks);
+    const { result } = renderHook(() => useUserTasks());
 
-    setHistoryUserTasks(mockTasks);
-    expect(userTasksStates.historyUserTasks).toEqual(mockTasks);
+    await act(async () => {
+      await result.current.getHistoryUserTasks(5, 2023);
+    });
 
-    selectUserTask('1');
-    expect(userTasksStates.selectedUserTaskId).toBe('1');
+    expect(result.current.historyUserTasks).toEqual(mockUserTasks);
+  });
 
-    setIsLoading();
-    expect(userTasksStates.isLoading).toBe(true);
+  it('should select user task', () => {
+    const { result } = renderHook(() => useUserTasks());
 
-    setIsLoadingFinished();
-    expect(userTasksStates.isLoading).toBe(false);
+    act(() => {
+      result.current.selectUserTask('1');
+    });
+
+    expect(result.current.selectedUserTaskId).toBe('1');
   });
 });
