@@ -1,32 +1,74 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { UserTasksService } from './user-tasks.service';
-import { UserTaskStatusEnum } from '@user-tasks/domain';
+import { UserTask, UserTaskStatusEnum, UserTasksRepository } from '@user-tasks/domain';
 
 describe('UserTasksService', () => {
-  let service: UserTasksService;
+  let userTasksService: UserTasksService;
+  let mockUserTasksRepository: UserTasksRepository;
 
   beforeEach(() => {
-    service = new UserTasksService();
+    mockUserTasksRepository = {
+      findManyUserTasks: vi.fn(),
+      createUserTasks: vi.fn(),
+      updateUserTaskStatus: vi.fn(),
+    };
+    userTasksService = new UserTasksService(mockUserTasksRepository);
   });
 
-  describe('getUserTasks', () => {
-    it('should return user tasks for given date range', async () => {
-      const startedAt = new Date('2025-01-04');
-      const endedAt = new Date('2025-01-31');
+  describe('findManyUserTasks', () => {
+    it('should call repository with date range when provided', async () => {
+      const dateRange = {
+        startedAt: new Date('2024-01-01'),
+        endedAt: new Date('2024-01-31')
+      };
 
-      const tasks = await service.getUserTasks({ startedAt, endedAt });
+      await userTasksService.findManyUserTasks({ dateRange });
 
-      expect(Array.isArray(tasks)).toBeTruthy();
+      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith({
+        dateRange: {
+          startedAt: dateRange.startedAt.toISOString(),
+          endedAt: dateRange.endedAt.toISOString()
+        }
+      });
+    });
+
+    it('should call repository without date range when not provided', async () => {
+      await userTasksService.findManyUserTasks();
+
+      expect(mockUserTasksRepository.findManyUserTasks).toHaveBeenCalledWith({
+        dateRange: undefined
+      });
+    });
+  });
+
+  describe('createManyUserTasks', () => {
+    it('should call repository with user tasks', async () => {
+      const userTasks: UserTask[] = [
+        {
+          id: '1',
+          userId: 'user1',
+          name: 'Task 1',
+          categories: [],
+          status: UserTaskStatusEnum.TODO,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        }
+      ];
+
+      await userTasksService.createManyUserTasks(userTasks);
+
+      expect(mockUserTasksRepository.createUserTasks).toHaveBeenCalledWith(userTasks);
     });
   });
 
   describe('updateUserTaskStatus', () => {
-    it('should update task status', async () => {
-      const taskId = '123';
+    it('should call repository with task id and status', async () => {
+      const taskId = '1';
       const status = UserTaskStatusEnum.COMPLETED;
 
-      const result = await service.updateUserTaskStatus(taskId, status);
+      await userTasksService.updateUserTaskStatus(taskId, status);
 
-      expect(result).toBeUndefined();
+      expect(mockUserTasksRepository.updateUserTaskStatus).toHaveBeenCalledWith(taskId, status);
     });
   });
 });
