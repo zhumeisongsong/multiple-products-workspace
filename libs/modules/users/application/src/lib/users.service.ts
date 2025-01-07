@@ -12,7 +12,7 @@ export class UsersService {
     return await this.usersRepository.createUser();
   }
 
-  async saveUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
+  async updateUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
     return await this.usersRepository.updateUserSelfCareTopics(topics);
   }
 }

@@ -1,47 +1,46 @@
 import {
-  LocalStorageRepository,
-  UserTasksRepositoryImpl,
-} from '@shared/infrastructure-storage';
-import { UsersService } from '@users/application';
-import {
   UserTask,
   UserTasksRepository,
   UserTaskStatusEnum,
 } from '@user-tasks/domain';
 
 export class UserTasksService {
-  private userTasksRepository: UserTasksRepository;
-  private usersService: UsersService;
-  constructor() {
-    this.userTasksRepository = new UserTasksRepositoryImpl(
-      new LocalStorageRepository(),
-    );
-    this.usersService = new UsersService();
+  constructor(private readonly userTasksRepository: UserTasksRepository) {}
+
+  async findManyUserTasks(
+    userId: string,
+    filter?: {
+      dateRange: {
+        startedAt: Date;
+        endedAt: Date;
+      };
+    },
+  ): Promise<UserTask[]> {
+    const dateRange =
+      filter?.dateRange?.startedAt && filter?.dateRange?.endedAt
+        ? {
+            startedAt: filter.dateRange.startedAt.toISOString(),
+            endedAt: filter.dateRange.endedAt.toISOString(),
+          }
+        : undefined;
+
+    return await this.userTasksRepository.findManyUserTasks(userId, {
+      dateRange: dateRange,
+    });
   }
 
-  async getUserTasks(filter?: {
-    startedAt: Date;
-    endedAt: Date;
-  }): Promise<UserTask[]> {
-    return await this.userTasksRepository.getUserTasks(filter);
+  async createManyUserTasks(userTasks: UserTask[]) {
+    return await this.userTasksRepository.createUserTasks(userTasks);
   }
-
-  // async generateUserTasksOfCurrentMonth() {
-  //   const currentMonth = new Date().getMonth();
-  //   const currentYear = new Date().getFullYear();
-
-  //   const startDate = new Date();
-  //   const endDate = new Date(currentYear, currentMonth + 1, 0);
-
-  //   const userSelfCareTopics = await this.usersService.getUserSelfCareTopics();
-
-  //   // call to openai
-  // }
 
   async updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
     return await this.userTasksRepository.updateUserTaskStatus(
       userTaskId,
       status,
     );
+  }
+
+  async generateManyUserTasks(userTasks: UserTask[]) {
+    // call ai service
   }
 }

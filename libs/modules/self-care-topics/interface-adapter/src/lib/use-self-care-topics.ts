@@ -1,9 +1,11 @@
 import { useSnapshot } from 'valtio';
 
-import { selfCareTopicsStates, selfCareTopicsActions } from './self-care-topics-states';
+import {
+  selfCareTopicsStates,
+  selfCareTopicsActions,
+} from './self-care-topics-states';
 
-// hooks
-export function useSelfCareTopics() {
+export const useSelfCareTopics = () => {
   const snapshot = useSnapshot(selfCareTopicsStates);
 
   return {
@@ -11,4 +13,4 @@ export function useSelfCareTopics() {
     isLoading: snapshot.isLoading,
     ...selfCareTopicsActions,
   };
-}
+};

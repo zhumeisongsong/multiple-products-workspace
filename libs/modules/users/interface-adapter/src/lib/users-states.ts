@@ -1,7 +1,7 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
 import {
   getUserByIdUseCase,
-  saveUserSelfCareTopicsUseCase,
+  updateUserSelfCareTopicsUseCase,
   UsersServiceFactory,
 } from '@users/application';
 import { User } from '@users/domain';
@@ -16,7 +16,7 @@ export const usersStates = proxy<UsersStates>({
 });
 
 export const usersActions = {
-  setUser: async () => {
+  getMe: async () => {
     usersStates.me = await getUserByIdUseCase(
       '',
       UsersServiceFactory.getInstance(),
@@ -40,7 +40,7 @@ export const usersActions = {
       usersStates.me.preferences.selfCareTopics.push(selfCareTopic);
     }
 
-    await saveUserSelfCareTopicsUseCase(
+    await updateUserSelfCareTopicsUseCase(
       usersStates.me.preferences.selfCareTopics,
       UsersServiceFactory.getInstance(),
     );

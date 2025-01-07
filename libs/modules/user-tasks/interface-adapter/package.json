@@ -2,6 +2,7 @@
   "name": "@user-tasks/interface-adapter",
   "version": "0.0.1",
   "dependencies": {
+    "@user-tasks/application": "workspace:*",
     "@user-tasks/domain": "workspace:*",
     "valtio": "^2.1.2"
   },
