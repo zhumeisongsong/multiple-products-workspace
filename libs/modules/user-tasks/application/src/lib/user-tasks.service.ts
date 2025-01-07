@@ -34,9 +34,13 @@ export class UserTasksService {
     });
   }
 
-  async createManyUserTasksBasedOnUserSelfCareTopics(
+  async createManyUserTasks(userTasks: UserTask[]): Promise<void> {
+    return await this.userTasksRepository.createUserTasks(userTasks);
+  }
+
+  async generatedManyUserTasksBasedOnUserSelfCareTopics(
     userSelfCareTopics: SelfCareTopic[],
-  ): Promise<void> {
+  ): Promise<UserTask[]> {
     // task count is  the number of days from today to the end of the month
     const today = new Date();
     const lastDayOfMonth = new Date(
@@ -54,8 +58,7 @@ export class UserTasksService {
     console.log(result);
 
     // format the result to the user task format
-
-    return this.userTasksRepository.createUserTasks([]);
+    return [];
   }
 
   async updateUserTaskStatus(
