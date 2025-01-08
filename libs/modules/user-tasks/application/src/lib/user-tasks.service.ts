@@ -1,10 +1,10 @@
+import { AIService } from '@ai/application';
 import { UserPreferences } from '@users/domain';
 import {
   UserTask,
   UserTasksRepository,
   UserTaskStatusEnum,
 } from '@user-tasks/domain';
-import { AIService } from '@ai/application';
 
 export class UserTasksService {
   constructor(
@@ -54,8 +54,6 @@ export class UserTasksService {
       userPreferences?.selfCareTopics || [],
       taskCount,
     );
-
-    console.log(result);
 
     // format the result to the user task format
     return [];
