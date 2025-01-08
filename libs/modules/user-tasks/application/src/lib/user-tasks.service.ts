@@ -38,7 +38,7 @@ export class UserTasksService {
     return await this.userTasksRepository.createUserTasks(userTasks);
   }
 
-  async generatedManyUserTasksBasedOnUserPreferences(
+  async generatedManyUserTasks(
     userPreferences: UserPreferences,
   ): Promise<UserTask[]> {
     // task count is  the number of days from today to the end of the month
@@ -51,7 +51,7 @@ export class UserTasksService {
     const taskCount = lastDayOfMonth.getDate() - today.getDate() + 1;
 
     const result = await this.aiService.generateUserTasks(
-      userPreferences.selfCareTopics,
+      userPreferences?.selfCareTopics || [],
       taskCount,
     );
 
