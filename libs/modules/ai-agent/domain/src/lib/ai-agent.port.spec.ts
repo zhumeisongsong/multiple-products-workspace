@@ -1,23 +1,25 @@
 import { SelfCareTopic } from '@self-care-topics/domain';
+import { Task } from '@tasks/domain';
 
 import { AIAgent, TaskGenerationContext } from './ai-agent.port';
 
 describe('AIAgent', () => {
+  const mockTasks: Task[] = [
+    {
+      id: '1',
+      name: 'Task 1',
+      description: 'Description 1',
+      categories: [{ id: '1', name: 'Exercise' }],
+    },
+    {
+      id: '2',
+      name: 'Task 2',
+      description: 'Description 2',
+      categories: [{ id: '2', name: 'Meditation' }],
+    },
+  ];
   const mockAiAgent: AIAgent = {
-    generateSelfCareTasks: vi.fn().mockResolvedValue([
-      {
-        id: '1',
-        title: 'Task 1',
-        description: 'Description 1',
-        topic: { id: '1', name: 'Exercise' },
-      },
-      {
-        id: '2',
-        title: 'Task 2',
-        description: 'Description 2',
-        topic: { id: '2', name: 'Meditation' },
-      },
-    ]),
+    generateSelfCareTasks: vi.fn().mockResolvedValue(mockTasks),
   };
 
   describe('generateSelfCareTasks', () => {
@@ -39,7 +41,7 @@ describe('AIAgent', () => {
         expect(task).toHaveProperty('id');
         expect(task).toHaveProperty('title');
         expect(task).toHaveProperty('description');
-        expect(task).toHaveProperty('topic');
+        expect(task).toHaveProperty('categories');
       });
     });
   });
