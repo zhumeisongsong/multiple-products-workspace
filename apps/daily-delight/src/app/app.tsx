@@ -16,8 +16,6 @@ export const App: React.FC = () => {
     }
   }, [me, getMe]);
 
-  console.log(me);
-
   return (
     <Routes>
       <Route index element={<TaskPage />} />
