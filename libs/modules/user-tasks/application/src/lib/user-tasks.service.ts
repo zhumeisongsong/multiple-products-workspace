@@ -1,4 +1,4 @@
-import { SelfCareTopic } from '@self-care-topics/domain';
+import { UserPreferences } from '@users/domain';
 import {
   UserTask,
   UserTasksRepository,
@@ -38,8 +38,8 @@ export class UserTasksService {
     return await this.userTasksRepository.createUserTasks(userTasks);
   }
 
-  async generatedManyUserTasksBasedOnUserSelfCareTopics(
-    userSelfCareTopics: SelfCareTopic[],
+  async generatedManyUserTasksBasedOnUserPreferences(
+    userPreferences: UserPreferences,
   ): Promise<UserTask[]> {
     // task count is  the number of days from today to the end of the month
     const today = new Date();
@@ -51,7 +51,7 @@ export class UserTasksService {
     const taskCount = lastDayOfMonth.getDate() - today.getDate() + 1;
 
     const result = await this.aiService.generateUserTasks(
-      userSelfCareTopics,
+      userPreferences.selfCareTopics,
       taskCount,
     );
 
