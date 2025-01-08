@@ -9,5 +9,10 @@ vi.mock('ai', () => ({
 
 describe('OpenAIClient', () => {
   describe('generateTasks', () => {
+    it('should generate tasks', async () => {
+      const openaiClient = new OpenAIClient();
+      const result = await openaiClient.generateTasks('Generate tasks for today');
+      expect(result).toBeDefined();
+    });
   });
 });

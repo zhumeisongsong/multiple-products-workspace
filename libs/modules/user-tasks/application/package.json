@@ -2,6 +2,8 @@
   "name": "@user-tasks/application",
   "version": "0.0.1",
   "dependencies": {
+    "@ai/application": "workspace:*",
+    "@users/domain": "workspace:*",
     "@user-tasks/domain": "workspace:*"
   },
   "main": "./index.js",
