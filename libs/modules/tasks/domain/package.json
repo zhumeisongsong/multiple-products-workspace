@@ -2,6 +2,7 @@
   "name": "@tasks/domain",
   "version": "0.0.1",
   "dependencies": {
+    "@self-care-topics/domain": "workspace:*"
   },
   "main": "./index.js",
   "module": "./index.mjs",
