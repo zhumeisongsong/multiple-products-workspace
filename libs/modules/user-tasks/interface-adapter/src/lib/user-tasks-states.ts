@@ -37,10 +37,10 @@ export const userTaskActions = {
         UserTasksServiceFactory.getInstance(),
       );
 
-      return (userTasksStates.currentMonthUserTasks = createdUserTasks);
+      userTasksStates.currentMonthUserTasks = createdUserTasks;
     }
 
-    return (userTasksStates.currentMonthUserTasks = userTasks);
+    userTasksStates.currentMonthUserTasks = userTasks;
   },
   updateUserTaskStatus: async (
     userTaskId: string,
@@ -52,10 +52,10 @@ export const userTaskActions = {
       UserTasksServiceFactory.getInstance(),
     );
 
-    return (userTasksStates.currentMonthUserTasks =
+    userTasksStates.currentMonthUserTasks =
       userTasksStates.currentMonthUserTasks.map((userTask) =>
         userTask.id === userTaskId ? { ...userTask, status } : userTask,
-      ));
+      );
   },
   getHistoryUserTasks: async (month: number, year: number) => {
     const userTasks = await getMonthlyUserTasksUseCase(
@@ -65,12 +65,12 @@ export const userTaskActions = {
       UserTasksServiceFactory.getInstance(),
     );
 
-    return (userTasksStates.historyUserTasks = userTasks);
+    userTasksStates.historyUserTasks = userTasks;
   },
   selectUserTask: (userTaskId: string) => {
-    return (userTasksStates.selectedUserTaskId = userTaskId);
+    userTasksStates.selectedUserTaskId = userTaskId;
   },
   unselectUserTask: () => {
-    return (userTasksStates.selectedUserTaskId = null);
+    userTasksStates.selectedUserTaskId = null;
   },
 };
