@@ -8,7 +8,7 @@ export const createCurrentMonthUserTasksUseCase = async (
   userTasksService: UserTasksService,
 ): Promise<UserTask[]> => {
   const userTasks: UserTask[] =
-    await userTasksService.generatedManyUserTasks(
+    await userTasksService.generateManyUserTasks(
       userPreferences
     );
     
