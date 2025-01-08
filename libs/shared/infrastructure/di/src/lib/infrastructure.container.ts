@@ -1,8 +1,10 @@
+import { OpenAIClient } from '@shared/infrastructure-open-ai';
 import {
   LocalStorageRepository,
   UsersRepositoryImpl,
   UserTasksRepositoryImpl,
 } from '@shared/infrastructure-storage';
+
 import { UserTasksRepository } from '@user-tasks/domain';
 import { UsersRepository } from '@users/domain';
 
@@ -10,6 +12,8 @@ export class InfrastructureContainer {
   private static localStorageRepository: LocalStorageRepository;
   private static usersRepository: UsersRepository;
   private static userTasksRepository: UserTasksRepository;
+  private static aiClient: OpenAIClient;
+
   static getLocalStorageRepository(): LocalStorageRepository {
     if (!this.localStorageRepository) {
       this.localStorageRepository = new LocalStorageRepository();
@@ -33,5 +37,12 @@ export class InfrastructureContainer {
       );
     }
     return this.userTasksRepository;
+  }
+
+  static getAIClient(): OpenAIClient {
+    if (!this.aiClient) {
+      this.aiClient = new OpenAIClient();
+    }
+    return this.aiClient;
   }
 }
