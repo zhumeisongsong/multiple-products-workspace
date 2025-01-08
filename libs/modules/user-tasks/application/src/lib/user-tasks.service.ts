@@ -38,7 +38,7 @@ export class UserTasksService {
     return await this.userTasksRepository.createUserTasks(userTasks);
   }
 
-  async generatedManyUserTasks(
+  async generateManyUserTasks(
     userPreferences: UserPreferences,
   ): Promise<UserTask[]> {
     // task count is  the number of days from today to the end of the month
