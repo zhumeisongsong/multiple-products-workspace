@@ -39,7 +39,7 @@ describe('AIAgent', () => {
       expect(tasks.length).toBe(context.count);
       tasks.forEach((task) => {
         expect(task).toHaveProperty('id');
-        expect(task).toHaveProperty('title');
+        expect(task).toHaveProperty('name');
         expect(task).toHaveProperty('description');
         expect(task).toHaveProperty('categories');
       });
