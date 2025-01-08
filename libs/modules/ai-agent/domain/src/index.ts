@@ -1,1 +1,1 @@
-export * from './lib/ai-agent-domain';
+export * from './lib/ai-agent.port';

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ai-agent/domain": ["libs/modules/ai-agent/src/index.ts"],
+      "@ai-agent/domain": ["libs/modules/ai-agent/domain/src/index.ts"],
       "@self-care-topics/domain": [
         "libs/modules/self-care-topics/domain/src/index.ts"
       ],

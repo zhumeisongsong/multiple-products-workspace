@@ -1,7 +1,10 @@
 {
   "name": "@ai-agent/domain",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@self-care-topics/domain": "workspace:*",
+    "@tasks/domain": "workspace:*"
+  },
   "type": "module",
   "main": "./index.js",
   "typings": "./index.d.ts",
