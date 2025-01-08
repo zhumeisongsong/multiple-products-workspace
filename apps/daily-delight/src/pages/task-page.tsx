@@ -16,9 +16,11 @@ export const TaskPage: React.FC = () => {
 
   useEffect(() => {
     if (currentMonthUserTasks.length === 0) {
-      getCurrentMonthUserTasks();
+      getCurrentMonthUserTasks({
+        selfCareTopics: [...(me?.preferences.selfCareTopics || [])],
+      });
     }
-  }, [currentMonthUserTasks]);
+  }, [me, currentMonthUserTasks]);
 
   return (
     <PageContainer>
