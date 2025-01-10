@@ -74,17 +74,14 @@ Thanks https://pustelto.com/blog/adding-shadcnui-to-nx-monorepo/
 
 Defines core business logic and entities. Provides business rule validation and strategies.
 
-| Layer                  | Description                                                                                                                                                                               |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| domain                 |包含业务实体和业务规则                                                                                                                                                                                           |
-| domain:entity          |                                                                                                                                                                                           |
-| domain:repository      |                                                                                                                                                                                           |
-| application            | 包含用例和接口。对业务用例的抽象，强调 “做什么”。编排领域逻辑、跨模块协调，并为用户界面或外部系统提供用例操作。接口（ports）通常属于应用层（application layer），定义了应用层需要的外部服务契约。                                                                                           |
-| application: service   | 实现用例的具体业务逻辑，并且 协调 领域层的服务、外部服务和基础设施                                                                                                                        |
-| application: use-case  | 定义用例的操作接口和业务规则。来源于需求，描述"做什么"，不关心"怎么做。是系统对外提供的核心功能的一部分。                                                                                 |
-| interface-adapter      | Acts as a bridge between application logic and user interface.<br/> Provides state management.<br/> Should not implement core business logic.                                             |
-| infrastructure         | 提供实现。可以轻易替换。对数据访问的抽象，强调 “如何做”<br/> Interacts with backend and third-party APIs.<br/> Abstracts external API logic.<br/> Implements Repository and other external dependency interfaces. |
-| infrastructure:storage | 数据持久化和检索操作, 将来要替换为对graphql API的访问                                                                                                                                     |
+| Layer                  | Description                                                                                                                                                                                                                                                       |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| domain                 | Contains business entities and business rules.                                                                                                                                                                                                                    |
+| application: service   | Implements concrete business logic for use cases and coordinates domain services, external services, and infrastructure.                                                                                                                                          |
+| application: use-case  | Derived from requirements, describes **"what to do"** without concerning **"how to do it"**. <br/> Defines operation interfaces and business rules for use cases.<br/> Forms part of the system's core functionality.                                             |
+| interface-adapter      | Acts as a bridge between application logic and user interface.<br/> Provides state management.<br/> Should not implement core business logic.                                                                                                                     |
+| infrastructure         | Provides implementation, emphasizing **"how to do it"**. Can be easily replaced. Abstracts data access.<br/> Interacts with backend and third-party APIs.<br/> Abstracts external API logic.<br/> Implements Repository and other external dependency interfaces. |
+| infrastructure:storage | Data persistence and retrieval operations, to be replaced by access to the GraphQL API.                                                                                                                                                                           |
 
 ## Useful links
 
