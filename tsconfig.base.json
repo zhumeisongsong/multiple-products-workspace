@@ -24,9 +24,6 @@
       "@shared/infrastructure-di": [
         "libs/shared/infrastructure/di/src/index.ts"
       ],
-      "@shared/infrastructure-open-ai": [
-        "libs/shared/infrastructure/open-ai/src/index.ts"
-      ],
       "@shared/infrastructure-storage": [
         "libs/shared/infrastructure/storage/src/index.ts"
       ],
