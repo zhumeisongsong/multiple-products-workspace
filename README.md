@@ -72,12 +72,16 @@ Thanks https://pustelto.com/blog/adding-shadcnui-to-nx-monorepo/
 
 ## Workspace Structure
 
-| Layer                 | Description                                                                                                                                          |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| domain                | Defines core business logic and entities. Provides business rule validation and strategies.                                                          |
-| application           | Calls Service and Repository interfaces to orchestrate business logic.<br/> Dependency injection of concrete Service and Repository implementations. |
-| interface-adapter     | Acts as a bridge between application logic and user interface.<br/> Provides state management.<br/> Should not implement core business logic.        |
-| shared/infrastructure | Interacts with backend and third-party APIs.<br/> Abstracts external API logic.<br/> Implements Repository and other external dependency interfaces. |
+Defines core business logic and entities. Provides business rule validation and strategies.
+
+| Layer                  | Description                                                                                                                                                                                                                                                       |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| domain                 | Contains business entities and business rules.                                                                                                                                                                                                                    |
+| application: service   | Implements concrete business logic for use cases and coordinates domain services, external services, and infrastructure.                                                                                                                                          |
+| application: use-case  | Derived from requirements, describes **"what to do"** without concerning **"how to do it"**. <br/> Defines operation interfaces and business rules for use cases.<br/> Forms part of the system's core functionality.                                             |
+| interface-adapter      | Acts as a bridge between application logic and user interface.<br/> Provides state management.<br/> Should not implement core business logic.                                                                                                                     |
+| infrastructure         | Provides implementation, emphasizing **"how to do it"**. Can be easily replaced. Abstracts data access.<br/> Interacts with backend and third-party APIs.<br/> Abstracts external API logic.<br/> Implements Repository and other external dependency interfaces. |
+| infrastructure:storage | Data persistence and retrieval operations, to be replaced by access to the GraphQL API.                                                                                                                                                                           |
 
 ## Useful links
 
