@@ -3,6 +3,15 @@ import { Task, TasksRepository } from '@tasks/domain';
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
+  private shuffle<T>(array: T[]): T[] {
+    const result = [...array];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+
   async findSomeTasksRandomly(
     count: number,
     conditions: {
@@ -17,6 +26,6 @@ export class TasksService {
       );
     });
 
-    return filteredTasks.sort(() => Math.random() - 0.5).slice(0, count);
+    return this.shuffle(filteredTasks).slice(0, count);
   }
 }
