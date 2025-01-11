@@ -1,0 +1,12 @@
+{
+  "name": "@tasks/application",
+  "version": "0.0.1",
+  "dependencies": {
+    "@self-care-topics/domain": "workspace:*",
+    "@tasks/domain": "workspace:*"
+  },
+  "type": "module",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
+  "private": true
+}
