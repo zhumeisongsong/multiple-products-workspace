@@ -286,10 +286,9 @@ export const tasks = [
   },
   {
     id: '38',
-    name: 'Watch a Funny Video',
-    description:
-      'Take a short break to watch something funny that makes you laugh.',
-    categories: [{ id: '6', name: 'Mindfulness' }],
+    name: 'Do not watch phone when have lunch',
+    description: '',
+    categories: [{ id: '3', name: 'Healthy Eating' }],
   },
   {
     id: '39',
@@ -551,157 +550,183 @@ export const tasks = [
   {
     id: '75',
     name: 'Create a Mini Vision Board',
-    description: 'Spend 5-10 minutes creating a small vision board with images that inspire you.',
+    description:
+      'Spend 5-10 minutes creating a small vision board with images that inspire you.',
     categories: [{ id: '4', name: 'Reading' }],
   },
   {
     id: '76',
     name: 'Make a Comforting Hot Drink',
-    description: 'Prepare a comforting hot beverage like herbal tea or hot chocolate and relax with it.',
+    description:
+      'Prepare a comforting hot beverage like herbal tea or hot chocolate and relax with it.',
     categories: [{ id: '3', name: 'Healthy Eating' }],
   },
   {
     id: '77',
     name: 'Mindful Walking for 10 Minutes',
-    description: 'Go for a short walk while paying attention to the sights, sounds, and sensations around you.',
+    description:
+      'Go for a short walk while paying attention to the sights, sounds, and sensations around you.',
     categories: [{ id: '2', name: 'Exercise' }],
   },
   {
     id: '78',
     name: 'Perform a Hand Massage',
-    description: 'Use lotion or oil to massage your hands and wrists, relieving tension and improving circulation.',
+    description:
+      'Use lotion or oil to massage your hands and wrists, relieving tension and improving circulation.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '79',
     name: 'Spend Time With a Pet',
-    description: 'If you have a pet, spend 5-10 minutes playing with or cuddling them to boost your mood.',
+    description:
+      'If you have a pet, spend 5-10 minutes playing with or cuddling them to boost your mood.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '80',
     name: 'Try a DIY Face Mask',
-    description: 'Mix up a simple DIY face mask using ingredients like honey or yogurt and enjoy a few minutes of pampering.',
+    description:
+      'Mix up a simple DIY face mask using ingredients like honey or yogurt and enjoy a few minutes of pampering.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '81',
     name: 'Practice Grounding Techniques',
-    description: 'Use a grounding technique like the 5-4-3-2-1 method to connect with the present moment.',
+    description:
+      'Use a grounding technique like the 5-4-3-2-1 method to connect with the present moment.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '82',
     name: 'Listen to Music That Calms You',
-    description: 'Put on music that helps you feel calm and centered, and let yourself unwind.',
+    description:
+      'Put on music that helps you feel calm and centered, and let yourself unwind.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '83',
     name: 'Make a To-Do List for the Day',
-    description: 'Write a simple to-do list for the day to help organize your thoughts and reduce anxiety.',
+    description:
+      'Write a simple to-do list for the day to help organize your thoughts and reduce anxiety.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '84',
     name: 'Try a New Form of Exercise',
-    description: 'Try out a new exercise, like a quick YouTube workout, to bring energy and joy to your routine.',
+    description:
+      'Try out a new exercise, like a quick YouTube workout, to bring energy and joy to your routine.',
     categories: [{ id: '2', name: 'Exercise' }],
   },
   {
     id: '85',
     name: 'Check-in with a Friend',
-    description: 'Take a moment to check in with a friend or loved one, offering support or just sharing a laugh.',
+    description:
+      'Take a moment to check in with a friend or loved one, offering support or just sharing a laugh.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '86',
     name: 'Spend Time in Nature',
-    description: 'Go outside and connect with nature, whether it’s a park, garden, or just sitting by a window.',
+    description:
+      'Go outside and connect with nature, whether it’s a park, garden, or just sitting by a window.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '87',
     name: 'Write Down Your Intentions for the Day',
-    description: 'Write down your intentions or goals for the day to help you focus on what matters most.',
+    description:
+      'Write down your intentions or goals for the day to help you focus on what matters most.',
     categories: [{ id: '4', name: 'Reading' }],
   },
   {
     id: '88',
     name: 'Enjoy a Piece of Dark Chocolate',
-    description: 'Savor a small piece of dark chocolate for a quick mood lift and a treat for your senses.',
+    description:
+      'Savor a small piece of dark chocolate for a quick mood lift and a treat for your senses.',
     categories: [{ id: '3', name: 'Healthy Eating' }],
   },
   {
     id: '89',
     name: 'Make a List of Your Strengths',
-    description: 'Write down your personal strengths or qualities you admire in yourself, to boost your confidence.',
+    description:
+      'Write down your personal strengths or qualities you admire in yourself, to boost your confidence.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '90',
     name: 'Try Aromatherapy Breathing',
-    description: 'Add a few drops of essential oil to a diffuser and take deep breaths while inhaling the calming aroma.',
+    description:
+      'Add a few drops of essential oil to a diffuser and take deep breaths while inhaling the calming aroma.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '91',
     name: 'Do a Breathing Exercise for Anxiety',
-    description: 'Try a 4-7-8 breathing technique to reduce stress and calm your mind in moments of anxiety.',
+    description:
+      'Try a 4-7-8 breathing technique to reduce stress and calm your mind in moments of anxiety.',
     categories: [{ id: '1', name: 'Meditation' }],
   },
   {
     id: '92',
     name: 'Sketch or Doodle for Fun',
-    description: 'Grab a piece of paper and a pen, and simply doodle or sketch whatever comes to mind.',
+    description:
+      'Grab a piece of paper and a pen, and simply doodle or sketch whatever comes to mind.',
     categories: [{ id: '4', name: 'Reading' }],
   },
   {
     id: '93',
     name: 'Start a Small Gardening Project',
-    description: 'Plant a small herb or succulent in a pot and spend a few minutes caring for it.',
+    description:
+      'Plant a small herb or succulent in a pot and spend a few minutes caring for it.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '94',
     name: 'Use Guided Meditation for Relaxation',
-    description: 'Listen to a short guided meditation focused on relaxation to clear your mind.',
+    description:
+      'Listen to a short guided meditation focused on relaxation to clear your mind.',
     categories: [{ id: '1', name: 'Meditation' }],
   },
   {
     id: '95',
     name: 'Set a Timer for a Focused Task',
-    description: 'Set a timer for 10-15 minutes and focus on one task to boost your productivity.',
+    description:
+      'Set a timer for 10-15 minutes and focus on one task to boost your productivity.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '96',
     name: 'Look Through Old Photos',
-    description: 'Look at old photos to reminisce about happy memories and remind yourself of the good times.',
+    description:
+      'Look at old photos to reminisce about happy memories and remind yourself of the good times.',
     categories: [{ id: '4', name: 'Reading' }],
   },
   {
     id: '97',
     name: 'Take a Short Break to Laugh',
-    description: 'Find a funny meme or video and take a few minutes to laugh, releasing stress and tension.',
+    description:
+      'Find a funny meme or video and take a few minutes to laugh, releasing stress and tension.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '98',
     name: 'Create a Self-Care Playlist',
-    description: 'Make a playlist of your favorite songs that make you feel relaxed and energized.',
+    description:
+      'Make a playlist of your favorite songs that make you feel relaxed and energized.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
   {
     id: '99',
     name: 'Try Positive Visualization',
-    description: 'Visualize a positive outcome for something you’re working on or for the day ahead.',
+    description:
+      'Visualize a positive outcome for something you’re working on or for the day ahead.',
     categories: [{ id: '1', name: 'Meditation' }],
   },
   {
     id: '100',
     name: 'Call Someone You Haven’t Spoken to in a While',
-    description: 'Take a moment to reconnect with someone you haven’t spoken to in a while, whether for support or a catch-up.',
+    description:
+      'Take a moment to reconnect with someone you haven’t spoken to in a while, whether for support or a catch-up.',
     categories: [{ id: '6', name: 'Mindfulness' }],
   },
 ];
