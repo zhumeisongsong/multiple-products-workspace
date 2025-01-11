@@ -40,17 +40,17 @@ export const usersActions = {
     usersStates.userPreferences.selfCareTopics = me.preferences.selfCareTopics;
   },
   toggleSelfCareTopic: async (selfCareTopic: SelfCareTopic) => {
-    if (
-      usersStates.userPreferences.selfCareTopics.some(
-        (topic) => topic.id === selfCareTopic.id,
-      )
-    ) {
-      usersStates.userPreferences.selfCareTopics =
-        usersStates.userPreferences.selfCareTopics.filter(
-          (topic) => topic.id !== selfCareTopic.id,
-        );
+    const currentTopics = [...usersStates.userPreferences.selfCareTopics];
+
+    if (currentTopics.some((topic) => topic.id === selfCareTopic.id)) {
+      usersStates.userPreferences.selfCareTopics = currentTopics.filter(
+        (topic) => topic.id !== selfCareTopic.id,
+      );
     } else {
-      usersStates.userPreferences.selfCareTopics.push(selfCareTopic);
+      usersStates.userPreferences.selfCareTopics = [
+        ...currentTopics,
+        selfCareTopic,
+      ];
     }
 
     await updateUserSelfCareTopicsUseCase(
