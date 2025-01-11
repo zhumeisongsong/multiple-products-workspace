@@ -287,7 +287,8 @@ export const tasks = [
   {
     id: '38',
     name: 'Do not watch phone when have lunch',
-    description: '',
+    description:
+      'Practice mindful eating by avoiding phone distractions during lunch time.',
     categories: [{ id: '3', name: 'Healthy Eating' }],
   },
   {
