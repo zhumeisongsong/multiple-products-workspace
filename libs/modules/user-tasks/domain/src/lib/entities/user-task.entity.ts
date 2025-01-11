@@ -1,10 +1,12 @@
+import { SelfCareTopic } from '@self-care-topics/domain';
 import { User } from '@users/domain';
+
 import { UserTaskStatusEnum } from '../value-objects/user-task-status.enum';
 
 export interface UserTask {
   id: string;
   name: string;
-  categories: string[];
+  categories: SelfCareTopic[];
   status: UserTaskStatusEnum;
   createdAt: string;
   updatedAt?: string;
@@ -16,7 +18,7 @@ export interface UserTask {
 export const createUserTask = (userTask: {
   name: string;
   description?: string;
-  categories: string[];
+  categories: SelfCareTopic[];
   createdAt: Date;
   userId: string;
 }): UserTask => {
@@ -26,7 +28,7 @@ export const createUserTask = (userTask: {
     description: userTask.description,
     categories: userTask.categories,
     status: UserTaskStatusEnum.TODO,
-    createdAt: userTask.createdAt+ '',
+    createdAt: userTask.createdAt + '',
     userId: userTask.userId,
   };
 };
