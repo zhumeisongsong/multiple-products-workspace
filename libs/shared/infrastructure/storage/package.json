@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@self-care-topics/domain": "workspace:*",
+    "@tasks/domain": "workspace:*",
     "@users/domain": "workspace:*",
     "@user-tasks/domain": "workspace:*"
   },

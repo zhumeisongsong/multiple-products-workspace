@@ -118,7 +118,7 @@ describe('UserTasksRepository', () => {
           id: '1',
           name: 'Task 1',
           status: UserTaskStatusEnum.TODO,
-          createdAt: new Date() + '',
+          createdAt: new Date().toISOString(),
           categories: [],
           userId: '1',
         },
