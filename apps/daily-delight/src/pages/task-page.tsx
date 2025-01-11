@@ -11,21 +11,26 @@ import { useEffect } from 'react';
 
 export const TaskPage: React.FC = () => {
   const { selfCareTopics } = useSelfCareTopics();
-  const { me, toggleSelfCareTopic } = useUsers();
+  const { userId, userPreferences, toggleSelfCareTopic } = useUsers();
   const { currentMonthUserTasks, getCurrentMonthUserTasks } = useUserTasks();
 
   useEffect(() => {
-    if (currentMonthUserTasks.length === 0) {
-      getCurrentMonthUserTasks();
+    if (userId && userPreferences && currentMonthUserTasks.length === 0) {
+      getCurrentMonthUserTasks(userId, {
+        ...userPreferences,
+        selfCareTopics: [...selfCareTopics],
+      });
     }
-  }, [currentMonthUserTasks]);
+  }, [userId, userPreferences, currentMonthUserTasks]);
+
+  console.log(currentMonthUserTasks);
 
   return (
     <PageContainer>
-      {me?.preferences.selfCareTopics && (
+      {userPreferences.selfCareTopics && (
         <SelfCareTopicsToggleGroup
           allTopics={[...selfCareTopics]}
-          userTopics={[...me.preferences.selfCareTopics]}
+          userTopics={[...userPreferences.selfCareTopics]}
           toggleSelfCareTopic={toggleSelfCareTopic}
         />
       )}

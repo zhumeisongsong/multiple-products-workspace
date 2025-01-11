@@ -2,7 +2,9 @@
   "name": "@user-tasks/application",
   "version": "0.0.1",
   "dependencies": {
-    "@user-tasks/domain": "workspace:*"
+    "@user-tasks/domain": "workspace:*",
+    "@users/domain": "workspace:*",
+    "@tasks/application": "workspace:*"
   },
   "main": "./index.js",
   "module": "./index.mjs",
