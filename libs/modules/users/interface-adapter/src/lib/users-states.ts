@@ -4,44 +4,57 @@ import {
   updateUserSelfCareTopicsUseCase,
   UsersServiceFactory,
 } from '@users/application';
-import { User } from '@users/domain';
+import { UserPreferences } from '@users/domain';
 import { proxy } from 'valtio';
 
 export type UsersStates = {
-  me: User | null;
+  userId: string | null;
+  email: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  userPreferences: UserPreferences;
 };
 
 export const usersStates = proxy<UsersStates>({
-  me: null,
+  userId: null,
+  email: null,
+  firstName: null,
+  lastName: null,
+  userPreferences: {
+    selfCareTopics: [],
+  },
 });
 
 export const usersActions = {
   getMe: async () => {
-    usersStates.me = await getUserByIdUseCase(
-      '',
-      UsersServiceFactory.getInstance(),
-    );
-  },
-  toggleSelfCareTopic: async (selfCareTopic: SelfCareTopic) => {
-    if (!usersStates.me) {
+    const me = await getUserByIdUseCase('', UsersServiceFactory.getInstance());
+
+    if (!me) {
       return;
     }
 
+    usersStates.userId = me.id;
+    usersStates.email = me.email || null;
+    usersStates.firstName = me.firstName || null;
+    usersStates.lastName = me.lastName || null;
+    usersStates.userPreferences.selfCareTopics = me.preferences.selfCareTopics;
+  },
+  toggleSelfCareTopic: async (selfCareTopic: SelfCareTopic) => {
     if (
-      usersStates.me.preferences.selfCareTopics.some(
+      usersStates.userPreferences.selfCareTopics.some(
         (topic) => topic.id === selfCareTopic.id,
       )
     ) {
-      usersStates.me.preferences.selfCareTopics =
-        usersStates.me.preferences.selfCareTopics.filter(
+      usersStates.userPreferences.selfCareTopics =
+        usersStates.userPreferences.selfCareTopics.filter(
           (topic) => topic.id !== selfCareTopic.id,
         );
     } else {
-      usersStates.me.preferences.selfCareTopics.push(selfCareTopic);
+      usersStates.userPreferences.selfCareTopics.push(selfCareTopic);
     }
 
     await updateUserSelfCareTopicsUseCase(
-      usersStates.me.preferences.selfCareTopics,
+      usersStates.userPreferences.selfCareTopics,
       UsersServiceFactory.getInstance(),
     );
   },
