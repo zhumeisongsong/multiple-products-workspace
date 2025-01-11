@@ -1,9 +1,12 @@
+import { TasksServiceFactory } from '@tasks/application';
 import {
+  createCurrentMonthUserTasksUseCase,
   getMonthlyUserTasksUseCase,
   updateUserTaskStatusUseCase,
   UserTasksServiceFactory,
 } from '@user-tasks/application';
 import { UserTask, UserTaskStatusEnum } from '@user-tasks/domain';
+import { UserPreferences } from '@users/domain';
 import { proxy } from 'valtio';
 
 export type UserTasksStates = {
@@ -19,7 +22,10 @@ export const userTasksStates = proxy<UserTasksStates>({
 });
 
 export const userTaskActions = {
-  getCurrentMonthUserTasks: async () => {
+  getCurrentMonthUserTasks: async (
+    userId: string,
+    userPreferences: UserPreferences,
+  ) => {
     const month = new Date().getMonth();
     const year = new Date().getFullYear();
     const userTasks = await getMonthlyUserTasksUseCase(
@@ -28,9 +34,30 @@ export const userTaskActions = {
       year,
       UserTasksServiceFactory.getInstance(),
     );
-    userTasksStates.currentMonthUserTasks = userTasks;
+
+    if (userTasks.length === 0) {
+      await createCurrentMonthUserTasksUseCase(
+        userId,
+        userPreferences,
+        UserTasksServiceFactory.getInstance(),
+        TasksServiceFactory.getInstance(),
+      );
+      const createdUserTasks = await getMonthlyUserTasksUseCase(
+        userId,
+        month,
+        year,
+        UserTasksServiceFactory.getInstance(),
+      );
+
+      userTasksStates.currentMonthUserTasks = createdUserTasks;
+    } else {
+      userTasksStates.currentMonthUserTasks = userTasks;
+    }
   },
-  updateUserTaskStatus: async (userTaskId: string, status: UserTaskStatusEnum) => {
+  updateUserTaskStatus: async (
+    userTaskId: string,
+    status: UserTaskStatusEnum,
+  ) => {
     userTasksStates.currentMonthUserTasks =
       userTasksStates.currentMonthUserTasks.map((userTask) =>
         userTask.id === userTaskId ? { ...userTask, status } : userTask,

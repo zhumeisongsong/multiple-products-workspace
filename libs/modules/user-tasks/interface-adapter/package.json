@@ -2,8 +2,10 @@
   "name": "@user-tasks/interface-adapter",
   "version": "0.0.1",
   "dependencies": {
+    "@tasks/application": "workspace:*",
     "@user-tasks/application": "workspace:*",
     "@user-tasks/domain": "workspace:*",
+    "@users/domain": "workspace:*",
     "valtio": "^2.1.2"
   },
   "main": "./index.js",
