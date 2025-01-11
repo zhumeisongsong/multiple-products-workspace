@@ -8,15 +8,13 @@ import { AboutPage } from '../pages/about-page';
 import { useEffect } from 'react';
 
 export const App: React.FC = () => {
-  const { me, getMe } = useUsers();
+  const { userId, getMe } = useUsers();
 
   useEffect(() => {
-    if (!me) {
+    if (!userId) {
       getMe();
     }
-  }, [me, getMe]);
-
-  console.log(me);
+  }, [userId, getMe]);
 
   return (
     <Routes>
