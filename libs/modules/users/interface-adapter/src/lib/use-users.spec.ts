@@ -11,17 +11,28 @@ vi.mock('valtio', () => ({
 describe('useUsers', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    usersStates.me = null;
+    usersStates.userId = null;
+    usersStates.email = null;
+    usersStates.firstName = null;
+    usersStates.lastName = null;
+    usersStates.userPreferences = {
+      selfCareTopics: [],
+    };
   });
 
   it('should return user states and actions', () => {
-    usersStates.me = { id: '1', preferences: { selfCareTopics: [] } };
+    usersStates.userId = '1';
+    usersStates.email = 'test@test.com';
+    usersStates.firstName = 'John';
+    usersStates.lastName = 'Doe';
+    usersStates.userPreferences = {
+      selfCareTopics: [],
+    };
 
     const result = useUsers();
 
-    expect(result.me).toEqual({ id: '1', preferences: { selfCareTopics: [] } });
     expect(result).toEqual({
-      me: usersStates.me,
+      ...usersStates,
       ...usersActions,
     });
   });
@@ -29,6 +40,12 @@ describe('useUsers', () => {
   it('should return null me when no user is set', () => {
     const result = useUsers();
 
-    expect(result.me).toBeNull();
+    expect(result.userId).toBeNull();
+    expect(result.email).toBeNull();
+    expect(result.firstName).toBeNull();
+    expect(result.lastName).toBeNull();
+    expect(result.userPreferences).toEqual({
+      selfCareTopics: [],
+    });
   });
 });
