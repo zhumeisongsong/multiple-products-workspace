@@ -28,7 +28,7 @@ export const createUserTask = (userTask: {
     description: userTask.description,
     categories: userTask.categories,
     status: UserTaskStatusEnum.TODO,
-    createdAt: userTask.createdAt + '',
+    createdAt: userTask.createdAt.toISOString(),
     userId: userTask.userId,
   };
 };

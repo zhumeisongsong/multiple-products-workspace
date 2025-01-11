@@ -16,7 +16,6 @@ describe('useSelfCareTopics', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     selfCareTopicsStates.selfCareTopics = [];
-    selfCareTopicsStates.isLoading = false;
   });
 
   it('should return the current state and actions', () => {
@@ -32,19 +31,15 @@ describe('useSelfCareTopics', () => {
     ];
 
     selfCareTopicsStates.selfCareTopics = mockTopics;
-    selfCareTopicsStates.isLoading = true;
 
     const result = useSelfCareTopics();
 
     expect(result.selfCareTopics).toEqual(mockTopics);
-    expect(result.isLoading).toBe(true);
     expect(result.setSelfCareTopics).toBe(selfCareTopicsActions.setSelfCareTopics);
-    expect(result.setIsLoading).toBe(selfCareTopicsActions.setIsLoading);
-    expect(result.setIsLoadingFinished).toBe(selfCareTopicsActions.setIsLoadingFinished);
   });
 
   it('should update state when actions are called', () => {
-    const { setSelfCareTopics, setIsLoading, setIsLoadingFinished } = useSelfCareTopics();
+    const { setSelfCareTopics } = useSelfCareTopics();
     const mockTopics: SelfCareTopic[] = [
       {
         id: '1',
@@ -54,11 +49,5 @@ describe('useSelfCareTopics', () => {
 
     setSelfCareTopics(mockTopics);
     expect(selfCareTopicsStates.selfCareTopics).toEqual(mockTopics);
-
-    setIsLoading();
-    expect(selfCareTopicsStates.isLoading).toBe(true);
-
-    setIsLoadingFinished();
-    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 });

@@ -2,7 +2,9 @@ import {
   LocalStorageRepository,
   UsersRepositoryImpl,
   UserTasksRepositoryImpl,
+  TasksRepositoryImpl,
 } from '@shared/infrastructure-storage';
+import { TasksRepository } from '@tasks/domain';
 import { UserTasksRepository } from '@user-tasks/domain';
 import { UsersRepository } from '@users/domain';
 
@@ -10,6 +12,8 @@ export class InfrastructureContainer {
   private static localStorageRepository: LocalStorageRepository;
   private static usersRepository: UsersRepository;
   private static userTasksRepository: UserTasksRepository;
+  private static tasksRepository: TasksRepository;
+
   static getLocalStorageRepository(): LocalStorageRepository {
     if (!this.localStorageRepository) {
       this.localStorageRepository = new LocalStorageRepository();
@@ -33,5 +37,12 @@ export class InfrastructureContainer {
       );
     }
     return this.userTasksRepository;
+  }
+
+  static getTasksRepository(): TasksRepository {
+    if (!this.tasksRepository) {
+      this.tasksRepository = new TasksRepositoryImpl();
+    }
+    return this.tasksRepository;
   }
 }

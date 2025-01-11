@@ -8,7 +8,12 @@ describe('UserTask', () => {
       const userTask = createUserTask({
         name: 'Test Task',
         description: 'Test Description',
-        categories: ['test'],
+        categories: [
+          {
+            id: '1',
+            name: 'test',
+          },
+        ],
         createdAt: now,
         userId: 'test-user-id',
       });
@@ -17,9 +22,14 @@ describe('UserTask', () => {
         id: expect.any(String),
         name: 'Test Task',
         description: 'Test Description',
-        categories: ['test'],
+        categories: [
+          {
+            id: '1',
+            name: 'test',
+          },
+        ],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now + '',
+        createdAt: now.toISOString(),
         userId: 'test-user-id',
       });
     });
@@ -28,7 +38,12 @@ describe('UserTask', () => {
       const now = new Date();
       const userTask = createUserTask({
         name: 'Test Task',
-        categories: ['test'],
+        categories: [
+          {
+            id: '1',
+            name: 'test',
+          },
+        ],
         createdAt: now,
         userId: 'test-user-id',
       });
@@ -37,9 +52,14 @@ describe('UserTask', () => {
         id: expect.any(String),
         name: 'Test Task',
         description: undefined,
-        categories: ['test'],
+        categories: [
+          {
+            id: '1',
+            name: 'test',
+          },
+        ],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now + '',
+        createdAt: now.toISOString(),
         userId: 'test-user-id',
       });
     });

@@ -10,7 +10,6 @@ export const useSelfCareTopics = () => {
 
   return {
     selfCareTopics: snapshot.selfCareTopics,
-    isLoading: snapshot.isLoading,
     ...selfCareTopicsActions,
   };
 };

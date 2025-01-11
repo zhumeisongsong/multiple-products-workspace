@@ -7,12 +7,10 @@ import {
 describe('useSelfCareTopics', () => {
   beforeEach(() => {
     selfCareTopicsStates.selfCareTopics = [];
-    selfCareTopicsStates.isLoading = false;
   });
 
   it('should have initial state', () => {
     expect(selfCareTopicsStates.selfCareTopics).toEqual([]);
-    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 
   it('should update state when actions are called', () => {
@@ -29,11 +27,5 @@ describe('useSelfCareTopics', () => {
 
     selfCareTopicsActions.setSelfCareTopics(mockTopics);
     expect(selfCareTopicsStates.selfCareTopics).toEqual(mockTopics);
-
-    selfCareTopicsActions.setIsLoading();
-    expect(selfCareTopicsStates.isLoading).toBe(true);
-
-    selfCareTopicsActions.setIsLoadingFinished();
-    expect(selfCareTopicsStates.isLoading).toBe(false);
   });
 });
