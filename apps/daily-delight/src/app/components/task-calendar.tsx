@@ -44,37 +44,31 @@ export const TaskCalendar = ({ data, date }: Props) => {
 
       {/* Calendar grid */}
       <div className="grid grid-cols-7 gap-1">
-        {calendarDays.map((day, index) => (
-          <div
-            key={index}
-            className={`
-              aspect-square p-2 border rounded-md
-              ${day === null ? 'bg-gray-50' : 'hover:bg-gray-100'}
-            `}
-          >
-            {day && (
-              <>
-                <div className="text-sm text-gray-600">{day}</div>
-                {/* Tasks for this day */}
-                <div className="mt-1">
-                  {data
-                    .filter((task) => {
-                      // Add your logic here to match tasks with dates
-                      return false;
-                    })
-                    .map((task) => (
-                      <div
-                        key={task.id}
-                        className="text-xs bg-blue-100 p-1 rounded mb-1 truncate"
-                      >
-                        {task.name}
-                      </div>
-                    ))}
-                </div>
-              </>
-            )}
-          </div>
-        ))}
+        {calendarDays.map((day, index) =>
+          day ? (
+            <div key={index} className={`aspect-square p-2 border rounded-md`}>
+              <div className="text-sm text-gray-600">{day}</div>
+              {/* Tasks for this day */}
+              <div className="mt-1">
+                {data
+                  .filter((task) => {
+                    // Add your logic here to match tasks with dates
+                    return false;
+                  })
+                  .map((task) => (
+                    <div
+                      key={task.id}
+                      className="text-xs bg-blue-100 p-1 rounded mb-1 truncate"
+                    >
+                      {task.name}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <div className="aspect-square p-2 rounded-md"></div>
+          ),
+        )}
       </div>
     </div>
   );

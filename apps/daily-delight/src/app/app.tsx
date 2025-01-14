@@ -1,10 +1,10 @@
 import { useUsers } from '@users/interface-adapter';
 import { Route, Routes } from 'react-router-dom';
 
-import { TaskPage } from '../pages/task-page';
-import { AchievementsPage } from '../pages/achievements-page';
-import { LoginPage } from '../pages/login-page';
-import { AboutPage } from '../pages/about-page';
+import { TaskPage } from './pages/task-page';
+import { AchievementsPage } from './pages/achievements-page';
+import { LoginPage } from './pages/login-page';
+import { AboutPage } from './pages/about-page';
 import { useEffect } from 'react';
 
 export const App: React.FC = () => {
