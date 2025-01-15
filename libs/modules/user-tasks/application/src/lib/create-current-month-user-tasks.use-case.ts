@@ -4,18 +4,13 @@ import { createUserTask, UserTask } from '@user-tasks/domain';
 import { UserTasksService } from './user-tasks.service';
 import { TasksService } from '@tasks/application';
 
-const getRemainingDaysOfMonth = (date: Date): number => {
-  const lastDayOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  return lastDayOfMonth.getDate() - date.getDate() + 1;
-};
-
 export const createCurrentMonthUserTasksUseCase = async (
   userId: string,
   userPreferences: UserPreferences,
   userTasksService: UserTasksService,
   tasksService: TasksService,
 ): Promise<void> => {
-  const taskCount = getRemainingDaysOfMonth(new Date());
+  const taskCount = new Date().getDate();
   const tasks = await tasksService.findSomeTasksRandomly(
     taskCount,
     userPreferences.selfCareTopics,
@@ -25,7 +20,7 @@ export const createCurrentMonthUserTasksUseCase = async (
     createUserTask({
       name: task.name,
       categories: task.categories,
-      createdAt: new Date(),
+      scheduledAt: new Date(2025, 0, 1),
       userId: userId,
     }),
   );

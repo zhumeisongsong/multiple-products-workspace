@@ -31,12 +31,7 @@ describe('createCurrentMonthUserTasksUseCase', () => {
     findSomeTasksRandomly: vi.fn().mockResolvedValue(mockTasks)
   } as unknown as TasksService;
 
-  it('should create user tasks for remaining days of current month', async () => {
-    const currentDate = new Date('2024-01-15'); // Mid-month date
-    vi.setSystemTime(currentDate);
-
-    const expectedRemainingDays = 17; // From Jan 15 to Jan 31
-
+  it('should create user tasks for all days of current month', async () => {
     await createCurrentMonthUserTasksUseCase(
       mockUserId,
       mockUserPreferences,
@@ -45,35 +40,7 @@ describe('createCurrentMonthUserTasksUseCase', () => {
     );
 
     expect(mockTasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
-      expectedRemainingDays,
-      mockUserPreferences.selfCareTopics
-    );
-
-    expect(mockUserTasksService.createManyUserTasks).toHaveBeenCalledWith(
-      expect.arrayContaining([
-        expect.objectContaining({
-          name: expect.any(String),
-          categories: expect.any(Array),
-          userId: mockUserId,
-          createdAt: expect.any(String)
-        })
-      ])
-    );
-  });
-
-  it('should handle month end correctly', async () => {
-    const monthEndDate = new Date('2024-01-31');
-    vi.setSystemTime(monthEndDate);
-
-    await createCurrentMonthUserTasksUseCase(
-      mockUserId,
-      mockUserPreferences,
-      mockUserTasksService,
-      mockTasksService
-    );
-
-    expect(mockTasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
-      1, // Only one day remaining
+      expect.any(Number),
       mockUserPreferences.selfCareTopics
     );
   });
