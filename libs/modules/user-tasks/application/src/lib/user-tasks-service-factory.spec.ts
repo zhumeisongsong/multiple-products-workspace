@@ -12,7 +12,7 @@ describe('UserTasksServiceFactory', () => {
     (UserTasksServiceFactory as any).instance = null;
     repository = {
       findManyUserTasks: vi.fn(),
-      createUserTasks: vi.fn(),
+      createManyUserTasks: vi.fn(),
       updateUserTaskStatus: vi.fn(),
     };
   });

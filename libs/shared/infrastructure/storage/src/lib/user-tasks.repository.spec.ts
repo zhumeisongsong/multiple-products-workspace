@@ -111,7 +111,7 @@ describe('UserTasksRepository', () => {
     });
   });
 
-  describe('createUserTasks', () => {
+  describe('createManyUserTasks', () => {
     it('should store tasks in localStorage', async () => {
       const mockTasks: UserTask[] = [
         {
@@ -129,7 +129,7 @@ describe('UserTasksRepository', () => {
         JSON.stringify(mockTasks),
       );
 
-      await userTasksRepository.createUserTasks(mockTasks);
+      await userTasksRepository.createManyUserTasks(mockTasks);
 
       vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
         JSON.stringify(mockTasks),

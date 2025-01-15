@@ -14,7 +14,7 @@ describe('UserTasksService', () => {
   beforeEach(() => {
     mockUserTasksRepository = {
       findManyUserTasks: vi.fn(),
-      createUserTasks: vi.fn(),
+      createManyUserTasks: vi.fn(),
       updateUserTaskStatus: vi.fn(),
     };
     userTasksService = new UserTasksService(mockUserTasksRepository);
@@ -65,7 +65,7 @@ describe('UserTasksService', () => {
 
       await userTasksService.createManyUserTasks(userTasks);
 
-      expect(mockUserTasksRepository.createUserTasks).toHaveBeenCalledWith(
+      expect(mockUserTasksRepository.createManyUserTasks).toHaveBeenCalledWith(
         userTasks,
       );
     });

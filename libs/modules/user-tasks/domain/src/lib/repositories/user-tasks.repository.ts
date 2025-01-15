@@ -11,7 +11,7 @@ export interface UserTasksRepository {
       };
     },
   ): Promise<UserTask[]>;
-  createUserTasks(userTasks: UserTask[]): Promise<void>;
+  createManyUserTasks(userTasks: UserTask[]): Promise<void>;
   updateUserTaskStatus(
     userTaskId: string,
     status: UserTaskStatusEnum,
