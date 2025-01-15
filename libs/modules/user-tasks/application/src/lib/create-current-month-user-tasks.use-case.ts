@@ -14,8 +14,6 @@ export const createCurrentMonthUserTasksUseCase = async (
   userTasksService: UserTasksService,
   tasksService: TasksService,
 ): Promise<void> => {
-  const currentYear = new Date().getFullYear();
-  const currentMonth = new Date().getMonth();
   const taskCount = getDaysOfMonth(new Date());
   const tasks = await tasksService.findSomeTasksRandomly(
     taskCount,
