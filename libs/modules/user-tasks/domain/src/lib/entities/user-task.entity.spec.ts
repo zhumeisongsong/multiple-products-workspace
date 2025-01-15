@@ -14,11 +14,11 @@ describe('UserTask', () => {
             name: 'test',
           },
         ],
-        createdAt: now,
+        scheduledAt: now,
         userId: 'test-user-id',
       });
 
-      expect(userTask).toEqual({
+      const expectedUserTask = {
         id: expect.any(String),
         name: 'Test Task',
         description: 'Test Description',
@@ -29,9 +29,11 @@ describe('UserTask', () => {
           },
         ],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now.toISOString(),
+        scheduledAt: now.toISOString(),
         userId: 'test-user-id',
-      });
+      };
+
+      expect(userTask).toEqual(expectedUserTask);
     });
 
     it('should create a user task without optional description', () => {
@@ -44,7 +46,7 @@ describe('UserTask', () => {
             name: 'test',
           },
         ],
-        createdAt: now,
+        scheduledAt: now,
         userId: 'test-user-id',
       });
 
@@ -59,7 +61,7 @@ describe('UserTask', () => {
           },
         ],
         status: UserTaskStatusEnum.TODO,
-        createdAt: now.toISOString(),
+        scheduledAt: now.toISOString(),
         userId: 'test-user-id',
       });
     });
