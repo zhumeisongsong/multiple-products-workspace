@@ -14,7 +14,6 @@ describe('UserTask', () => {
             name: 'test',
           },
         ],
-        scheduledAt: now,
         userId: 'test-user-id',
       });
 
@@ -29,7 +28,6 @@ describe('UserTask', () => {
           },
         ],
         status: UserTaskStatusEnum.TODO,
-        scheduledAt: now.toISOString(),
         userId: 'test-user-id',
       };
 
@@ -46,7 +44,6 @@ describe('UserTask', () => {
             name: 'test',
           },
         ],
-        scheduledAt: now,
         userId: 'test-user-id',
       });
 
@@ -61,7 +58,6 @@ describe('UserTask', () => {
           },
         ],
         status: UserTaskStatusEnum.TODO,
-        scheduledAt: now.toISOString(),
         userId: 'test-user-id',
       });
     });

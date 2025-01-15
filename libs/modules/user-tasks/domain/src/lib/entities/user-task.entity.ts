@@ -8,7 +8,6 @@ export interface UserTask {
   name: string;
   categories: SelfCareTopic[];
   status: UserTaskStatusEnum;
-  scheduledAt: string;
   createdAt?: string;
   updatedAt?: string;
   userId: string;
@@ -20,7 +19,6 @@ export const createUserTask = (userTask: {
   name: string;
   description?: string;
   categories: SelfCareTopic[];
-  scheduledAt: Date;
   userId: string;
 }): UserTask => {
   return {
@@ -29,7 +27,6 @@ export const createUserTask = (userTask: {
     description: userTask.description,
     categories: userTask.categories,
     status: UserTaskStatusEnum.TODO,
-    scheduledAt: userTask.scheduledAt.toISOString(),
     userId: userTask.userId,
   };
 };
