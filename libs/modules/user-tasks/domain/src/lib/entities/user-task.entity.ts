@@ -8,8 +8,8 @@ export interface UserTask {
   name: string;
   categories: SelfCareTopic[];
   status: UserTaskStatusEnum;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt: string;
+  updatedAt: string;
   userId: string;
   description?: string;
   user?: User;
@@ -28,5 +28,7 @@ export const createUserTask = (userTask: {
     categories: userTask.categories,
     status: UserTaskStatusEnum.TODO,
     userId: userTask.userId,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
 };

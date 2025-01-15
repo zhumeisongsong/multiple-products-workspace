@@ -59,6 +59,7 @@ describe('UserTasksService', () => {
           userId: 'user1',
           name: 'Task 1',
           categories: [],
+          
         }),
       ];
 
