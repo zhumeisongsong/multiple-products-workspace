@@ -4,6 +4,7 @@ import {
   UserTask,
   UserTaskStatusEnum,
   UserTasksRepository,
+  createUserTask,
 } from '@user-tasks/domain';
 
 describe('UserTasksService', () => {
@@ -54,15 +55,12 @@ describe('UserTasksService', () => {
   describe('createManyUserTasks', () => {
     it('should call repository with user tasks', async () => {
       const userTasks: UserTask[] = [
-        {
-          id: '1',
+        createUserTask({
           userId: 'user1',
           name: 'Task 1',
           categories: [],
-          status: UserTaskStatusEnum.TODO,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
+          scheduledAt: new Date(),
+        }),
       ];
 
       await userTasksService.createManyUserTasks(userTasks);
