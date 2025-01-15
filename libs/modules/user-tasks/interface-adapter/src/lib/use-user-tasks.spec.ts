@@ -25,6 +25,7 @@ describe('useUserTasks', () => {
         status: UserTaskStatusEnum.TODO,
         userId: '1',
         createdAt: '2024-01-01T00:00:00.000Z',
+        updatedAt: '2024-01-01T00:00:00.000Z',
       },
     ];
     const result = useUserTasks();
@@ -37,6 +38,7 @@ describe('useUserTasks', () => {
         status: UserTaskStatusEnum.TODO,
         userId: '1',
         createdAt: '2024-01-01T00:00:00.000Z',
+        updatedAt: '2024-01-01T00:00:00.000Z',
       },
     ]);
     expect(result.currentMonthUserTasks).toEqual([]);

@@ -40,7 +40,7 @@ export class UserTasksRepositoryImpl implements UserTasksRepository {
     return Promise.resolve(allUserTasks);
   }
 
-  createUserTasks(userTasks: UserTask[]): Promise<void> {
+  createManyUserTasks(userTasks: UserTask[]): Promise<void> {
     const allUserTasks = this.localStorageRepository.get(USER_TASKS_KEY) || [];
     this.localStorageRepository.set(USER_TASKS_KEY, [
       ...allUserTasks,

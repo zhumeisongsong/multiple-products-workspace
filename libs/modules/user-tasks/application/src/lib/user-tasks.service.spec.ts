@@ -4,6 +4,7 @@ import {
   UserTask,
   UserTaskStatusEnum,
   UserTasksRepository,
+  createUserTask,
 } from '@user-tasks/domain';
 
 describe('UserTasksService', () => {
@@ -13,7 +14,7 @@ describe('UserTasksService', () => {
   beforeEach(() => {
     mockUserTasksRepository = {
       findManyUserTasks: vi.fn(),
-      createUserTasks: vi.fn(),
+      createManyUserTasks: vi.fn(),
       updateUserTaskStatus: vi.fn(),
     };
     userTasksService = new UserTasksService(mockUserTasksRepository);
@@ -54,20 +55,17 @@ describe('UserTasksService', () => {
   describe('createManyUserTasks', () => {
     it('should call repository with user tasks', async () => {
       const userTasks: UserTask[] = [
-        {
-          id: '1',
+        createUserTask({
           userId: 'user1',
           name: 'Task 1',
           categories: [],
-          status: UserTaskStatusEnum.TODO,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
+          
+        }),
       ];
 
       await userTasksService.createManyUserTasks(userTasks);
 
-      expect(mockUserTasksRepository.createUserTasks).toHaveBeenCalledWith(
+      expect(mockUserTasksRepository.createManyUserTasks).toHaveBeenCalledWith(
         userTasks,
       );
     });

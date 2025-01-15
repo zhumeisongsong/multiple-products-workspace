@@ -111,16 +111,17 @@ describe('UserTasksRepository', () => {
     });
   });
 
-  describe('createUserTasks', () => {
+  describe('createManyUserTasks', () => {
     it('should store tasks in localStorage', async () => {
       const mockTasks: UserTask[] = [
         {
           id: '1',
           name: 'Task 1',
           status: UserTaskStatusEnum.TODO,
-          createdAt: new Date().toISOString(),
           categories: [],
           userId: '1',
+          createdAt: '2025-01-03T05:53:51.462Z',
+          updatedAt: '2025-01-03T05:53:51.462Z',
         },
       ];
 
@@ -128,7 +129,7 @@ describe('UserTasksRepository', () => {
         JSON.stringify(mockTasks),
       );
 
-      await userTasksRepository.createUserTasks(mockTasks);
+      await userTasksRepository.createManyUserTasks(mockTasks);
 
       vi.spyOn(localStorage, 'getItem').mockReturnValueOnce(
         JSON.stringify(mockTasks),

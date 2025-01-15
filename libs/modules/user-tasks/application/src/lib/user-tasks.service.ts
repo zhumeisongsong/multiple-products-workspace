@@ -30,7 +30,7 @@ export class UserTasksService {
   }
 
   async createManyUserTasks(userTasks: UserTask[]) {
-    return await this.userTasksRepository.createUserTasks(userTasks);
+    return await this.userTasksRepository.createManyUserTasks(userTasks);
   }
 
   async updateUserTaskStatus(userTaskId: string, status: UserTaskStatusEnum) {
@@ -38,9 +38,5 @@ export class UserTasksService {
       userTaskId,
       status,
     );
-  }
-
-  async generateManyUserTasks(userTasks: UserTask[]) {
-    // call ai service
   }
 }
