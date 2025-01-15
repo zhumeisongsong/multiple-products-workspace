@@ -1,55 +1,95 @@
 import { describe, it, expect, vi } from 'vitest';
-import { UserPreferences } from '@users/domain';
-import { UserTasksService } from './user-tasks.service';
+import { SelfCareTopic } from '@self-care-topics/domain';
+import { Task } from '@tasks/domain';
 import { TasksService } from '@tasks/application';
+import { UserTasksService } from './user-tasks.service';
 import { createCurrentMonthUserTasksUseCase } from './create-current-month-user-tasks.use-case';
 
 describe('createCurrentMonthUserTasksUseCase', () => {
-  const mockUserId = 'user-1';
-  const mockUserPreferences = {
-    selfCareTopics: [{ id: 'topic1', name: 'Topic 1' }],
-  } as UserPreferences;
+  it('should create user tasks for current month', async () => {
+    const mockTasks = [
+      {
+        id: '1',
+        name: 'Task 1',
+        categories: [{ id: 'topic1', name: 'Topic 1' }],
+      },
+      {
+        id: '2',
+        name: 'Task 2',
+        categories: [{ id: 'topic2', name: 'Topic 2' }],
+      },
+    ] as Task[];
 
-  const mockTasks = [
-    {
-      id: '1',
-      name: 'Task 1',
-      categories: [{ id: 'topic1', name: 'Topic 1' }],
-    },
-    {
-      id: '2',
-      name: 'Task 2',
-      categories: [{ id: 'topic1', name: 'Topic 1' }],
-    },
-  ];
+    const selfCareTopics = [
+      { id: 'topic1', name: 'Topic 1' },
+      { id: 'topic2', name: 'Topic 2' },
+    ] as SelfCareTopic[];
 
-  const mockUserTasksService = {
-    createManyUserTasks: vi.fn().mockResolvedValue(undefined),
-  } as unknown as UserTasksService;
+    const tasksService = {
+      findSomeTasksRandomly: vi.fn().mockResolvedValue(mockTasks),
+    } as unknown as TasksService;
 
-  const mockTasksService = {
-    findSomeTasksRandomly: vi.fn().mockResolvedValue(mockTasks),
-  } as unknown as TasksService;
+    const userTasksService = {
+      createManyUserTasks: vi
+        .fn()
+        .mockImplementation((tasks) => Promise.resolve(tasks)),
+    } as unknown as UserTasksService;
 
-  it('should create user tasks for all days of current month', async () => {
+    const userId = 'user123';
+    const daysInMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0,
+    ).getDate();
+
     await createCurrentMonthUserTasksUseCase(
-      mockUserId,
-      mockUserPreferences,
-      mockUserTasksService,
-      mockTasksService,
+      userId,
+      { selfCareTopics },
+      userTasksService,
+      tasksService,
     );
 
-    expect(mockUserTasksService.createManyUserTasks).toHaveBeenCalledWith(
-      mockTasks,
+    expect(tasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
+      daysInMonth,
+      selfCareTopics,
     );
-    expect(mockTasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
-      expect.any(Number),
-      mockUserPreferences.selfCareTopics,
-    );
+    expect(userTasksService.createManyUserTasks).toHaveBeenCalled();
   });
 
-  afterEach(() => {
-    vi.clearAllMocks();
-    vi.useRealTimers();
+  it('should handle case when no tasks are found', async () => {
+    const selfCareTopics = [
+      { id: 'topic1', name: 'Topic 1' },
+    ] as SelfCareTopic[];
+
+    const tasksService = {
+      findSomeTasksRandomly: vi.fn().mockResolvedValue([]),
+    } as unknown as TasksService;
+
+    const userTasksService = {
+      createManyUserTasks: vi
+        .fn()
+        .mockImplementation((tasks) => Promise.resolve(tasks)),
+    } as unknown as UserTasksService;
+
+    const userId = 'user123';
+    const daysInMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0,
+    ).getDate();
+
+    const result = await createCurrentMonthUserTasksUseCase(
+      userId,
+      { selfCareTopics },
+      userTasksService,
+      tasksService,
+    );
+
+    expect(tasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
+      daysInMonth,
+      selfCareTopics,
+    );
+    expect(userTasksService.createManyUserTasks).toHaveBeenCalledWith([]);
+    expect(result).toHaveLength(0);
   });
 });

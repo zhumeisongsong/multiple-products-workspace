@@ -13,7 +13,7 @@ export const createCurrentMonthUserTasksUseCase = async (
   userPreferences: UserPreferences,
   userTasksService: UserTasksService,
   tasksService: TasksService,
-): Promise<void> => {
+): Promise<UserTask[]> => {
   const taskCount = getDaysOfMonth(new Date());
   const tasks = await tasksService.findSomeTasksRandomly(
     taskCount,
@@ -29,4 +29,6 @@ export const createCurrentMonthUserTasksUseCase = async (
   );
 
   await userTasksService.createManyUserTasks(userTasks);
+
+  return userTasks;
 };
