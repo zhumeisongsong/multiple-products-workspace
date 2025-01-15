@@ -39,8 +39,4 @@ export class UserTasksService {
       status,
     );
   }
-
-  async generateManyUserTasks(userTasks: UserTask[]) {
-    // call ai service
-  }
 }
