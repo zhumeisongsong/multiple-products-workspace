@@ -120,6 +120,8 @@ describe('UserTasksRepository', () => {
           status: UserTaskStatusEnum.TODO,
           categories: [],
           userId: '1',
+          createdAt: '2025-01-03T05:53:51.462Z',
+          updatedAt: '2025-01-03T05:53:51.462Z',
         },
       ];
 

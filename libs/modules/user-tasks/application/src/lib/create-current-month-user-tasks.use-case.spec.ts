@@ -7,28 +7,28 @@ import { createCurrentMonthUserTasksUseCase } from './create-current-month-user-
 describe('createCurrentMonthUserTasksUseCase', () => {
   const mockUserId = 'user-1';
   const mockUserPreferences = {
-    selfCareTopics: [{ id: 'topic1', name: 'Topic 1' }]
+    selfCareTopics: [{ id: 'topic1', name: 'Topic 1' }],
   } as UserPreferences;
 
   const mockTasks = [
     {
       id: '1',
       name: 'Task 1',
-      categories: [{ id: 'topic1', name: 'Topic 1' }]
+      categories: [{ id: 'topic1', name: 'Topic 1' }],
     },
     {
       id: '2',
-      name: 'Task 2', 
-      categories: [{ id: 'topic1', name: 'Topic 1' }]
-    }
+      name: 'Task 2',
+      categories: [{ id: 'topic1', name: 'Topic 1' }],
+    },
   ];
 
   const mockUserTasksService = {
-    createManyUserTasks: vi.fn().mockResolvedValue(undefined)
+    createManyUserTasks: vi.fn().mockResolvedValue(undefined),
   } as unknown as UserTasksService;
 
   const mockTasksService = {
-    findSomeTasksRandomly: vi.fn().mockResolvedValue(mockTasks)
+    findSomeTasksRandomly: vi.fn().mockResolvedValue(mockTasks),
   } as unknown as TasksService;
 
   it('should create user tasks for all days of current month', async () => {
@@ -36,12 +36,15 @@ describe('createCurrentMonthUserTasksUseCase', () => {
       mockUserId,
       mockUserPreferences,
       mockUserTasksService,
-      mockTasksService
+      mockTasksService,
     );
 
+    expect(mockUserTasksService.createManyUserTasks).toHaveBeenCalledWith(
+      mockTasks,
+    );
     expect(mockTasksService.findSomeTasksRandomly).toHaveBeenCalledWith(
       expect.any(Number),
-      mockUserPreferences.selfCareTopics
+      mockUserPreferences.selfCareTopics,
     );
   });
 
