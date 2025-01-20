@@ -20,7 +20,7 @@ jobs:
   setup:
     uses: zhumeisongsong/shared-actions/.github/workflows/reusable-pnpm-setup.yml@main
 
-  publish-npm-packages:
+  publish-github-packages:
     name: Publish npm packages
     needs: setup
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
       - name: Build
         run: pnpm nx run-many -target=build --parallel=3 --projects="github-packages/*"
 
-      - name: Publish to npm
+      - name: Publish to github packages
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NPM_TOKEN: ${{secrets.GITHUB_TOKEN}}
