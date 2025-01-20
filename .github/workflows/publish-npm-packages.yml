@@ -1,9 +1,14 @@
-name: Publish Packages
+name: Publish Npm Packages
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'npm-packages/**'
+  pull_request:
+    paths:
+      - 'npm-packages/**'
 
 permissions:
   contents: write # to be able to publish a GitHub release
@@ -15,9 +20,28 @@ jobs:
   setup:
     uses: zhumeisongsong/shared-actions/.github/workflows/reusable-pnpm-setup.yml@main
 
-  publish-packages:
-    name: Publish packages
+  build:
+    name: Build
     needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Nx set shas
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Restore pnpm store and install dependencies
+        uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
+
+      - name: Build
+        run: pnpm nx run-many -target=build --parallel=3 --projects="npm-packages/*"
+
+  publish-npm-packages:
+    name: Publish npm packages
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,10 +55,7 @@ jobs:
       - name: Restore pnpm store and install dependencies
         uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
 
-      - name: Build
-        run: pnpm nx run-many -target=build --parallel=3
-
-      - name: Publish to npm/github
+      - name: Publish to npm
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
