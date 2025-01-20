@@ -1,5 +1,5 @@
 {
-  "name": "@zhumeisong/common-error-exception",
+  "name": "@zhumeisongsong/common-error-exception",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "github-packages/common-error-exception/src",
   "projectType": "library",
