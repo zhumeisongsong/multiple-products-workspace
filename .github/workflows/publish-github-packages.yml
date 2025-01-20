@@ -20,8 +20,8 @@ jobs:
   setup:
     uses: zhumeisongsong/shared-actions/.github/workflows/reusable-pnpm-setup.yml@main
 
-  build:
-    name: Build
+  publish-npm-packages:
+    name: Publish npm packages
     needs: setup
     runs-on: ubuntu-latest
     steps:
@@ -29,7 +29,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Nx set shas
         uses: nrwl/nx-set-shas@v4
 
@@ -39,25 +39,9 @@ jobs:
       - name: Build
         run: pnpm nx run-many -target=build --parallel=3 --projects="github-packages/*"
 
-  publish-npm-packages:
-    name: Publish npm packages
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Nx set shas
-        uses: nrwl/nx-set-shas@v4
-
-      - name: Restore pnpm store and install dependencies
-        uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
-
       - name: Publish to npm
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.GITHUB_TOKEN}}
         run: |
           pnpm nx run-many -target=release --projects="github-packages/*"
