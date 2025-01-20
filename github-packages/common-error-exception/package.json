@@ -1,5 +1,5 @@
 {
-  "name": "@zhumeisong/common-error-exception",
+  "name": "@zhumeisongsong/common-error-exception",
   "version": "1.0.1",
   "keywords": [
     "error-codes",
@@ -16,10 +16,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhumeisongsong/multiple-products-workspace.git",
-    "directory": "npm-packages/common-error-exception"
+    "directory": "github-packages/common-error-exception"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://npm.pkg.github.com",
     "tag": "latest",
     "access": "public"
   },
