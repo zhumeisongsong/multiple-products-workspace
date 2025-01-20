@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/zhumeisongsong/multiple-products-workspace/compare/common-error-exception-v1.1.0...common-error-exception-v1.2.0) (2025-01-20)
+
+
+### Features
+
+* ✨ update repository value ([cfa9c14](https://github.com/zhumeisongsong/multiple-products-workspace/commit/cfa9c14dd1bf0da36e4b70bcfddd0848c3e9b339))
+
 # [1.1.0](https://github.com/zhumeisongsong/multiple-products-workspace/compare/common-error-exception-v1.0.2...common-error-exception-v1.1.0) (2025-01-20)
 
 
