@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-  #   paths:
-  #     - 'github-packages/**'
-  # pull_request:
-  #   paths:
-  #     - 'github-packages/**'
+    paths:
+      - 'github-packages/**'
+  pull_request:
+    paths:
+      - 'github-packages/**'
 
 permissions:
   contents: write # to be able to publish a GitHub release
