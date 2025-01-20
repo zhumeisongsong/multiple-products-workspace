@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/zhumeisongsong/multiple-products-workspace/compare/semantic-release-config-v1.3.3...semantic-release-config-v1.4.0) (2025-01-20)
+
+
+### Features
+
+* ✨ update semantic release readme ([090c883](https://github.com/zhumeisongsong/multiple-products-workspace/commit/090c883ac1f41e4e9122fbc6c2f484d818bf2c39))
+
 ## [1.3.3](https://github.com/zhumeisongsong/multiple-products-workspace/compare/semantic-release-config-v1.3.2...semantic-release-config-v1.3.3) (2024-12-15)
 
 
