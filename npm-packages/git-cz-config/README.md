@@ -2,35 +2,41 @@
 
 Semantic Git commits config with emoji. ✨🐛💄💚
 
+Features:
+
+- Standardized commit messages
+- Emoji support
+- Interactive commit prompts
+- Customizable commit types
+
 ## Install
 
-### 1. Install git-cz by :
+### 1. Install `git-cz`:
 
- `pnpm install git-cz -D`
+`pnpm install git-cz -D`
 
-### 2. Config it in package.json:
+### 2. Install @zhumeisong/git-cz-config:
+
+`pnpm install @zhumeisong/git-cz-config -D`
+
+## Configuration
+
+### 1. Add to package.json:
 
 ```
- "config": {
+{
+  "scripts": {
+    "commit": "git-cz"
+  },
+  "config": {
     "commitizen": {
       "path": "git-cz"
     }
   }
+}
 ```
 
-### 3. Add script in package.json:
-
-```
-"scripts": {
-    "commit": "git-cz"
-  }
-```
-
-### 4. Install @zhumeisong/git-cz-config: 
-
-`pnpm install @zhumeisong/git-cz-config -D`
-
-### 5. Create a `changelog.config.cjs` file and add:
+### 2. Create changelog.config.cjs:
 
 ```
 const gitCzConfig = require('@zhumeisong/git-cz-config');
@@ -40,4 +46,21 @@ module.exports = {
 };
 ```
 
-### 6. Run `pnpm run commit` to submit the change.
+## Usage
+
+After installation and configuration, you can use it in:
+
+`pnpm run commit`
+
+## Example Commit Messages
+
+- ✨ feat: add new feature
+- 🐛 fix: resolve bug
+- 📝 docs: update documentation
+- ♻️ refactor: restructure code
+- ⚡️ perf: improve performance
+- 🧪 test: add tests
+
+## License
+
+MIT
