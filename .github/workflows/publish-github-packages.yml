@@ -1,0 +1,63 @@
+name: Publish Github Packages
+
+on:
+  push:
+    branches:
+      - main
+  #   paths:
+  #     - 'github-packages/**'
+  # pull_request:
+  #   paths:
+  #     - 'github-packages/**'
+
+permissions:
+  contents: write # to be able to publish a GitHub release
+  issues: write # to be able to comment on released issues
+  pull-requests: write # to be able to comment on released pull requests
+  id-token: write # to enable use of OIDC for npm provenance
+
+jobs:
+  setup:
+    uses: zhumeisongsong/shared-actions/.github/workflows/reusable-pnpm-setup.yml@main
+
+  build:
+    name: Build
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Nx set shas
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Restore pnpm store and install dependencies
+        uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
+
+      - name: Build
+        run: pnpm nx run-many -target=build --parallel=3 --projects="github-packages/*"
+
+  publish-npm-packages:
+    name: Publish npm packages
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Nx set shas
+        uses: nrwl/nx-set-shas@v4
+
+      - name: Restore pnpm store and install dependencies
+        uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
+
+      - name: Publish to npm
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          pnpm nx run-many -target=release --projects="github-packages/*"
