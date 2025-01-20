@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/zhumeisongsong/multiple-products-workspace/compare/common-error-exception-v1.0.2...common-error-exception-v1.1.0) (2025-01-20)
+
+
+### Bug Fixes
+
+* 🐛 root path of github packages reslease config ([fb5c0d4](https://github.com/zhumeisongsong/multiple-products-workspace/commit/fb5c0d4cf38e1a4ab10d2ba8cdc0fd6078f3979a))
+* 🐛 Update package name to match GitHub repository owner ([dcac5fc](https://github.com/zhumeisongsong/multiple-products-workspace/commit/dcac5fcb2188dfd53620056c38ca7a56e7478215))
+
+
+### Features
+
+* ✨ move common-error-exception to github packages ([005c064](https://github.com/zhumeisongsong/multiple-products-workspace/commit/005c0648da5cfcbd460d0cb472ddd17c5ab53cc1))
+
 ## [1.0.2](https://github.com/zhumeisongsong/multiple-products-workspace/compare/common-error-exception-v1.0.1...common-error-exception-v1.0.2) (2024-12-15)
 
 
