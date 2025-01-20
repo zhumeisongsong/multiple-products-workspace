@@ -1,4 +1,4 @@
-name: Publish Github Packages
+name: Publish GitHub Packages
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
     uses: zhumeisongsong/shared-actions/.github/workflows/reusable-pnpm-setup.yml@main
 
   publish-github-packages:
-    name: Publish npm packages
+    name: Publish github packages
     needs: setup
     runs-on: ubuntu-latest
     steps:
