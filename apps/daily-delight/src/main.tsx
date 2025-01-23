@@ -9,10 +9,12 @@ import * as ReactDOM from 'react-dom/client';
 
 import App from './app/app';
 
-import { globalsStyles } from '@shared/ui';
+import './styles/globals.css';
 
 UsersServiceFactory.initialize(InfrastructureContainer.getUsersRepository());
-UserTasksServiceFactory.initialize(InfrastructureContainer.getUserTasksRepository());
+UserTasksServiceFactory.initialize(
+  InfrastructureContainer.getUserTasksRepository(),
+);
 TasksServiceFactory.initialize(InfrastructureContainer.getTasksRepository());
 
 const root = ReactDOM.createRoot(
