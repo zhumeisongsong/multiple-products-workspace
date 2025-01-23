@@ -52,7 +52,7 @@ export const TaskCalendar = ({ data, date }: Props) => {
               <div className="mt-1">{data[day - 1]?.name}</div>
             </div>
           ) : (
-            <div className="aspect-square p-2 rounded-md"></div>
+            <div key={index} className="aspect-square p-2 rounded-md"></div>
           ),
         )}
       </div>
