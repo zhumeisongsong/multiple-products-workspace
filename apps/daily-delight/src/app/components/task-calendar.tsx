@@ -46,13 +46,13 @@ export const TaskCalendar = ({ data, date }: Props) => {
       <div className="grid grid-cols-7 gap-1">
         {calendarDays.map((day, index) =>
           day ? (
-            <div key={index} className={`aspect-square p-2 border rounded-md`}>
-              <div className="text-sm text-gray-600">{day}</div>
+            <div key={index} className={`flex flex-col justify-between aspect-square p-2 border`}>
+              <div className="text-right font-semibold text-lg">{day}</div>
               {/* Tasks for this day */}
-              <div className="mt-1">{data[day - 1]?.name}</div>
+              <div className="mt-1 text-xs">{data[day - 1]?.name}</div>
             </div>
           ) : (
-            <div key={index} className="aspect-square p-2 rounded-md"></div>
+            <div key={index} className="aspect-square p-2"></div>
           ),
         )}
       </div>
