@@ -1,1 +1,1 @@
-export * from './lib/shared-infrastructure-api';
+export * from './lib/users.repository';

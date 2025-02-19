@@ -8,7 +8,7 @@ const USER_KEY = 'user';
 export class UsersRepositoryImpl implements UsersRepository {
   constructor(
     private readonly localStorageRepository: LocalStorageRepository,
-  ) { }
+  ) {}
 
   findUserById(id: string): Promise<User | null> {
     const user = this.localStorageRepository.get(USER_KEY);
