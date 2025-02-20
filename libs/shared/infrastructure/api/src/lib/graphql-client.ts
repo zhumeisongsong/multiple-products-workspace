@@ -1,5 +1,5 @@
 import { createClient, Client, cacheExchange, fetchExchange } from 'urql';
-import { authExchange } from '@urql/exchange-auth';
+import { authExchange, type AuthUtilities } from '@urql/exchange-auth';
 import { persistedExchange } from '@urql/exchange-persisted';
 
 export const graphqlClient: Client = createClient({
@@ -11,19 +11,21 @@ export const graphqlClient: Client = createClient({
   // fetchOptions: { headers },
   exchanges: [
     cacheExchange,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    authExchange(async (utils) => {
+    authExchange(async (utils: AuthUtilities) => {
       // TODO: access token and refresh token logic future
       // let token = localStorage.getItem('token');
       // let refreshToken = localStorage.getItem('refreshToken');
 
       return {
+        getAuth: async () => {
+          // TODO: Implement token retrieval
+        },
         addAuthToOperation(operation) {
           // if (!token) return operation;
           // return utils.appendHeaders(operation, {
           //   Authorization: `Bearer ${token}`,
           // });
+          return operation;
         },
         didAuthError: () => {
           // if we have auth error handling logic, we can put it here
