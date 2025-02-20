@@ -1,14 +1,14 @@
 import {
   LocalStorageRepository,
-  UsersRepositoryImpl,
   UserTasksRepositoryImpl,
   TasksRepositoryImpl,
+  UsersRepositoryImpl,
 } from '@shared/infrastructure-storage';
 import { TasksRepository } from '@tasks/domain';
 import { UserTasksRepository } from '@user-tasks/domain';
 import { UsersRepository } from '@users/domain';
 
-export class InfrastructureContainer {
+export class LocalStorageInfrastructureContainer {
   private static localStorageRepository: LocalStorageRepository;
   private static usersRepository: UsersRepository;
   private static userTasksRepository: UserTasksRepository;
@@ -21,13 +21,18 @@ export class InfrastructureContainer {
     return this.localStorageRepository;
   }
 
-  static getUsersRepository(): UsersRepository {
+  static getUsersRepository() {
     if (!this.usersRepository) {
-      this.usersRepository = new UsersRepositoryImpl(
-        this.getLocalStorageRepository(),
-      );
+      this.usersRepository = new UsersRepositoryImpl(this.getLocalStorageRepository());
     }
     return this.usersRepository;
+  }
+
+  static getTasksRepository(): TasksRepository {
+    if (!this.tasksRepository) {
+      this.tasksRepository = new TasksRepositoryImpl();
+    }
+    return this.tasksRepository;
   }
 
   static getUserTasksRepository(): UserTasksRepository {
@@ -37,12 +42,5 @@ export class InfrastructureContainer {
       );
     }
     return this.userTasksRepository;
-  }
-
-  static getTasksRepository(): TasksRepository {
-    if (!this.tasksRepository) {
-      this.tasksRepository = new TasksRepositoryImpl();
-    }
-    return this.tasksRepository;
   }
 }
