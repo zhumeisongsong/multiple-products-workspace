@@ -3,7 +3,11 @@ import { authExchange } from '@urql/exchange-auth';
 import { persistedExchange } from '@urql/exchange-persisted';
 
 export const graphqlClient: Client = createClient({
-  url: process.env['GRAPHQL_API_URL'] || '', // When run an app,  if you want to use mock server or localhost server. please new dev.mock or dev.local files and add variable value there.
+  url:
+    process.env['GRAPHQL_API_URL'] ??
+    (() => {
+      throw new Error('GRAPHQL_API_URL environment variable is required');
+    })(),
   // fetchOptions: { headers },
   exchanges: [
     cacheExchange,
