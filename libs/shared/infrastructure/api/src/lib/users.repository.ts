@@ -4,14 +4,12 @@ import { gql } from 'urql';
 import { graphqlClient } from './graphql-client';
 
 const UserDocument = gql`
-  query User($id: ID!) {
-    User(id: $id) {
+  query getUser($id: ID!) {
+    getUser(id: $id) {
       id
-      name
       email
-      preferences {
-        selfCareTopics
-      }
+      firstName
+      lastName
     }
   }
 `;
