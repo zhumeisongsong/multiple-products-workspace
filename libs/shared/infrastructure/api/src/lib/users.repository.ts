@@ -1,7 +1,8 @@
-import { User } from '@users/domain';
+import { User, UsersRepository } from '@users/domain';
 import { gql } from 'urql';
 
 import { graphqlClient } from './graphql-client';
+import { SelfCareTopic } from '@self-care-topics/domain';
 
 const UserDocument = gql`
   query getUser($id: ID!) {
@@ -14,7 +15,7 @@ const UserDocument = gql`
   }
 `;
 
-export class UsersRepositoryImpl {
+export class UsersRepositoryImpl implements UsersRepository {
   constructor(private readonly client: typeof graphqlClient) {}
 
   async findUserById(id: string): Promise<User | null> {
@@ -25,5 +26,13 @@ export class UsersRepositoryImpl {
     }
 
     return result.data?.user;
+  }
+
+  async createUser(): Promise<void> {
+    // TODO: Implement
+  }
+
+  async updateUserSelfCareTopics(topics: SelfCareTopic[]): Promise<void> {
+    // TODO: Implement
   }
 }
