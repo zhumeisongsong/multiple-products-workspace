@@ -2,6 +2,7 @@
   "name": "@shared/infrastructure-di",
   "version": "0.0.1",
   "dependencies": {
+    "@shared/infrastructure-api": "workspace:*",
     "@shared/infrastructure-storage": "workspace:*",
     "@tasks/domain": "workspace:*",
     "@user-tasks/domain": "workspace:*",
