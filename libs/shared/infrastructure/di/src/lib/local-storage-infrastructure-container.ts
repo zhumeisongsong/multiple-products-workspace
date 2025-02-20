@@ -23,7 +23,7 @@ export class LocalStorageInfrastructureContainer {
 
   static getUsersRepository() {
     if (!this.usersRepository) {
-      this.usersRepository = new UsersRepositoryImpl(this.getLocalStorageRepository()));
+      this.usersRepository = new UsersRepositoryImpl(this.getLocalStorageRepository());
     }
     return this.usersRepository;
   }
