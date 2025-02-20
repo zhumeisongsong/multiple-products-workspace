@@ -1,5 +1,8 @@
 import { ThemeProvider } from '@shared/ui';
-import { InfrastructureContainer } from '@shared/infrastructure-di';
+import {
+  LocalStorageInfrastructureContainer,
+  APIInfrastructureContainer,
+} from '@shared/infrastructure-di';
 import { TasksServiceFactory } from '@tasks/application';
 import { UsersServiceFactory } from '@users/application';
 import { UserTasksServiceFactory } from '@user-tasks/application';
@@ -11,11 +14,13 @@ import App from './app/app';
 
 import './styles/globals.css';
 
-UsersServiceFactory.initialize(InfrastructureContainer.getUsersRepository());
+UsersServiceFactory.initialize(APIInfrastructureContainer.getUsersRepository());
 UserTasksServiceFactory.initialize(
-  InfrastructureContainer.getUserTasksRepository(),
+  LocalStorageInfrastructureContainer.getUserTasksRepository(),
 );
-TasksServiceFactory.initialize(InfrastructureContainer.getTasksRepository());
+TasksServiceFactory.initialize(
+  LocalStorageInfrastructureContainer.getTasksRepository(),
+);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
