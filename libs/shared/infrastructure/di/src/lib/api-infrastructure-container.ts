@@ -2,7 +2,7 @@ import { graphqlClient, UsersRepositoryImpl } from '@shared/infrastructure-api';
 import { UsersRepository } from '@users/domain';
 
 export class APIInfrastructureContainer {
-  private static client: typeof graphqlClient;
+  private static client: typeof graphqlClient = graphqlClient;
   private static usersRepository: UsersRepository;
 
   static getUsersRepository() {
