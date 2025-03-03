@@ -1,6 +1,8 @@
+import { LocalStorageRepository, UsersRepositoryImpl, UserTasksRepositoryImpl } from '@shared/infrastructure-storage';
+
 import { LocalStorageInfrastructureContainer } from './local-storage-infrastructure-container';
 
-import { LocalStorageRepository } from '@shared/infrastructure-storage';
+
 
 describe('LocalStorageInfrastructureContainer', () => {
   beforeEach(() => {
@@ -35,7 +37,7 @@ describe('LocalStorageInfrastructureContainer', () => {
       const repository =
         LocalStorageInfrastructureContainer.getUsersRepository();
 
-      expect(repository).toBeDefined();
+        expect(repository).toBeInstanceOf(UsersRepositoryImpl);
     });
 
     it('should return the same instance on subsequent calls', () => {
@@ -53,7 +55,7 @@ describe('LocalStorageInfrastructureContainer', () => {
       const repository =
         LocalStorageInfrastructureContainer.getUserTasksRepository();
 
-      expect(repository).toBeDefined();
+      expect(repository).toBeInstanceOf(UserTasksRepositoryImpl);
     });
 
     it('should return the same instance on subsequent calls', () => {
