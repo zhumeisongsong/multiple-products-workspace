@@ -3,11 +3,7 @@ import { authExchange, type AuthUtilities } from '@urql/exchange-auth';
 import { persistedExchange } from '@urql/exchange-persisted';
 
 export const graphqlClient: Client = createClient({
-  url:
-    process.env['GRAPHQL_API_URL'] ??
-    (() => {
-      throw new Error('GRAPHQL_API_URL environment variable is required');
-    })(),
+  url: process.env['GRAPHQL_API_URL'] ?? '',
   // fetchOptions: { headers },
   exchanges: [
     cacheExchange,
