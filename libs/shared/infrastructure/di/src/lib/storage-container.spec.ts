@@ -1,32 +1,32 @@
 import { LocalStorageRepository, UsersRepositoryImpl, UserTasksRepositoryImpl } from '@shared/infrastructure-storage';
 
-import { LocalStorageInfrastructureContainer } from './local-storage-infrastructure-container';
+import { StorageContainer } from './storage-container';
 
 
 
-describe('LocalStorageInfrastructureContainer', () => {
+describe('StorageContainer', () => {
   beforeEach(() => {
     // Clear all instances before each test
-    (LocalStorageInfrastructureContainer as any).localStorageRepository =
+    (StorageContainer as any).localStorageRepository =
       undefined;
-    (LocalStorageInfrastructureContainer as any).usersRepository = undefined;
-    (LocalStorageInfrastructureContainer as any).userTasksRepository =
+    (StorageContainer as any).usersRepository = undefined;
+    (StorageContainer as any).userTasksRepository =
       undefined;
   });
 
   describe('getLocalStorageRepository', () => {
     it('should create and return LocalStorageRepository instance', () => {
       const repository =
-        LocalStorageInfrastructureContainer.getLocalStorageRepository();
+        StorageContainer.getLocalStorageRepository();
 
       expect(repository).toBeInstanceOf(LocalStorageRepository);
     });
 
     it('should return the same instance on subsequent calls', () => {
       const repository1 =
-        LocalStorageInfrastructureContainer.getLocalStorageRepository();
+        StorageContainer.getLocalStorageRepository();
       const repository2 =
-        LocalStorageInfrastructureContainer.getLocalStorageRepository();
+        StorageContainer.getLocalStorageRepository();
 
       expect(repository1).toBe(repository2);
     });
@@ -35,16 +35,16 @@ describe('LocalStorageInfrastructureContainer', () => {
   describe('getUsersRepository', () => {
     it('should create and return UsersRepository instance', () => {
       const repository =
-        LocalStorageInfrastructureContainer.getUsersRepository();
+        StorageContainer.getUsersRepository();
 
         expect(repository).toBeInstanceOf(UsersRepositoryImpl);
     });
 
     it('should return the same instance on subsequent calls', () => {
       const repository1 =
-        LocalStorageInfrastructureContainer.getUsersRepository();
+        StorageContainer.getUsersRepository();
       const repository2 =
-        LocalStorageInfrastructureContainer.getUsersRepository();
+        StorageContainer.getUsersRepository();
 
       expect(repository1).toBe(repository2);
     });
@@ -53,16 +53,16 @@ describe('LocalStorageInfrastructureContainer', () => {
   describe('getUserTasksRepository', () => {
     it('should create and return UserTasksRepository instance', () => {
       const repository =
-        LocalStorageInfrastructureContainer.getUserTasksRepository();
+        StorageContainer.getUserTasksRepository();
 
       expect(repository).toBeInstanceOf(UserTasksRepositoryImpl);
     });
 
     it('should return the same instance on subsequent calls', () => {
       const repository1 =
-        LocalStorageInfrastructureContainer.getUserTasksRepository();
+        StorageContainer.getUserTasksRepository();
       const repository2 =
-        LocalStorageInfrastructureContainer.getUserTasksRepository();
+        StorageContainer.getUserTasksRepository();
 
       expect(repository1).toBe(repository2);
     });
