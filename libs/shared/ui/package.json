@@ -22,7 +22,7 @@
     "@radix-ui/react-tooltip": "^1.1.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lucide-react": "^0.475.0",
+    "lucide-react": "^0.511.0",
     "tailwind-merge": "^3.0.0",
     "tailwindcss-animate": "^1.0.7"
   }
