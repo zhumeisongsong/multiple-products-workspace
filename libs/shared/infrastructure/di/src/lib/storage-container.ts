@@ -8,7 +8,7 @@ import { TasksRepository } from '@tasks/domain';
 import { UserTasksRepository } from '@user-tasks/domain';
 import { UsersRepository } from '@users/domain';
 
-export class LocalStorageInfrastructureContainer {
+export class StorageContainer {
   private static localStorageRepository: LocalStorageRepository;
   private static usersRepository: UsersRepository;
   private static userTasksRepository: UserTasksRepository;
