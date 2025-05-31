@@ -115,10 +115,10 @@
     "vite-plugin-pages": "^0.32.3",
     "vitest": "^3.0.0"
   },
-  "packageManager": "pnpm@10.6.2",
+  "packageManager": "pnpm@10.11.0",
   "volta": {
     "node": "22.16.0",
-    "pnpm": "10.6.2"
+    "pnpm": "10.11.0"
   },
   "nx": {
     "includedScripts": []
