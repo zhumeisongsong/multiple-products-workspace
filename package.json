@@ -72,7 +72,7 @@
     "@swc/cli": "~0.7.0",
     "@swc/core": "~1.13.0",
     "@swc/helpers": "~0.5.11",
-    "@swc/plugin-emotion": "^9.0.0",
+    "@swc/plugin-emotion": "^11.0.0",
     "@tanstack/eslint-plugin-query": "^5.62.1",
     "@testing-library/jest-dom": "6.9.1",
     "@testing-library/react": "^16.0.0",
