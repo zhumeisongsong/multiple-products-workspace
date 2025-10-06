@@ -99,8 +99,8 @@ importers:
         specifier: ^1.1.1
         version: 1.1.2(@types/react-dom@19.2.0(@types/react@19.2.0))(@types/react@19.2.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       zod:
-        specifier: ^3.24.1
-        version: 3.25.42
+        specifier: ^4.0.0
+        version: 4.1.12
     devDependencies:
       '@emotion/babel-plugin':
         specifier: 11.13.5
@@ -11165,6 +11165,9 @@ packages:
 
   zod@3.25.42:
     resolution: {integrity: sha512-PcALTLskaucbeHc41tU/xfjfhcz8z0GdhhDcSgrCTmSazUuqnYqiXO63M0QUBVwpBlsLsNVn5qHSC5Dw3KZvaQ==}
+
+  zod@4.1.12:
+    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
 
 snapshots:
 
@@ -24205,3 +24208,5 @@ snapshots:
       zod: 3.25.42
 
   zod@3.25.42: {}
+
+  zod@4.1.12: {}
