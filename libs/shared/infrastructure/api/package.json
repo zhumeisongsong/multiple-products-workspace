@@ -4,9 +4,9 @@
   "dependencies": {
     "@self-care-topics/domain": "workspace:*",
     "@users/domain": "workspace:*",
-    "urql": "^4.2.1",
+    "urql": "^5.0.0",
     "@urql/exchange-auth": "^2.2.0",
-    "@urql/exchange-persisted": "^4.3.0"
+    "@urql/exchange-persisted": "^5.0.0"
   },
   "type": "module",
   "main": "./index.js",
