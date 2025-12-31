@@ -5,7 +5,7 @@
     "@self-care-topics/domain": "workspace:*",
     "@users/domain": "workspace:*",
     "urql": "^4.2.1",
-    "@urql/exchange-auth": "^2.2.0",
+    "@urql/exchange-auth": "^3.0.0",
     "@urql/exchange-persisted": "^4.3.0"
   },
   "type": "module",
