@@ -7,7 +7,7 @@ import { TaskCalendar } from './task-calendar';
 
 export const CurrentMonthTaskList = () => {
   const { selfCareTopics } = useSelfCareTopics();
-  const { userId, userPreferences, toggleSelfCareTopic } = useUsers();
+  const { userId, userPreferences } = useUsers();
   const { currentMonthUserTasks, getCurrentMonthUserTasks } = useUserTasks();
   const [date] = useState({
     year: new Date().getFullYear(),
@@ -21,7 +21,7 @@ export const CurrentMonthTaskList = () => {
         selfCareTopics: [...selfCareTopics],
       });
     }
-  }, [userId, getCurrentMonthUserTasks]);
+  }, [userId, getCurrentMonthUserTasks, selfCareTopics, userPreferences]);
 
   return (
     <section>
