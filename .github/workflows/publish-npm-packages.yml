@@ -31,7 +31,7 @@ jobs:
           fetch-depth: 0
       
       - name: Nx set shas
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Restore pnpm store and install dependencies
         uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
@@ -50,7 +50,7 @@ jobs:
           fetch-depth: 0
 
       - name: Nx set shas
-        uses: nrwl/nx-set-shas@v4
+        uses: nrwl/nx-set-shas@v5
 
       - name: Restore pnpm store and install dependencies
         uses: zhumeisongsong/shared-actions/.github/actions/pnpm@main
