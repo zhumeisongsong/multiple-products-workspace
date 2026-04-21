@@ -1,2 +1,2 @@
-export * from './lib/local-storage-infrastructure-container';
-export * from './lib/api-infrastructure-container';
+export * from './lib/storage-container';
+export * from './lib/api-container';
